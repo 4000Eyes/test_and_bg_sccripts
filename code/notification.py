@@ -174,8 +174,7 @@ def insert_product_survey():
     return True
 
 def insert_relationship_gaps():
-    query = "RETURN NOT exists( (:friend_list {user_id: })-[:RELATED]-(:friend_circle {userId: {1}}) ) as knows "
-    return True
+    query = " match (fl:friend_list),(fc:friend_circle) where  (fl)-[:CONTRIBUTOR]->(fc) and not (fl)-[:RELATED]->(fc)  return fl.user_id, fc.friend_circle_id order by fc.friend_circle_id"
 
 def insert_interest_reminders():
     try:

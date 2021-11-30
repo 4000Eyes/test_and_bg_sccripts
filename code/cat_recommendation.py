@@ -21,7 +21,7 @@ myretaildata = myretaildata[~myretaildata['InvoiceNo'].str.contains('C')] #remov
 
 mybasket = (myretaildata[myretaildata['Country'] =="Germany"]
           .groupby(['InvoiceNo', 'Description'])['Quantity']
-          .sum().unstack().reset_index().fillna(0)
+          .sum().unstack().reset_index().fillna(0)  
           .set_index('InvoiceNo'))
 
 my_basket_sets = mybasket.applymap(my_encode_units)
@@ -32,6 +32,6 @@ my_frequent_itemsets = apriori(my_basket_sets, min_support=0.07, use_colnames=Tr
 my_rules = association_rules(my_frequent_itemsets, metric="confidence", min_threshold=1)
 
 
-    print (my_rules.head(20))
+print (my_rules.head(20))
 
 """
