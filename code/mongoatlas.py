@@ -29,8 +29,8 @@ def search_product():
     try:
         parameters = {
             "request_id": 1,
-            "age_floor" : 2,
-            "age_ceiling": 32,
+            "age_floor" : 10,
+            "age_ceiling": 20,
             "sort_order": "ASC",
             "occasion_list": ("Birthday","Marriage")
         }
@@ -118,13 +118,13 @@ def test_signup():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "Anjaneya@gmail.com",
+            "email": "Lakshmana@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "425-223-2243",
+            "phone_number" : "425-323-4243",
             "gender": "F",
-            "first_name" : "Hanuman",
-            "last_name" : "Raman",
+            "first_name" : "Lakshmana",
+            "last_name" : "Dasaratha",
             "external_referrer_id": "Microsoft",
             "external_referrer_param": "abc123-123jsh"
         }
@@ -141,7 +141,7 @@ def test_login():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "Anjaneya@gmail.com",
+            "email": "Paariyathram@gmail.com",
             "password" : "Krishna123@"
         }
         response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
@@ -157,17 +157,12 @@ def friend_circle_request_1():
     try:
         output_list = []
         parameters = {
-            "request_id" : 1,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "referrer_user_id" :'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "referred_user_id" : '54f2e35a-9786-4875-a202-ea0b762c8f07',
-            "email_address":"k123@gmail.com",
-            "phone_number": "425-111-2322",
-            "first_name":"x",
-            "last_name":"y",
-            "gender": "M"
+            "request_id": 1,
+            "friend_circle_id": "1f2abf36-cf51-4b1d-a80c-9dba469c7aa2",
+            "referrer_user_id": "e2174acb-dc1e-4ee2-85b9-9be84d3e250a",
+            "referred_user_id": "01ce6839-aaf4-4303-9b51-ade4dd426a7f"
         }
-        response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -180,9 +175,8 @@ def friend_circle_request_2():
             "request_id" : 2,
             "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
             "referrer_user_id" :'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "referred_user_id" : '54f2e35a-9786-4875-a202-ea0b762c8f07',
-            "email_address":"k1234@gmail.com",
-            "phone_number": "425-111-2322",
+            "email_address":"kookoo1234@gmail.com",
+            "phone_number": "425-111-2312",
             "first_name":"x",
             "last_name":"y",
             "gender": "M"
@@ -197,15 +191,16 @@ def friend_circle_request_2():
         output_list = []
         parameters = {
             "request_id": 2,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "referrer_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
+            "friend_circle_id": '62dd5389-e1fa-44ee-b1a1-7d4ed0e5458d',
+            "referrer_user_id": "fb9ce789-2457-4e00-bbb9-dd2b31c98d88",
             "email_address": "r1234@gmail.com",
             "phone_number": "425-111-2322",
             "first_name": "x",
             "last_name": "y",
-            "gender": "M"
+            "gender": "M",
+            "location" : "India"
         }
-        response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -215,15 +210,10 @@ def friend_circle_request_3():
         output_list = []
         parameters = {
             "request_id": 3,
-            "referrer_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "referred_user_id": '54f2e35a-9786-4875-a202-ea0b762c8f07',
-            "email_address": "k1234@gmail.com",
-            "phone_number": "425-111-2322",
-            "first_name": "x",
-            "last_name": "y",
-            "gender": "M"
+            "referrer_user_id": "fb9ce789-2457-4e00-bbb9-dd2b31c98d88",
+            "referred_user_id": 'f94fa88c-d154-4550-926e-ef0e8e81ad62'
         }
-        response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -235,8 +225,8 @@ def friend_circle_request_4():
         output_list = []
         parameters = {
             "request_id": 4,
-            "referrer_user_id": "035f4040-2a8e-4d89-a7a9-086253c83690",
-            "email_address": "JaiRajVedu@gmail.com",
+            "referrer_user_id": "fb9ce789-2457-4e00-bbb9-dd2b31c98d88",
+            "email_address": "RamRajVedu@gmail.com",
             "phone_number": "425-111-2322",
             "first_name": "Aravind",
             "last_name": "Kutty",
@@ -423,11 +413,11 @@ try:
 try:
     output_hash = []
     status_code = 0
-    #status_code = search_product()"e2174acb-dc1e-4ee2-85b9-9be84d3e250a"
+    #status_code = search_product()
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
     #status_code = test_login()
-    status_code = user_search()
+    #status_code = user_search()
     #status_code = test_whatsapp()
     # request_id : 1 --> referring an existing member to an existing friend circle - This will require referrer_user_id, friend_circle_id, friend_user_id
     # request_id : 2 --> referring a non-existing user friend to an existing friend circle - This will require referrer_user_id, friend_circle_id, email_address, name.
@@ -437,7 +427,7 @@ try:
     #status_code = friend_circle_request_1()
     #status_code = friend_circle_request_2()
     #status_code = friend_circle_request_3()
-    #status_code = friend_circle_request_4()
+    status_code = friend_circle_request_4()
     #status_code = create_occasion()
     #status_code = vote_occasion()
     #status_code = approve_occasion()
