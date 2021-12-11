@@ -11,12 +11,13 @@ def user_search():
         parameters = {
                 "text" : "sri"
         }
-        res = test_login()
-        headers = {}
-        headers["Authorization"] = "Bearer " + res["token"]
-        print ("The token is ", res["token"])
+        # res = test_login()
+        # headers = {}
+        # headers["Authorization"] = "Bearer " + res["token"]
+        # print ("The token is ", res["token"])
         #response = requests.get("https://gemift.uw.r.appspot.com/api/prod/search", params=parameters)
-        response = requests.get("http://0.0.0.0:8081/api/user/search",params=parameters, headers=headers)
+        #response = requests.get("http://0.0.0.0:8081/api/user/search",params=parameters, headers=headers)
+        response = requests.get("http://0.0.0.0:8081/api/user/search", params=parameters)
         print("The status code for relationshup is", response.status_code, parameters)
         print ("The toutput is ", response.json())
         return response.status_code
@@ -118,14 +119,15 @@ def test_signup():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "Lakshmana@gmail.com",
+            "email": "RamRajVedu@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "425-323-4243",
+            "phone_number" : "425-111-2322",
             "gender": "F",
-            "first_name" : "Lakshmana",
-            "last_name" : "Dasaratha",
-            "external_referrer_id": "Microsoft",
+            "first_name" : "Ram",
+            "last_name" : "Raj",
+            "location" : "India",
+            "external_referrer_id": "Google",
             "external_referrer_param": "abc123-123jsh"
         }
         response = requests.post("http://0.0.0.0:8081/api/auth/signup", json=parameters)
@@ -141,7 +143,7 @@ def test_login():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "Paariyathram@gmail.com",
+            "email": "kokki@gmail.com",
             "password" : "Krishna123@"
         }
         response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
@@ -152,15 +154,30 @@ def test_login():
         print("There is an exception with the request", e)
         return 400
 
+def test_login_phone():
+    try:
+        output_list = []
+        parameters = {
+           # "email" : "Vidya1232@gmail.com",
+            "phone_number": "425-281-5459",
+            "password" : "Krishna123@"
+        }
+        response = requests.post("http://0.0.0.0:8081/api/phone/login", json=parameters)
+        #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
+        print ("The response is ", response.json())
+        return response.json()
+    except Exception as e:
+        print("There is an exception with the request", e)
+        return 400
 
 def friend_circle_request_1():
     try:
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": "1f2abf36-cf51-4b1d-a80c-9dba469c7aa2",
-            "referrer_user_id": "e2174acb-dc1e-4ee2-85b9-9be84d3e250a",
-            "referred_user_id": "01ce6839-aaf4-4303-9b51-ade4dd426a7f"
+            "friend_circle_id": "b4edd164-37d7-4f82-9c17-c49201bd5bd2",
+            "referrer_user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c",
+            "referred_user_id": "710bc318-c093-4851-a5b8-cf4304881f3b"
         }
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
@@ -173,45 +190,29 @@ def friend_circle_request_2():
         output_list = []
         parameters = {
             "request_id" : 2,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "referrer_user_id" :'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "email_address":"kookoo1234@gmail.com",
+            "friend_circle_id": "b4edd164-37d7-4f82-9c17-c49201bd5bd2",
+            "referrer_user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c",
+            "email_address":"kuku1254@gmail.com",
             "phone_number": "425-111-2312",
             "first_name":"x",
             "last_name":"y",
-            "gender": "M"
+            "gender": "M",
+            "location": "India"
         }
-        response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
+        response = requests.post("http://0.0.0.0.:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
-def friend_circle_request_2():
-    try:
-        output_list = []
-        parameters = {
-            "request_id": 2,
-            "friend_circle_id": '62dd5389-e1fa-44ee-b1a1-7d4ed0e5458d',
-            "referrer_user_id": "fb9ce789-2457-4e00-bbb9-dd2b31c98d88",
-            "email_address": "r1234@gmail.com",
-            "phone_number": "425-111-2322",
-            "first_name": "x",
-            "last_name": "y",
-            "gender": "M",
-            "location" : "India"
-        }
-        response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
-        print("The response is ", response.json())
-        return response.status_code
-    except Exception as e:
-        return False
+
 def friend_circle_request_3():
     try:
         output_list = []
         parameters = {
             "request_id": 3,
-            "referrer_user_id": "fb9ce789-2457-4e00-bbb9-dd2b31c98d88",
-            "referred_user_id": 'f94fa88c-d154-4550-926e-ef0e8e81ad62'
+            "referrer_user_id": "e135bcc1-7ff3-4018-bb9a-d4b91dea6a6a",
+            "referred_user_id": '937616d6-674b-4c3e-8856-6654c4b03b2c',
+            "group_name" : "This is test circle"
         }
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -225,12 +226,14 @@ def friend_circle_request_4():
         output_list = []
         parameters = {
             "request_id": 4,
-            "referrer_user_id": "fb9ce789-2457-4e00-bbb9-dd2b31c98d88",
-            "email_address": "RamRajVedu@gmail.com",
-            "phone_number": "425-111-2322",
+            "referrer_user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c",
+            "email_address": "Ram@gmail.com",
+            "phone_number": "425-111-2321",
             "first_name": "Aravind",
             "last_name": "Kutty",
-            "gender": "M"
+            "gender": "M",
+            "location" : "India",
+            "group_name" : "Test circle for Ram Raj"
         }
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -243,11 +246,12 @@ def friend_circle_request_6():
         output_list = []
         parameters = {
             "request_id": 6,
-            "list_friend_circle_id": ['95b38dd9-bdcf-40d6-8a69-4ed50cce4e86'],
-            "referrer_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "referred_user_id": '54f2e35a-9786-4875-a202-ea0b762c8f07'
+            "list_friend_circle_id": ["b5b9d6f4-6ce4-435c-80f4-ebb28e6e3872"],
+            "referrer_user_id": "e2174acb-dc1e-4ee2-85b9-9be84d3e250a",
+            "referred_user_id": "2dfe5543-877e-42d9-95a6-650befd9946d"
         }
-        response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
+
+        response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -381,11 +385,11 @@ def test_whatsapp():
             "admin_friend_id" : 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
             "request_id" : 5,
             "user_list" : [
-                    {"email_address":"k1@gmail.com", "phone_number": "425-111-1111", "first_name":"x", "last_name":"y", "gender": "M"},
+                    {"email_address":"k1@gmail.com", "phone_number": "425-111-1111", "first_name":"x", "last_name":"y", "gender": "M", "secret_friend" : "Y", "contributor": [id1, id2]},
                 {"email_address": "k2@gmail.com", "phone_number": "425-111-1112", "first_name": "a", "last_name": "b",
-                 "gender": "M"},
+                 "gender": "M", "secret_friend" : "N", "contributor": [id1, id2]},
                 {"email_address": "k3@gmail.com", "phone_number": "425-111-1113", "first_name": "a", "last_name": "d",
-                 "gender": "M"},
+                 "gender": "M", "secret_friend":"Y", "contributor": [id1, id2]},
                            ]
         }
         response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
@@ -416,6 +420,7 @@ try:
     #status_code = search_product()
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
+    #status_code = test_login_phone()
     #status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
@@ -426,8 +431,9 @@ try:
     # request_id : 5 --> a list of friends or contacts from whatsapp to create friend circles.
     #status_code = friend_circle_request_1()
     #status_code = friend_circle_request_2()
-    #status_code = friend_circle_request_3()
-    status_code = friend_circle_request_4()
+    status_code = friend_circle_request_3()
+    #status_code = friend_circle_request_4()
+    #status_code = friend_circle_request_6()
     #status_code = create_occasion()
     #status_code = vote_occasion()
     #status_code = approve_occasion()
