@@ -119,12 +119,12 @@ def test_signup():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "RamRajVedu@gmail.com",
+            "email": "Kraken@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "425-111-2322",
+            "phone_number" : "335-111-2322",
             "gender": "F",
-            "first_name" : "Ram",
+            "first_name" : "Kraken",
             "last_name" : "Raj",
             "location" : "India",
             "external_referrer_id": "Google",
@@ -198,6 +198,17 @@ def friend_circle_request_2():
             "last_name":"y",
             "gender": "M",
             "location": "India"
+        }
+
+        parameters= {"request_id": 2,
+         "friend_circle_id": "e28c1f45-164d-4ebd-b677-87a7a48b27c3",
+             "referrer_user_id": "4397b80a-0ec6-42a0-b827-47033dd10b25",
+         "email_address": "sss1234@gmail.com",
+         "phone_number": "425-111-2312",
+         "first_name": "xerox",
+        "last_name": "yellow",
+        "gender": "M",
+        "location": "India"
         }
         response = requests.post("http://0.0.0.0.:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
@@ -420,7 +431,7 @@ try:
     #status_code = search_product()
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
-    #status_code = test_login_phone()
+    status_code = test_login_phone()
     #status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
@@ -431,7 +442,7 @@ try:
     # request_id : 5 --> a list of friends or contacts from whatsapp to create friend circles.
     #status_code = friend_circle_request_1()
     #status_code = friend_circle_request_2()
-    status_code = friend_circle_request_3()
+    #status_code = friend_circle_request_3()
     #status_code = friend_circle_request_4()
     #status_code = friend_circle_request_6()
     #status_code = create_occasion()
