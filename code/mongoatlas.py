@@ -246,6 +246,18 @@ def friend_circle_request_4():
             "location" : "India",
             "group_name" : "Test circle for Ram Raj"
         }
+
+        # parameters = {"request_id": 4,
+        #  "referrer_user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c",
+        #  "email_address": "parthasaraths@gmail.com",
+        #  "phone_number": "643-245-5557",
+        #  "first_name": "partha",
+        #  "last_name": "Sarathy",
+        #  "gender": "M",
+        #  "location" : "India",
+        #  "group_name": "Test circle for Ram Raj"
+        #  }
+
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -275,7 +287,7 @@ def get_friend_circle():
             "request_id": 1,
             "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86'
         }
-        response = requests.get("http://localhost:5000/api/friend/circle", json=parameters)
+        response = requests.get("http://localhost:5000/api/friend/circle", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -285,14 +297,15 @@ def get_friend_circles():
     try:
         output_list = []
         parameters = {
-            "request_id": 1,
-            "user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c'
+            "request_id": 2,
+            "user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c"
         }
-        response = requests.get("http://localhost:5000/api/friend/circle", json=parameters)
+        response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
+
 def add_interest():
     try:
         output_list = []
@@ -431,7 +444,7 @@ try:
     #status_code = search_product()
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
-    status_code = test_login_phone()
+    #status_code = test_login_phone()
     #status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
@@ -450,7 +463,7 @@ try:
     #status_code = approve_occasion()
     #status_code = get_occasion()
     #status_code = get_friend_circle()
-    #status_code = get_friend_circles()
+    status_code = get_friend_circles()
     #status_code = add_interest()
     #status_code = get_interest()
     #status_code = search_product_detail()

@@ -1,7 +1,9 @@
 import neo4j.exceptions
 from neo4j import GraphDatabase
 from pymongo import errors, MongoClient
+import pymongo
 import pymongo.collection
+import pymongo.client_session
 import pytz
 from datetime import datetime, tzinfo, timedelta
 import os
@@ -29,9 +31,21 @@ def connect_to_mongo():
     if code_environment == "test":
         db_string = os.environ.get("MONGO_TEST")
     try:
-        client = MongoClient(db_string)
-        result = []
+        client = pymongo.MongoClient(db_string)
+
+        airbnb = client.get_database("sample_airbnb")
+
+        user_collection = airbnb.get_collection("user")
+
+        with client.start_session() as session:
+            session.start_transaction()
+            result = user_collection.find()
+            for row in result:
+                print (row)
+            session.commit_transaction()
+
         db_handle = client.get_database("sample_airbnb")
+
         return db_handle
     except errors.PyMongoError as e:
         print("The error message is ", e)
@@ -199,6 +213,10 @@ def insert_interest_reminders():
     except Exception as e:
         return False
 
+connect_to_mongo()
 insert_notification_for_primary_reminder()
 insert_notification_for_secondary_reminder()
 insert_birthday_ecard_confirmation()
+
+
+
