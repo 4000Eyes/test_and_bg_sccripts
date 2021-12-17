@@ -280,19 +280,21 @@ def friend_circle_request_6():
     except Exception as e:
         return False
 
+# call this API when you want to get data for a specific friend circle
 def get_friend_circle():
     try:
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86'
+            "friend_circle_id": '92e10dc2-4a66-4c93-9200-18e10debc535'
         }
-        response = requests.get("http://localhost:5000/api/friend/circle", params=parameters)
+        response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
 
+# Call this API when you want to get the friend circle data for a given user.
 def get_friend_circles():
     try:
         output_list = []
@@ -329,7 +331,7 @@ def get_interest():
         parameters = {
             "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86'
         }
-        response = requests.get("http://localhost:5000/api/interest", json=parameters)
+        response = requests.get("http://localhost:5000/api/interest", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -396,7 +398,7 @@ def get_occasion():
             "request_id": 1,
             "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86'
         }
-        response = requests.get("http://localhost:5000/api/user/occasion", json=parameters)
+        response = requests.get("http://localhost:5000/api/user/occasion", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -424,19 +426,7 @@ def test_whatsapp():
         return 400
 
 
-def call_dict(y):
-    print ("The values are ", y["vedu"], y.get("raju"))
 
-"""
-connection_string = "mongodb+srv://krisraman:1RyrVRJQCBMIdG77@gemiftcluster.qwn4p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-try:
-    client = pymongo.MongoClient(connection_string)
-    db = client.get_database('sample_airbnb')
-    user_collection = pymongo.collection.Collection(db, 'gemift_product_db')
-    #user_collection.insert_one({"name":"Kris Raman"})
-    search_string = '{ "$search": { "index": "gemift_prod_db", "$text": [{ "$query": ["birthday"], "path":"occasion" }] } } '
-    #result = user_collection.aggregate([ { "$search": { "index": "gemift_product_db", "$text": [{ "$query": ["birthday"], "path":"occasion" }] }}])
-"""
 
 try:
     output_hash = []
@@ -462,8 +452,8 @@ try:
     #status_code = vote_occasion()
     #status_code = approve_occasion()
     #status_code = get_occasion()
-    #status_code = get_friend_circle()
-    status_code = get_friend_circles()
+    status_code = get_friend_circle()
+    #status_code = get_friend_circles()
     #status_code = add_interest()
     #status_code = get_interest()
     #status_code = search_product_detail()
