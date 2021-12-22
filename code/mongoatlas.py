@@ -225,6 +225,12 @@ def friend_circle_request_3():
             "referred_user_id": '937616d6-674b-4c3e-8856-6654c4b03b2c',
             "group_name" : "This is test circle"
         }
+
+        parameters = {"request_id": 3,
+            "referrer_user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
+            "group_name" : "Aravind Circle"}
+
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -349,7 +355,15 @@ def create_occasion():
             "occasion_date" : "01/02/2000",
             "occasion_timezone": "America/New_York"
         }
-        response = requests.post("http://localhost:5000/api/user/occasion", json=parameters)
+
+        parameters = {"request_id": 1,
+            "friend_circle_id": "e28c1f45-164d-4ebd-b677-87a7a48b27c3",
+            "creator_user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "contributor_user_id":"4397b80a-0ec6-42a0-b827-47033dd10b25",
+            "occasion_id" : 1,
+            "occasion_date" : "01/02/2000",
+            "occasion_timezone": "America/New_York"}
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -425,9 +439,52 @@ def test_whatsapp():
         print("There is an exception with the request", e)
         return 400
 
+# get all the categories
 
+def get_category():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 1
+        }
+        response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
+# to add the ccategories user
+def add_category_to_user():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 1,
+            "referred_user_id" : "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}]
+        }
+        response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
+def get_user_category():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 2,
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "age_lo":10,
+            "age_hi":50,
+            "gender": "M"
+
+        }
+        response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 try:
     output_hash = []
     status_code = 0
@@ -452,13 +509,16 @@ try:
     #status_code = vote_occasion()
     #status_code = approve_occasion()
     #status_code = get_occasion()
-    status_code = get_friend_circle()
+    #status_code = get_friend_circle()
     #status_code = get_friend_circles()
     #status_code = add_interest()
     #status_code = get_interest()
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_product_votes()
+    #status_code = get_category()
+    #status_code = add_category_to_user()
+    status_code = get_user_category()
     print ("The status code is", status_code)
 
 except Exception as e:
