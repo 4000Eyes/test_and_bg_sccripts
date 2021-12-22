@@ -439,7 +439,7 @@ def test_whatsapp():
         print("There is an exception with the request", e)
         return 400
 
-# get all the categories
+# get all the categories. Call this method for new users
 
 def get_category():
     try:
@@ -453,7 +453,7 @@ def get_category():
     except Exception as e:
         return False
 
-# to add the ccategories user
+# to store the categories chosen by the user
 def add_category_to_user():
     try:
         output_list = []
@@ -469,7 +469,26 @@ def add_category_to_user():
     except Exception as e:
         return False
 
-def get_user_category():
+#to store the subcategories chosen by the user
+
+def add_category_to_user():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 1,
+            "referred_user_id" : "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "list_subcategory_id": [{"web_subcategory_id":"A123", "vote":1}, {"web_subcategory_id":"A124", "vote":1}]
+        }
+        response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
+#You can repeatedly call this method to get subcategories to show for the user.
+def get_user_subcategory():
     try:
         output_list = []
         parameters = {
@@ -478,13 +497,28 @@ def get_user_category():
             "age_lo":10,
             "age_hi":50,
             "gender": "M"
-
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
+
+
+# to show the categories and subcategories chosen by the user and friends
+def get_user_selection_category_and_subcategory():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 3,
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+        }
+        response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
 try:
     output_hash = []
     status_code = 0
@@ -518,7 +552,8 @@ try:
     #status_code = get_product_votes()
     #status_code = get_category()
     #status_code = add_category_to_user()
-    status_code = get_user_category()
+    #status_code = get_user_category()
+    status_code = get_user_selection_category_and_subcategory()
     print ("The status code is", status_code)
 
 except Exception as e:
