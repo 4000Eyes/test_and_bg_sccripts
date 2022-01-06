@@ -4,58 +4,95 @@ import elasticsearch
 from elasticsearch import Elasticsearch
 import pytz
 from datetime import datetime, tzinfo, timedelta
+from dateutil.relativedelta import relativedelta
+
+utc_now_dt = datetime.now(tz=pytz.UTC)
+formatted_datetime = utc_now_dt.strftime("%d-%m-%Y %H-%M-%S")
+current_date_time = datetime.strptime(formatted_datetime, "%d-%m-%Y %H-%M-%S")
+birth_date = '1975-02-01'
+y = datetime.strptime(birth_date, '%Y-%m-%d')
+print (current_date_time.date())
+print (formatted_datetime)
+print(utc_now_dt)
+print (y)
+
+x = relativedelta(current_date_time.date(), y.date())
+
+print(x.years)
 
 
-class Item(object):
-    def __init__(self, name, price):
-        self.name = name
-        self.price = price
+def get_user_birthday():
+    year = int(input('When is your birthday? [YY] '))
+    month = int(input('When is your birthday? [MM] '))
+    day = int(input('When is your birthday? [DD] '))
+
+    birthday = datetime(2000 + year, month, day)
+    return birthday
 
 
-class Cart(dict):
-    def add_item(self, item, amount):
-        try:
-            self[item.name][1] += amount
-        except IndexError:
-            self.update({
-                item.name: [item.price, amount]
-            })
+def calculate_dates(original_date, now):
+    delta1 = datetime(now.year, original_date.month, original_date.day)
+    delta2 = datetime(now.year + 1, original_date.month, original_date.day)
+
+    return ((delta1 if delta1 > now else delta2) - now).days
 
 
-class User(object):
-    def __init__(self, name):
-        self.name = name
-        self.carts = [Cart()]
-        print("Test")
+#bd = get_user_birthday()
+now = datetime.now()
+bd = datetime.strptime('1975-07-30', '%Y-%m-%d')
+c = calculate_dates(bd, now)
 
-    def add_cart(self):
-        self.carts.append(Cart())
-
-    def add_item(self, item, amount, cart_index=0):
-        self.carts[cart_index].add_item(item, amount)
-
-
-def main():
-    apple = Item('apple', 7.8)
-
-    john = User('John')
-
-    # I would choose `john.add_item(apple, 5, 1)`
-    # or `john.carts[0].add_item(apple, 5)`
-    # Not both.
-    john.add_item(apple, 5)
-    print("John's first cart has: {}".format(john.carts[0]))
-
-    john.carts[0].add_item(Item('pear', 5), 6)
-    print("John's first cart has: {}".format(john.carts[0]))
-
-    john.add_cart()
-    john.add_item(apple, 5, 1)
-    print("John's second cart has: {}".format(john.carts[1]))
-
-
-if __name__ == '__main__':
-    main()
+print(c)
+# class Item(object):
+#     def __init__(self, name, price):
+#         self.name = name
+#         self.price = price
+#
+#
+# class Cart(dict):
+#     def add_item(self, item, amount):
+#         try:
+#             self[item.name][1] += amount
+#         except IndexError:
+#             self.update({
+#                 item.name: [item.price, amount]
+#             })
+#
+#
+# class User(object):
+#     def __init__(self, name):
+#         self.name = name
+#         self.carts = [Cart()]
+#         print("Test")
+#
+#     def add_cart(self):
+#         self.carts.append(Cart())
+#
+#     def add_item(self, item, amount, cart_index=0):
+#         self.carts[cart_index].add_item(item, amount)
+#
+#
+# def main():
+#     apple = Item('apple', 7.8)
+#
+#     john = User('John')
+#
+#     # I would choose `john.add_item(apple, 5, 1)`
+#     # or `john.carts[0].add_item(apple, 5)`
+#     # Not both.
+#     john.add_item(apple, 5)
+#     print("John's first cart has: {}".format(john.carts[0]))
+#
+#     john.carts[0].add_item(Item('pear', 5), 6)
+#     print("John's first cart has: {}".format(john.carts[0]))
+#
+#     john.add_cart()
+#     john.add_item(apple, 5, 1)
+#     print("John's second cart has: {}".format(john.carts[1]))
+#
+#
+# if __name__ == '__main__':
+#     main()
 
 # def get_age_range( val, rhsh):
 #     range_list = [[0, 5], [6, 10, ], [11, 15], [15, 19], [20, 30], [31,39], [40 , 49], [50 ,60], [60 ,100]]

@@ -159,7 +159,7 @@ def test_login_phone():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "phone_number": "425-281-5459",
+            "phone_number": "9500153858",
             "password" : "Krishna123@"
         }
         response = requests.post("http://0.0.0.0:8081/api/phone/login", json=parameters)
@@ -463,6 +463,12 @@ def add_category_to_user():
             "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
             "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}]
         }
+
+        parameters = {"request_id": 1,
+            "referred_user_id" : "4397b80a-0ec6-42a0-b827-47033dd10b25",
+            "friend_circle_id": "e28c1f45-164d-4ebd-b677-87a7a48b27c3",
+            "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}]}
+
         response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -494,8 +500,7 @@ def get_user_subcategory():
         parameters = {
             "request_id": 2,
             "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
-            "age_lo":10,
-            "age_hi":50,
+            "age": 34,
             "gender": "M"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
@@ -518,6 +523,77 @@ def get_user_selection_category_and_subcategory():
         return response.status_code
     except Exception as e:
         return False
+
+# to upload image
+def upload_image():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 3,
+            "entity_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "image_url" : "http://ww.oo.com",
+            "image_type": "friend_circle"
+        }
+        # parameters = {
+        #     "request_id": 3,
+        #     "entity_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+        #     "image_url" : "http://ww.oo.com",
+        #     "image_type": "user"
+        # }
+        response = requests.post("http://0.0.0.0:8081/api/attr", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def notify_landing_page():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 1,
+            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def creat_custom_occasion():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 4,
+            "occasion_name" : "Testing day",
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "creator_user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "occasion_date" : "05/01/2021",
+            "value_timezone" : "US/Pacific",
+            "frequency" : "Every Year"
+        }
+
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def deactivate_occasion():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 5,
+            "occasion_id" : '33408a1e-249e-4053-b9bd-64e4a2f73492',
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+        }
+        '33408a1e-249e-4053-b9bd-64e4a2f73492'
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
 
 try:
     output_hash = []
@@ -552,8 +628,13 @@ try:
     #status_code = get_product_votes()
     #status_code = get_category()
     #status_code = add_category_to_user()
-    #status_code = get_user_category()
-    status_code = get_user_selection_category_and_subcategory()
+    #status_code = get_category()
+    #status_code = get_user_subcategory()
+    #status_code = upload_image()
+    #status_code = get_user_selection_category_and_subcategory()
+    #status_code = notify_landing_page()
+    #status_code = creat_custom_occasion()
+    status_code = deactivate_occasion()
     print ("The status code is", status_code)
 
 except Exception as e:

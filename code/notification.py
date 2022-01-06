@@ -7,6 +7,11 @@ import pymongo.client_session
 import pytz
 from datetime import datetime, tzinfo, timedelta
 import os
+import requests
+import json
+
+current_date_time =  datetime.now(tz=pytz.UTC).strftime("%d-%m-%Y %H-%M-%S")
+site_url = os.environ.get("API_URL")
 
 
 def connect_to_graph():
@@ -35,18 +40,7 @@ def connect_to_mongo():
 
         airbnb = client.get_database("sample_airbnb")
 
-        user_collection = airbnb.get_collection("user")
-
-        with client.start_session() as session:
-            session.start_transaction()
-            result = user_collection.find()
-            for row in result:
-                print (row)
-            session.commit_transaction()
-
-        db_handle = client.get_database("sample_airbnb")
-
-        return db_handle
+        return airbnb
     except errors.PyMongoError as e:
         print("The error message is ", e)
         return None
@@ -54,7 +48,7 @@ def connect_to_mongo():
         print("The generic error is", e)
         return None
 
-def insert_notification_for_primary_reminder():
+def birthday_reminder():
     try:
         mongo_db_handle = connect_to_mongo()
         if mongo_db_handle is None:
@@ -64,118 +58,79 @@ def insert_notification_for_primary_reminder():
             print ("Unable to connect to graph db")
 
         first_reminder_date = get_date(int(os.environ.get("REMINDER_PRIMARY_OFFSET")))
-        query = "MATCH  (u:User)-[yy]->(fc:friend_circle)<-[rr]->(fl:friend_list), (fx:friend_occasion) " \
-                "WHERE EXISTS " \
-                "{ MATCH (fo:friend_occasion) " \
-                " WHERE apoc.temporal.format(fo.occasion_date, 'dd-MMM-yyyy') = apoc.temporal.format($ddate_) " \
-                " AND fo.friend_circle_id = fc.friend_circle_id } and" \
-                " AND type(yy) = 'CIRCLE_CREATOR'" \
-                " AND fx.friend_circle_id = fc.friend_circle_id " \
-                " RETURN  fx.occasion_name, fl.friend_id, fl.user_id, fl.first_name, fl.last_name, u.user_id, " \
-                "u.first_name, u.last_name, type(yy) as creator_rel, type(rr) as con_sec_rel" \
-                " ORDER BY type(rr) DESC"
 
-        result = graph_db_handle.run(query, ddate_ = first_reminder_date)
-        temp_user_id = None
+        query = "MATCH (u:User)-[rr]->(fc:friend_circle)<-[yy]->(fl:friend_list), (fo:friend_occasion), (o:occasion) " \
+                " where fc.friend_circle_id = fo.friend_circle_id " \
+                " and type(rr) = 'CIRCLE_CREATOR'" \
+                " and fo.occasion_id = o.occasion_id " \
+                " return " \
+                "u.first_name as creator_first_name," \
+                "u.last_name as creator_last_name," \
+                "u.user_id as creator_user_id," \
+                "fl.user_id as sc_user_id, " \
+                "fl.linked_user_id as sc_linked_user_id, " \
+                "fl.first_name as sc_first_name," \
+                "fl.last_name as sc_last_name," \
+                " fo.occasion_date, " \
+                " fo.occasion_name, " \
+                " type(yy) as sc_relationship_type," \
+                " type(rr) as creator_relationship_type," \
+                " case type(yy) when 'SECRET_FRIEND' then 1 else 0 end as rel_flag, " \
+                " fc.friend_circle_id as friend_circle_id " \
+                " order by fc.friend_circle_id," \
+                " rel_flag desc "
+
+#                " WHERE apoc.temporal.format(fo.occasion_date, 'dd-MMM-yyyy') = apoc.temporal.format($ddate_) " \
+ \
+        driver = graph_db_handle.session()
+        result = driver.run(query)
+        temp_friend_circle_id = None
         secret_user_id = None
-        rn_collection = pymongo.collection.Collection(mongo_db_handle, "notification_and_recommendation")
+        secret_first_name = None
+        secret_last_name = None
+        secret_linked_user_id = None
+        rn_collection = pymongo.collection.Collection(mongo_db_handle, "birthday_reminder")
         for row in result:
             # do something
-            if not temp_user_id or temp_user_id != row["u.user_id"]:
-                temp_user_id = row["u.user_id"]
-                secret_user_id = row["con_sec_rel"]
-                if secret_user_id != "SECRET_FRIEND":
-                    return False
-                if os.environ.get("REMINDER_PRIMARY_OFFSET") is None:
-                    return False
-                message = "Reminder" + row["fl.first_name"] + "'s " + row["fo.occasion_name"] + " is " + os.environ.get("REMINDER_PRIMARY_OFFSET") + " days away "
-                message += " Click here to find the right gift"
-                result = rn_collection.insert_one({"user_id":row["u.user_id"],
-                                                   "first_name":row["u.first_name"],
-                                                   "transaction_type":"Reminder",
-                                                   "message": message,
+            if not temp_friend_circle_id or temp_friend_circle_id != row["friend_circle_id"]:
+                if row["rel_flag"] == 1:
+                    secret_user_id = row["sc_user_id"]
+                    secret_first_name = row["sc_first_name"]
+                    secret_last_name = row["sc_last_name"]
+                    secret_linked_user_id = row["sc_linked_user_id"]
+
+                    result = rn_collection.insert_one({"creator_user_id":row["creator_user_id"],
+                                                   "creator_first_name":row["creator_first_name"],
+                                                    "creator_last_name" : row["creator_last_name"],
+                                                   "friend_circle_id" : row["friend_circle_id"],
+                                                   "secret_user_id" : row["sc_user_id"],
+                                                   "secret_first_name" : row["sc_first_name"],
+                                                   "secret_last_name" : row["sc_last_name"],
+                                                   "secret_linked_user_id" : row["sc_linked_user_id"],
+                                                   "status" : 0,
+                                                   "action_taken" : 0,
                                                    "entered_dt" : current_date_time})
-                if result is None:
-                    return False
-            else:
-                result = rn_collection.insert_one({"user_id": row["fl.user_id"],
-                                               "first_name": row["fl.first_name"],
-                                               "transaction_type": "Reminder",
-                                               "message": message,
-                                               "entered_dt": current_date_time})
-                if result is None:
-                    return False
+                else:
+                    result = rn_collection.insert_one({"creator_user_id":row["sc_user_id"],
+                                                       "creator_first_name":row["sc_first_name"],
+                                                        "creator_last_name" : row["sc_last_name"],
+                                                       "friend_circle_id" : row["friend_circle_id"],
+                                                       "secret_user_id" : secret_user_id,
+                                                       "secret_first_name" : secret_first_name,
+                                                       "secret_last_name" : secret_last_name,
+                                                       "secret_linked_user_id" : secret_linked_user_id,
+                                                       "status" : 0,
+                                                       "action_taken" : 0,
+                                                       "entered_dt" : current_date_time})
+
+    except neo4j.exceptions.Neo4jError as e:
+        print ("The error is", e)
+        return False
     except pymongo.errors as e:
         print ("The error is ", e)
         return False
-    except neo4j.exceptions.Neo4jError as e:
-        print ("The error is", e)
-        return False
     except Exception as e:
         print ("The error is", e)
-        return False
-
-
-def insert_notification_for_secondary_reminder():
-    try:
-        mongo_db_handle = connect_to_mongo()
-        if mongo_db_handle is None:
-            print("Unable to connect to mongo db")
-        graph_db_handle = connect_to_graph()
-        if graph_db_handle is None:
-            print("Unable to connect to graph db")
-
-        if os.environ.get("REMINDER_SECONDARY_OFFSET") is None:
-            return False
-        first_reminder_date = get_date(int(os.environ.get("REMINDER_SECONDARY_OFFSET")))
-        query = "MATCH  (u:User)-[yy]->(fc:friend_circle)<-[rr]->(fl:friend_list), (fx:friend_occasion) " \
-                "WHERE EXISTS " \
-                "{ MATCH (fo:friend_occasion) " \
-                " WHERE apoc.temporal.format(fo.occasion_date, 'dd-MMM-yyyy') = apoc.temporal.format($ddate_) " \
-                " AND fo.friend_circle_id = fc.friend_circle_id } and" \
-                " AND type(yy) = 'CIRCLE_CREATOR'" \
-                " AND fx.friend_circle_id = fc.friend_circle_id " \
-                " RETURN  fx.occasion_name, fl.friend_id, fl.user_id, fl.first_name, fl.last_name, u.user_id, " \
-                "u.first_name, u.last_name, type(yy) as creator_rel, type(rr) as con_sec_rel" \
-                " ORDER BY type(rr) DESC"
-
-        result = graph_db_handle.run(query, ddate_=first_reminder_date)
-        temp_user_id = None
-        secret_user_id = None
-        rn_collection = pymongo.collection.Collection(mongo_db_handle, "notification_and_recommendation")
-        for row in result:
-            # do something
-            if not temp_user_id or temp_user_id != row["u.user_id"]:
-                temp_user_id = row["u.user_id"]
-                secret_user_id = row["con_sec_rel"]
-                if secret_user_id != "SECRET_FRIEND":
-                    return False
-                message = "Reminder" + row["fl.first_name"] + "'s " + row["fo.occasion_name"] + " is " + os.environ.get(
-                    "REMINDER_PRIMARY_OFFSET") + " days away "
-                message += " Click here to find the right gift"
-                result = rn_collection.insert_one({"user_id": row["u.user_id"],
-                                                   "first_name": row["u.first_name"],
-                                                   "transaction_type": "Reminder",
-                                                   "message": message,
-                                                   "entered_dt": current_date_time})
-                if result is None:
-                    return False
-            else:
-                result = rn_collection.insert_one({"user_id": row["fl.user_id"],
-                                                   "first_name": row["fl.first_name"],
-                                                   "transaction_type": "Reminder",
-                                                   "message": message,
-                                                   "entered_dt": current_date_time})
-                if result is None:
-                    return False
-    except pymongo.errors as e:
-        print("The error is ", e)
-        return False
-    except neo4j.exceptions.Neo4jError as e:
-        print("The error is", e)
-        return False
-    except Exception as e:
-        print("The error is", e)
         return False
 
 def insert_birthday_ecard_confirmation():
@@ -190,7 +145,16 @@ def insert_product_survey():
 def insert_relationship_gaps():
     query = " match (fl:friend_list),(fc:friend_circle) where  (fl)-[:CONTRIBUTOR]->(fc) and not (fl)-[:RELATED]->(fc)  return fl.user_id, fc.friend_circle_id order by fc.friend_circle_id"
 
-def insert_interest_reminders():
+def relationship_reminder():
+    try:
+        query = "match (x:User{user_id:$user_id_}),(n:friend_circle) " \
+                "where not exists ((x)-[:RELATION]->(n)) " \
+                " return n.friend_circle_id, x.user_id"
+    except neo4j.exceptions.Neo4jError as e:
+
+
+
+def interest_reminders():
     try:
         mongo_db_handle = connect_to_mongo()
         if mongo_db_handle is None:
@@ -201,22 +165,76 @@ def insert_interest_reminders():
 
         if os.environ.get('INTEREST_THRESHOLD') is None:
             return False
-        reminder_date = get_date(os.environ.get(('INTEREST_THRESHOLD')))
-        query = "MATCH (fc:friend_circle)<-[yy]-(fl:friend_list)-[r:INTEREST]->(sc:WebSubCat), (u:User) " \
-                " WHERE apoc.temporal.format(r.created_dt, 'MMM-dd-yyyy' ) =  apoc.temporal.format($reminder_date_) " \
-                " AND u.user_id = fl.friend_id " \
-                " AND yy = 'CONTRIBUTOR' " \
-                " RETURN fl.user_id, fl.first_name, fl.last_name, sc.subcategory_name, u.user_id, u.first_name, u.last_name"
+        interest_reminder_days = os.environ.get("INTEREST_THRESHOLD")
+        query = "MATCH (u:User)-[r:INTEREST]->(w:WebCat), (fc:friend_circle)" \
+                " WHERE duration.inDays(date(datetime({epochmillis: apoc.date.parse(r.created_dt, 'ms', 'dd/MM/yyyy HH:mm:ss')})), date()).days >= $interest_reminder_days_ " \
+                " AND r.friend_circle_id = fc.friend_circle_id" \
+                " return " \
+                " max(date(datetime({epochmillis: apoc.date.parse(r.created_dt, 'ms', 'dd/MM/yyyy HH:mm:ss')}))) as xdate," \
+                " u.user_id as user_id, " \
+                " u.first_name as first_name ," \
+                " u.last_name as last_name," \
+                " r.friend_circle_id as fci," \
+                " fc.secret_first_name as secret_first_name, " \
+                " fc.secret_last_name as secret_last_name, " \
+                " fc.secret_friend_id as secret_friend_id "
 
-        result = graph_db_handle.run(query, reminder_date_ = reminder_date)
+        driver = graph_db_handle.session()
+        result = driver.run(query, interest_reminder_days_ = interest_reminder_days)
+        rn_collection = pymongo.collection.Collection(mongo_db_handle, "interest_reminder")
+
+        for row in result:
+
+            parameters = {
+                "request_id": 2,
+                "friend_circle_id": row["friend_circle_id"]
+            }
+            message = "It's been " + interest_reminder_days + "days. Do you think " + row["s_first_name"] + " may be interested in "
+            response = requests.get(site_url + "/api/interest", params=parameters)
+            print("The response is ", response.json())
+            loaded_json = json.loads(response.json())
+            for r in loaded_json:
+                hshcat = {}
+                hshcat = r["subcategory"]
+                for items in hshcat:
+                    name = items["web_subcategory_name"]
+                    value = items["web_subcategory_id"]
+                    break
+            message = "It's been " + interest_reminder_days + "days. Do you think " + row[
+                "s_first_name"] + " may be interested in " + name
+            result = rn_collection.insert_one({"user_id": row["u.user_id"],
+                                               "first_name": row["u.first_name"],
+                                               "transaction_type": "Interest",
+                                               "message": message,
+                                               "content" : response.json(),
+                                               "entered_dt": current_date_time})
         return True
     except Exception as e:
         return False
 
-connect_to_mongo()
-insert_notification_for_primary_reminder()
-insert_notification_for_secondary_reminder()
-insert_birthday_ecard_confirmation()
+def occasion_reminder():
+    return True
+
+birthday_reminder()
+print ("I am done")
 
 
+# activities to app notify in the initial phase
+# occasion reminders
+# interest reminders
+# relationship reminders ( age, relationship)
+# approvals
 
+
+# user_collection = airbnb.get_collection("user")
+#
+# with client.start_session() as session:
+#     session.start_transaction()
+#     result = user_collection.find()
+#     for row in result:
+#         print(row)
+#     session.commit_transaction()
+#
+# db_handle = client.get_database("sample_airbnb")
+#
+# return db_handle
