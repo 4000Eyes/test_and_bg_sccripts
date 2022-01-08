@@ -587,12 +587,56 @@ def deactivate_occasion():
             "occasion_id" : '33408a1e-249e-4053-b9bd-64e4a2f73492',
             "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
         }
-        '33408a1e-249e-4053-b9bd-64e4a2f73492'
+
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
+
+def get_occasion_names(): # Note: friend circle id is optional. You send friend circle id if the context requires it.
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 3,
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+        }
+        response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+    def contributor_approval():  # Note: friend circle id is optional. You send friend circle id if the context requires it.
+        try:
+            output_list = []
+            parameters = {
+                "request_id": 7,
+                "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+                "phone_number" : "14252815459"
+            }
+            response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
+            print("The response is ", response.json())
+            return response.status_code
+        except Exception as e:
+            return False
+
+
+    def contributor_open_invites():  # Note: friend circle id is optional. You send friend circle id if the context requires it.
+        try:
+            output_list = []
+            parameters = {
+                "request_id": 4,
+                "phone_number": "14252815459"
+            }
+            response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
+            print("The response is ", response.json())
+            return response.status_code
+        except Exception as e:
+            return False
+
+
+
 
 
 try:
@@ -634,7 +678,8 @@ try:
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
     #status_code = creat_custom_occasion()
-    status_code = deactivate_occasion()
+    #status_code = deactivate_occasion()
+    status_code = get_occasion_names()
     print ("The status code is", status_code)
 
 except Exception as e:
