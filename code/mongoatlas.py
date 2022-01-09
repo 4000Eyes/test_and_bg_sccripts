@@ -464,11 +464,6 @@ def add_category_to_user():
             "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}]
         }
 
-        parameters = {"request_id": 1,
-            "referred_user_id" : "4397b80a-0ec6-42a0-b827-47033dd10b25",
-            "friend_circle_id": "e28c1f45-164d-4ebd-b677-87a7a48b27c3",
-            "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}]}
-
         response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -477,7 +472,7 @@ def add_category_to_user():
 
 #to store the subcategories chosen by the user
 
-def add_category_to_user():
+def add_subcategory_to_user():
     try:
         output_list = []
         parameters = {
@@ -499,9 +494,7 @@ def get_user_subcategory():
         output_list = []
         parameters = {
             "request_id": 2,
-            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
-            "age": 34,
-            "gender": "M"
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -614,6 +607,7 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
                 "request_id": 7,
                 "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
                 "phone_number" : "14252815459"
+                "signal" : 1
             }
             response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
             print("The response is ", response.json())
@@ -635,7 +629,18 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
         except Exception as e:
             return False
 
-
+    def get_recently_added_interest():
+        try:
+            output_list = []
+            parameters = {
+                "request_id": 4,
+                "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+            }
+            response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+            print("The response is ", response.json())
+            return response.status_code
+        except Exception as e:
+            return False
 
 
 
