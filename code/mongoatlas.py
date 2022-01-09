@@ -445,7 +445,8 @@ def get_category():
     try:
         output_list = []
         parameters = {
-            "request_id": 1
+            "request_id": 1,
+            "friend_circle_id" : "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
         }
         response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
         print("The response is ", response.json())
@@ -544,7 +545,7 @@ def notify_landing_page():
         output_list = []
         parameters = {
             "request_id": 1,
-            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2"
+            "user_id": "4397b80a-0ec6-42a0-b827-47033dd10b25"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -606,7 +607,7 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
             parameters = {
                 "request_id": 7,
                 "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
-                "phone_number" : "14252815459"
+                "phone_number" : "14252815459",
                 "signal" : 1
             }
             response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
@@ -634,7 +635,7 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
             output_list = []
             parameters = {
                 "request_id": 4,
-                "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+                "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25"
             }
             response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
             print("The response is ", response.json())
@@ -675,7 +676,7 @@ try:
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_product_votes()
-    #status_code = get_category()
+    status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
@@ -684,7 +685,7 @@ try:
     #status_code = notify_landing_page()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
-    status_code = get_occasion_names()
+    #status_code = get_occasion_names()
     print ("The status code is", status_code)
 
 except Exception as e:
