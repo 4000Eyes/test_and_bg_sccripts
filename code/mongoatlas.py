@@ -128,7 +128,8 @@ def test_signup():
             "last_name" : "Raj",
             "location" : "India",
             "external_referrer_id": "Google",
-            "external_referrer_param": "abc123-123jsh"
+            "external_referrer_param": "abc123-123jsh",
+            "image_url": "http://ww.roo.com"
         }
         response = requests.post("http://0.0.0.0:8081/api/auth/signup", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
@@ -223,7 +224,8 @@ def friend_circle_request_3():
             "request_id": 3,
             "referrer_user_id": "e135bcc1-7ff3-4018-bb9a-d4b91dea6a6a",
             "referred_user_id": '937616d6-674b-4c3e-8856-6654c4b03b2c',
-            "group_name" : "This is test circle"
+            "group_name" : "This is test circle",
+            "image_url" : "http://www.roo.com"
         }
 
         parameters = {"request_id": 3,
@@ -250,7 +252,8 @@ def friend_circle_request_4():
             "last_name": "Kutty",
             "gender": "M",
             "location" : "India",
-            "group_name" : "Test circle for Ram Raj"
+            "group_name" : "Test circle for Ram Raj",
+            "image_url" : "http://www.roo.com"
         }
 
         # parameters = {"request_id": 4,
@@ -545,7 +548,7 @@ def notify_landing_page():
         output_list = []
         parameters = {
             "request_id": 1,
-            "user_id": "4397b80a-0ec6-42a0-b827-47033dd10b25"
+            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -682,7 +685,7 @@ try:
     #status_code = get_user_subcategory()
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
-    #status_code = notify_landing_page()
+    status_code = notify_landing_page()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
