@@ -548,7 +548,8 @@ def notify_landing_page():
         output_list = []
         parameters = {
             "request_id": 1,
-            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2"
+            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "phone_number": "14252815458"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
