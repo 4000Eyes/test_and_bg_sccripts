@@ -37,28 +37,41 @@ def connect_to_mongo():
         db_string = os.environ.get("MONGO_TEST")
     try:
         client = pymongo.MongoClient(db_string)
-        airbnb = client.get_database("sample_airbnb")
-        session = client.start_session()
-        session.start_transaction()
-        transaction_collection = pymongo.collection.Collection(client, "gmm_transaction", session=session)
-        result = transaction_collection.insert_one({
-        "transaction_id": "x",
-        "product_id": "y",
-        "cost": 12.34,
-        "split_percent": 0.23,
-        "designated_buyer_id": "Ram",
-        "designated_receiver_id": "Lakshman",
-        "buy_type": 1,
-        "reference": "xys",
-        "status": 1,
-        "created_dt": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-     }, session=session)
-        return airbnb
-    except errors.PyMongoError as e:
-        print("The error message is ", e)
-        return None
+        db = client.get_database("sample_airbnb")
+        #wc_majority = pymongo.write_concern.WriteConcern("majority", wtimeout=1000)
+        #airbnb = client.get_database("sample_airbnb")
+
+        with client.start_session() as session:
+            with session.start_transaction():
+                while True:
+                    try:
+                        transaction_collection = pymongo.collection.Collection(db, "gmm_transaction", session=session)
+                        result = transaction_collection.insert_one({
+                            "transaction_id": "x",
+                            "product_id": "y",
+                            "cost": 12.34,
+                            "split_percent": 0.23,
+                            "designated_buyer_id": "Ram",
+                            "designated_receiver_id": "Lakshman",
+                            "buy_type": 1,
+                            "reference": "xys",
+                            "status": 1
+                         },session=session)
+                        session.commit_transaction()
+                        session.end_session()
+                        break
+                    except (pymongo.errors.ConnectionFailure , pymongo.errors.OperationFailure) as exc:
+                        if exc.has_error_label("TransientTransactionError"):
+                            continue
+                        else:
+                            raise "Exception in running transactions"
+        #return airbnb
+
     except Exception as e:
         print("The generic error is", e)
+        return None
+    except errors.PyMongoError as e:
+        print("The error message is ", e)
         return None
 
 # def birthday_reminder():

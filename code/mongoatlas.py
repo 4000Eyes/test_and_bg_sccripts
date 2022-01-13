@@ -217,21 +217,17 @@ def friend_circle_request_2():
     except Exception as e:
         return False
 
-def friend_circle_request_3():
+def friend_circle_request_3(): #Image url is optional. If there is no image, dont send the parameter.
     try:
         output_list = []
+
         parameters = {
             "request_id": 3,
-            "referrer_user_id": "e135bcc1-7ff3-4018-bb9a-d4b91dea6a6a",
-            "referred_user_id": '937616d6-674b-4c3e-8856-6654c4b03b2c',
-            "group_name" : "This is test circle",
+            "referrer_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
+            "referred_user_id": "f8df7ffe-427b-4e7e-b0c5-5a63a93d1131",
+            "group_name" : "Jagan Circle",
             "image_url" : "http://www.roo.com"
         }
-
-        parameters = {"request_id": 3,
-            "referrer_user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
-            "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
-            "group_name" : "Aravind Circle"}
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -253,7 +249,8 @@ def friend_circle_request_4():
             "gender": "M",
             "location" : "India",
             "group_name" : "Test circle for Ram Raj",
-            "image_url" : "http://www.roo.com"
+            "image_url" : "http://www.roo.com",
+            "age" : 45
         }
 
         # parameters = {"request_id": 4,
@@ -295,7 +292,7 @@ def get_friend_circle():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": '92e10dc2-4a66-4c93-9200-18e10debc535'
+            "friend_circle_id": 'b4870446-6647-436c-af07-8037fa06146a'
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -309,7 +306,7 @@ def get_friend_circles():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c"
+            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2"
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -498,7 +495,9 @@ def get_user_subcategory():
         output_list = []
         parameters = {
             "request_id": 2,
-            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "gender": "M",
+            "age" : 233
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -570,7 +569,13 @@ def creat_custom_occasion():
             "value_timezone" : "US/Pacific",
             "frequency" : "Every Year"
         }
-
+        parameters = {"request_id": 4,
+            "occasion_name" : "BirthDay",
+            "friend_circle_id":"8b935b41-347a-41c6-9db1-38a7eec7e0e4",
+            "creator_user_id": "f8df7ffe-427b-4e7e-b0c5-5a63a93d1131",
+            "occasion_date" : "15/01/2021",
+            "value_timezone" : "US/Pacific",
+            "frequency" : "Every Year"}
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -680,14 +685,14 @@ try:
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_product_votes()
-    status_code = get_category()
+    #status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
-    status_code = notify_landing_page()
-    #status_code = creat_custom_occasion()
+    #status_code = notify_landing_page()
+    status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
     print ("The status code is", status_code)
