@@ -667,6 +667,21 @@ def get_secret_friend_age_gender():
     except Exception as e:
         return False
 
+def update_secret_friend_age_gender():
+    try:
+        output_list = []
+        parameters = {
+            "request_id" :1,
+            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25",
+            "age" : 45,
+            "gender" : "M"
+        }
+        response = requests.post("http://0.0.0.0:8081/api/attr", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
 
 try:
@@ -711,7 +726,8 @@ try:
 
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
-    status_code = get_secret_friend_age_gender()
+    #status_code = get_secret_friend_age_gender()
+    status_code = update_secret_friend_age_gender()
     print ("The status code is", status_code)
 
 except Exception as e:
