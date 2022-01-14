@@ -226,7 +226,9 @@ def friend_circle_request_3(): #Image url is optional. If there is no image, don
             "referrer_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
             "referred_user_id": "f8df7ffe-427b-4e7e-b0c5-5a63a93d1131",
             "group_name" : "Jagan Circle",
-            "image_url" : "http://www.roo.com"
+            "image_url" : "http://www.roo.com",
+            "age" : 23,
+            "gender": "M"
         }
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
