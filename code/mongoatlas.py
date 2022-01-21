@@ -175,13 +175,13 @@ def friend_circle_request_1():
     try:
         output_list = []
 
-        parameters ={
-            "request_id": 1,
-             "friend_circle_id": "42ab88ce-ab48-4e93-a308-8a550abb491e",
-            "referrer_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
-            "referred_user_id": "f8df7ffe-427b-4e7e-b0c5-5a63a93d1131"
+        parameters =         {"request_id": 1,
+         "friend_circle_id": "054c1679-daa4-4793-88b4-3790995b6b6d",
+         "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+         "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6"
+         }
 
-        }
+
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
@@ -193,8 +193,8 @@ def friend_circle_request_2():
         output_list = []
         parameters = {
             "request_id" : 2,
-            "friend_circle_id": "b4edd164-37d7-4f82-9c17-c49201bd5bd2",
-            "referrer_user_id": "937616d6-674b-4c3e-8856-6654c4b03b2c",
+            "friend_circle_id":"054c1679-daa4-4793-88b4-3790995b6b6d",
+            "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
             "email_address":"kuku1254@gmail.com",
             "phone_number": "425-111-2312",
             "first_name":"x",
@@ -204,12 +204,12 @@ def friend_circle_request_2():
         }
 
         parameters = {"request_id": 2,
-         "friend_circle_id": "dfb0f9a6-c908-4cf1-8108-be723835a4b5",
-             "referrer_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
-         "email_address": "sss1234@gmail.com",
-         "phone_number": "425-111-2312",
-         "first_name": "xerox",
-        "last_name": "yellow",
+         "friend_circle_id": "054c1679-daa4-4793-88b4-3790995b6b6d",
+             "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+         "email_address": "krishnanIyengar@gmail.com",
+         "phone_number": "14252343342",
+         "first_name": "Krishnan",
+        "last_name": "Iyengar",
         "gender": "M",
         "location": "India"
         }
@@ -235,6 +235,14 @@ def friend_circle_request_3(): #Image url is optional. If there is no image, don
             "gender": "M"
         }
 
+        parameters = { "request_id": 3,
+            "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+            "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
+            "group_name" : "Lovely 2022",
+            "image_url" : "http://www.roo.com",
+            "age" : 23,
+            "gender": "M"}
+
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -246,7 +254,7 @@ def friend_circle_request_4():
     try:
         output_list = []
         parameters = {"request_id": 4,
-            "referrer_user_id": "f8df7ffe-427b-4e7e-b0c5-5a63a93d1131",
+            "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
             "email_address": "mkmknbn@gmail.com",
             "phone_number": "918768768563",
             "first_name": "Jaddusachin",
@@ -258,6 +266,17 @@ def friend_circle_request_4():
             "age" : 45
             }
 
+        parameters = {"request_id": 4,
+        "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+        "email_address": "mkIyengar@gmail.com",
+        "phone_number": "918768768500",
+        "first_name": "Jaddusachin",
+        "last_name": "Narayanan",
+        "gender": "M",
+        "location": "India",
+        "group_name": "Only Iyengars",
+        "image_url": "http://www.roo.com",
+        "age": 45}
 
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
@@ -365,7 +384,6 @@ def vote_occasion():
             "request_id": 2,
             "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
             "creator_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "contributor_user_id":"f800d518-248c-41d6-bd62-6cf9cad2b9e3",
             "occasion_id" : 1,
             "flag": 1,
             "value": "10/12/1979",
@@ -384,7 +402,6 @@ def approve_occasion():
             "request_id": 3,
             "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
             "creator_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "contributor_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
             "occasion_id":1,
             "flag": 1
         }
@@ -546,6 +563,8 @@ def notify_landing_page():
     except Exception as e:
         return False
 
+
+
 def creat_custom_occasion():
     try:
         output_list = []
@@ -664,6 +683,34 @@ def update_secret_friend_age_gender():
     except Exception as e:
         return False
 
+def occasion_approval():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 6,
+            "user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def app_notification():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 2,
+            "user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+            "phone_number": "9500153858"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
 try:
     output_hash = []
@@ -675,17 +722,21 @@ try:
     #status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
+
+    """
     # request_id : 1 --> referring an existing member to an existing friend circle - This will require referrer_user_id, friend_circle_id, friend_user_id
     # request_id : 2 --> referring a non-existing user friend to an existing friend circle - This will require referrer_user_id, friend_circle_id, email_address, name.
     # requests_id : 3 --> creating a friend circle for an existing member as the secret friend - This will require creator_user_id, friend_id, circle name
     # request_id : 4 --> creating a friend circle for a non-existing member as the secret friend - This will require creator_user_id, email_address, name, circle_name
     # request_id : 5 --> a list of friends or contacts from whatsapp to create friend circles.
+    
+    """
     #status_code = friend_circle_request_1()
     #status_code = friend_circle_request_2()
     #status_code = friend_circle_request_3()
     #status_code = friend_circle_request_4()
     #status_code = friend_circle_request_6()
-    status_code = create_occasion()
+    #status_code = create_occasion()
     #status_code = vote_occasion()
     #status_code = approve_occasion()
     #status_code = get_occasion()
@@ -709,6 +760,8 @@ try:
     #status_code = get_occasion_names()
     #status_code = get_secret_friend_age_gender()
     #status_code = update_secret_friend_age_gender()
+    #status_code = occasion_approval()
+    status_code = app_notification()
     print ("The status code is", status_code)
 
 except Exception as e:
