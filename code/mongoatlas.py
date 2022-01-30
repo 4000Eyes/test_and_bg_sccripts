@@ -1,6 +1,7 @@
 import json
 import requests
 import datetime
+import re
 
 # These are the timezones to use when you submit request with date as parameters.
 #['Africa/Abidjan', 'Africa/Accra', 'Africa/Addis_Ababa', 'Africa/Algiers', 'Africa/Asmara', 'Africa/Asmera', 'Africa/Bamako', 'Africa/Bangui', 'Africa/Banjul', 'Africa/Bissau', 'Africa/Blantyre', 'Africa/Brazzaville', 'Africa/Bujumbura', 'Africa/Cairo', 'Africa/Casablanca', 'Africa/Ceuta', 'Africa/Conakry', 'Africa/Dakar', 'Africa/Dar_es_Salaam', 'Africa/Djibouti', 'Africa/Douala', 'Africa/El_Aaiun', 'Africa/Freetown', 'Africa/Gaborone', 'Africa/Harare', 'Africa/Johannesburg', 'Africa/Juba', 'Africa/Kampala', 'Africa/Khartoum', 'Africa/Kigali', 'Africa/Kinshasa', 'Africa/Lagos', 'Africa/Libreville', 'Africa/Lome', 'Africa/Luanda', 'Africa/Lubumbashi', 'Africa/Lusaka', 'Africa/Malabo', 'Africa/Maputo', 'Africa/Maseru', 'Africa/Mbabane', 'Africa/Mogadishu', 'Africa/Monrovia', 'Africa/Nairobi', 'Africa/Ndjamena', 'Africa/Niamey', 'Africa/Nouakchott', 'Africa/Ouagadougou', 'Africa/Porto-Novo', 'Africa/Sao_Tome', 'Africa/Timbuktu', 'Africa/Tripoli', 'Africa/Tunis', 'Africa/Windhoek', 'America/Adak', 'America/Anchorage', 'America/Anguilla', 'America/Antigua', 'America/Araguaina', 'America/Argentina/Buenos_Aires', 'America/Argentina/Catamarca', 'America/Argentina/ComodRivadavia', 'America/Argentina/Cordoba', 'America/Argentina/Jujuy', 'America/Argentina/La_Rioja', 'America/Argentina/Mendoza', 'America/Argentina/Rio_Gallegos', 'America/Argentina/Salta', 'America/Argentina/San_Juan', 'America/Argentina/San_Luis', 'America/Argentina/Tucuman', 'America/Argentina/Ushuaia', 'America/Aruba', 'America/Asuncion', 'America/Atikokan', 'America/Atka', 'America/Bahia', 'America/Bahia_Banderas', 'America/Barbados', 'America/Belem', 'America/Belize', 'America/Blanc-Sablon', 'America/Boa_Vista', 'America/Bogota', 'America/Boise', 'America/Buenos_Aires', 'America/Cambridge_Bay', 'America/Campo_Grande', 'America/Cancun', 'America/Caracas', 'America/Catamarca', 'America/Cayenne', 'America/Cayman', 'America/Chicago', 'America/Chihuahua', 'America/Coral_Harbour', 'America/Cordoba', 'America/Costa_Rica', 'America/Creston', 'America/Cuiaba', 'America/Curacao', 'America/Danmarkshavn', 'America/Dawson', 'America/Dawson_Creek', 'America/Denver', 'America/Detroit', 'America/Dominica', 'America/Edmonton', 'America/Eirunepe', 'America/El_Salvador', 'America/Ensenada', 'America/Fort_Nelson', 'America/Fort_Wayne', 'America/Fortaleza', 'America/Glace_Bay', 'America/Godthab', 'America/Goose_Bay', 'America/Grand_Turk', 'America/Grenada', 'America/Guadeloupe', 'America/Guatemala', 'America/Guayaquil', 'America/Guyana', 'America/Halifax', 'America/Havana', 'America/Hermosillo', 'America/Indiana/Indianapolis', 'America/Indiana/Knox', 'America/Indiana/Marengo', 'America/Indiana/Petersburg', 'America/Indiana/Tell_City', 'America/Indiana/Vevay', 'America/Indiana/Vincennes', 'America/Indiana/Winamac', 'America/Indianapolis', 'America/Inuvik', 'America/Iqaluit', 'America/Jamaica', 'America/Jujuy', 'America/Juneau', 'America/Kentucky/Louisville', 'America/Kentucky/Monticello', 'America/Knox_IN', 'America/Kralendijk', 'America/La_Paz', 'America/Lima', 'America/Los_Angeles', 'America/Louisville', 'America/Lower_Princes', 'America/Maceio', 'America/Managua', 'America/Manaus', 'America/Marigot', 'America/Martinique', 'America/Matamoros', 'America/Mazatlan', 'America/Mendoza', 'America/Menominee', 'America/Merida', 'America/Metlakatla', 'America/Mexico_City', 'America/Miquelon', 'America/Moncton', 'America/Monterrey', 'America/Montevideo', 'America/Montreal', 'America/Montserrat', 'America/Nassau', 'America/New_York', 'America/Nipigon', 'America/Nome', 'America/Noronha', 'America/North_Dakota/Beulah', 'America/North_Dakota/Center', 'America/North_Dakota/New_Salem', 'America/Nuuk', 'America/Ojinaga', 'America/Panama', 'America/Pangnirtung', 'America/Paramaribo', 'America/Phoenix', 'America/Port-au-Prince', 'America/Port_of_Spain', 'America/Porto_Acre', 'America/Porto_Velho', 'America/Puerto_Rico', 'America/Punta_Arenas', 'America/Rainy_River', 'America/Rankin_Inlet', 'America/Recife', 'America/Regina', 'America/Resolute', 'America/Rio_Branco', 'America/Rosario', 'America/Santa_Isabel', 'America/Santarem', 'America/Santiago', 'America/Santo_Domingo', 'America/Sao_Paulo', 'America/Scoresbysund', 'America/Shiprock', 'America/Sitka', 'America/St_Barthelemy', 'America/St_Johns', 'America/St_Kitts', 'America/St_Lucia', 'America/St_Thomas', 'America/St_Vincent', 'America/Swift_Current', 'America/Tegucigalpa', 'America/Thule', 'America/Thunder_Bay', 'America/Tijuana', 'America/Toronto', 'America/Tortola', 'America/Vancouver', 'America/Virgin', 'America/Whitehorse', 'America/Winnipeg', 'America/Yakutat', 'America/Yellowknife', 'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/DumontDUrville', 'Antarctica/Macquarie', 'Antarctica/Mawson', 'Antarctica/McMurdo', 'Antarctica/Palmer', 'Antarctica/Rothera', 'Antarctica/South_Pole', 'Antarctica/Syowa', 'Antarctica/Troll', 'Antarctica/Vostok', 'Arctic/Longyearbyen', 'Asia/Aden', 'Asia/Almaty', 'Asia/Amman', 'Asia/Anadyr', 'Asia/Aqtau', 'Asia/Aqtobe', 'Asia/Ashgabat', 'Asia/Ashkhabad', 'Asia/Atyrau', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok', 'Asia/Barnaul', 'Asia/Beirut', 'Asia/Bishkek', 'Asia/Brunei', 'Asia/Calcutta', 'Asia/Chita', 'Asia/Choibalsan', 'Asia/Chongqing', 'Asia/Chungking', 'Asia/Colombo', 'Asia/Dacca', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Dili', 'Asia/Dubai', 'Asia/Dushanbe', 'Asia/Famagusta', 'Asia/Gaza', 'Asia/Harbin', 'Asia/Hebron', 'Asia/Ho_Chi_Minh', 'Asia/Hong_Kong', 'Asia/Hovd', 'Asia/Irkutsk', 'Asia/Istanbul', 'Asia/Jakarta', 'Asia/Jayapura', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Kamchatka', 'Asia/Karachi', 'Asia/Kashgar', 'Asia/Kathmandu', 'Asia/Katmandu', 'Asia/Khandyga', 'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuching', 'Asia/Kuwait', 'Asia/Macao', 'Asia/Macau', 'Asia/Magadan', 'Asia/Makassar', 'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Novokuznetsk', 'Asia/Novosibirsk', 'Asia/Omsk', 'Asia/Oral', 'Asia/Phnom_Penh', 'Asia/Pontianak', 'Asia/Pyongyang', 'Asia/Qatar', 'Asia/Qostanay', 'Asia/Qyzylorda', 'Asia/Rangoon', 'Asia/Riyadh', 'Asia/Saigon', 'Asia/Sakhalin', 'Asia/Samarkand', 'Asia/Seoul', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Srednekolymsk', 'Asia/Taipei', 'Asia/Tashkent', 'Asia/Tbilisi', 'Asia/Tehran', 'Asia/Tel_Aviv', 'Asia/Thimbu', 'Asia/Thimphu', 'Asia/Tokyo', 'Asia/Tomsk', 'Asia/Ujung_Pandang', 'Asia/Ulaanbaatar', 'Asia/Ulan_Bator', 'Asia/Urumqi', 'Asia/Ust-Nera', 'Asia/Vientiane', 'Asia/Vladivostok', 'Asia/Yakutsk', 'Asia/Yangon', 'Asia/Yekaterinburg', 'Asia/Yerevan', 'Atlantic/Azores', 'Atlantic/Bermuda', 'Atlantic/Canary', 'Atlantic/Cape_Verde', 'Atlantic/Faeroe', 'Atlantic/Faroe', 'Atlantic/Jan_Mayen', 'Atlantic/Madeira', 'Atlantic/Reykjavik', 'Atlantic/South_Georgia', 'Atlantic/St_Helena', 'Atlantic/Stanley', 'Australia/ACT', 'Australia/Adelaide', 'Australia/Brisbane', 'Australia/Broken_Hill', 'Australia/Canberra', 'Australia/Currie', 'Australia/Darwin', 'Australia/Eucla', 'Australia/Hobart', 'Australia/LHI', 'Australia/Lindeman', 'Australia/Lord_Howe', 'Australia/Melbourne', 'Australia/NSW', 'Australia/North', 'Australia/Perth', 'Australia/Queensland', 'Australia/South', 'Australia/Sydney', 'Australia/Tasmania', 'Australia/Victoria', 'Australia/West', 'Australia/Yancowinna', 'Brazil/Acre', 'Brazil/DeNoronha', 'Brazil/East', 'Brazil/West', 'CET', 'CST6CDT', 'Canada/Atlantic', 'Canada/Central', 'Canada/Eastern', 'Canada/Mountain', 'Canada/Newfoundland', 'Canada/Pacific', 'Canada/Saskatchewan', 'Canada/Yukon', 'Chile/Continental', 'Chile/EasterIsland', 'Cuba', 'EET', 'EST', 'EST5EDT', 'Egypt', 'Eire', 'Etc/GMT', 'Etc/GMT+0', 'Etc/GMT+1', 'Etc/GMT+10', 'Etc/GMT+11', 'Etc/GMT+12', 'Etc/GMT+2', 'Etc/GMT+3', 'Etc/GMT+4', 'Etc/GMT+5', 'Etc/GMT+6', 'Etc/GMT+7', 'Etc/GMT+8', 'Etc/GMT+9', 'Etc/GMT-0', 'Etc/GMT-1', 'Etc/GMT-10', 'Etc/GMT-11', 'Etc/GMT-12', 'Etc/GMT-13', 'Etc/GMT-14', 'Etc/GMT-2', 'Etc/GMT-3', 'Etc/GMT-4', 'Etc/GMT-5', 'Etc/GMT-6', 'Etc/GMT-7', 'Etc/GMT-8', 'Etc/GMT-9', 'Etc/GMT0', 'Etc/Greenwich', 'Etc/UCT', 'Etc/UTC', 'Etc/Universal', 'Etc/Zulu', 'Europe/Amsterdam', 'Europe/Andorra', 'Europe/Astrakhan', 'Europe/Athens', 'Europe/Belfast', 'Europe/Belgrade', 'Europe/Berlin', 'Europe/Bratislava', 'Europe/Brussels', 'Europe/Bucharest', 'Europe/Budapest', 'Europe/Busingen', 'Europe/Chisinau', 'Europe/Copenhagen', 'Europe/Dublin', 'Europe/Gibraltar', 'Europe/Guernsey', 'Europe/Helsinki', 'Europe/Isle_of_Man', 'Europe/Istanbul', 'Europe/Jersey', 'Europe/Kaliningrad', 'Europe/Kiev', 'Europe/Kirov', 'Europe/Lisbon', 'Europe/Ljubljana', 'Europe/London', 'Europe/Luxembourg', 'Europe/Madrid', 'Europe/Malta', 'Europe/Mariehamn', 'Europe/Minsk', 'Europe/Monaco', 'Europe/Moscow', 'Europe/Nicosia', 'Europe/Oslo', 'Europe/Paris', 'Europe/Podgorica', 'Europe/Prague', 'Europe/Riga', 'Europe/Rome', 'Europe/Samara', 'Europe/San_Marino', 'Europe/Sarajevo', 'Europe/Saratov', 'Europe/Simferopol', 'Europe/Skopje', 'Europe/Sofia', 'Europe/Stockholm', 'Europe/Tallinn', 'Europe/Tirane', 'Europe/Tiraspol', 'Europe/Ulyanovsk', 'Europe/Uzhgorod', 'Europe/Vaduz', 'Europe/Vatican', 'Europe/Vienna', 'Europe/Vilnius', 'Europe/Volgograd', 'Europe/Warsaw', 'Europe/Zagreb', 'Europe/Zaporozhye', 'Europe/Zurich', 'GB', 'GB-Eire', 'GMT', 'GMT+0', 'GMT-0', 'GMT0', 'Greenwich', 'HST', 'Hongkong', 'Iceland', 'Indian/Antananarivo', 'Indian/Chagos', 'Indian/Christmas', 'Indian/Cocos', 'Indian/Comoro', 'Indian/Kerguelen', 'Indian/Mahe', 'Indian/Maldives', 'Indian/Mauritius', 'Indian/Mayotte', 'Indian/Reunion', 'Iran', 'Israel', 'Jamaica', 'Japan', 'Kwajalein', 'Libya', 'MET', 'MST', 'MST7MDT', 'Mexico/BajaNorte', 'Mexico/BajaSur', 'Mexico/General', 'NZ', 'NZ-CHAT', 'Navajo', 'PRC', 'PST8PDT', 'Pacific/Apia', 'Pacific/Auckland', 'Pacific/Bougainville', 'Pacific/Chatham', 'Pacific/Chuuk', 'Pacific/Easter', 'Pacific/Efate', 'Pacific/Enderbury', 'Pacific/Fakaofo', 'Pacific/Fiji', 'Pacific/Funafuti', 'Pacific/Galapagos', 'Pacific/Gambier', 'Pacific/Guadalcanal', 'Pacific/Guam', 'Pacific/Honolulu', 'Pacific/Johnston', 'Pacific/Kiritimati', 'Pacific/Kosrae', 'Pacific/Kwajalein', 'Pacific/Majuro', 'Pacific/Marquesas', 'Pacific/Midway', 'Pacific/Nauru', 'Pacific/Niue', 'Pacific/Norfolk', 'Pacific/Noumea', 'Pacific/Pago_Pago', 'Pacific/Palau', 'Pacific/Pitcairn', 'Pacific/Pohnpei', 'Pacific/Ponape', 'Pacific/Port_Moresby', 'Pacific/Rarotonga', 'Pacific/Saipan', 'Pacific/Samoa', 'Pacific/Tahiti', 'Pacific/Tarawa', 'Pacific/Tongatapu', 'Pacific/Truk', 'Pacific/Wake', 'Pacific/Wallis', 'Pacific/Yap', 'Poland', 'Portugal', 'ROC', 'ROK', 'Singapore', 'Turkey', 'UCT', 'US/Alaska', 'US/Aleutian', 'US/Arizona', 'US/Central', 'US/East-Indiana', 'US/Eastern', 'US/Hawaii', 'US/Indiana-Starke', 'US/Michigan', 'US/Mountain', 'US/Pacific', 'US/Samoa', 'UTC', 'Universal', 'W-SU', 'WET', 'Zulu']
@@ -224,24 +225,14 @@ def friend_circle_request_2():
 def friend_circle_request_3(): #Image url is optional. If there is no image, dont send the parameter.
     try:
         output_list = []
-
-        parameters = {
-            "request_id": 3,
-            "referrer_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
-            "referred_user_id": "f8df7ffe-427b-4e7e-b0c5-5a63a93d1131",
-            "group_name" : "Jagan Circle",
-            "image_url" : "http://www.roo.com",
-            "age" : 23,
-            "gender": "M"
-        }
-
         parameters = { "request_id": 3,
-            "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
-            "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
+            "referrer_user_id": '7d09a56f-99fd-40a2-b694-4a8a8982c47a',
+            "referred_user_id": 'ae61c5ff-5437-4504-b60b-9f61337e1d4d',
             "group_name" : "Lovely 2022",
             "image_url" : "http://www.roo.com",
-            "age" : 23,
+            "age" : 7,
             "gender": "M"}
+
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -254,7 +245,7 @@ def friend_circle_request_4():
     try:
         output_list = []
         parameters = {"request_id": 4,
-            "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+            "referrer_user_id": '80cdb839-46ff-4523-be09-422ba6476c7a',
             "email_address": "mkmknbn@gmail.com",
             "phone_number": "918768768563",
             "first_name": "Jaddusachin",
@@ -316,12 +307,12 @@ def get_friend_circle():
         return False
 
 # Call this API when you want to get the friend circle data for a given user.
-def get_friend_circles():
+def get_friend_circle_summary():
     try:
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2"
+            "user_id":  "8eefa6e5-0b37-48cd-8757-be6041a421ca",
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -400,25 +391,25 @@ def approve_occasion():
         output_list = []
         parameters = {
             "request_id": 3,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "creator_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "occasion_id":1,
+            "friend_circle_id": 'ae48a387-fdc2-456c-b4cd-d7f204406fa0',
+            "creator_user_id": 	"8eefa6e5-0b37-48cd-8757-be6041a421ca",
+            "occasion_id":"014819e4-7931-4b27-9456-8a31ea351efc",
             "flag": 1
         }
-        response = requests.post("http://localhost:5000/api/user/occasion", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
 
-def get_occasion():
+def get_occasion_details():
     try:
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86'
+            "friend_circle_id": "ae48a387-fdc2-456c-b4cd-d7f204406fa0"
         }
-        response = requests.get("http://localhost:5000/api/user/occasion", params=parameters)
+        response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -485,11 +476,13 @@ def add_subcategory_to_user():
         output_list = []
         parameters = {
             "request_id": 1,
-            "referred_user_id" : "3d6c38b3-1873-428f-9196-688f6970b8c2",
-            "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "referred_user_id" : '7d09a56f-99fd-40a2-b694-4a8a8982c47a',
+            "friend_circle_id": "90af806b-1396-4b85-87c9-f7c3dae5b482",
             "list_subcategory_id": [{"web_subcategory_id":"A123", "vote":1}, {"web_subcategory_id":"A124", "vote":1}]
         }
-        response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
+        #response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
+        response = requests.post("http://gemift.uw.r.appspot.com/api/interest", json=parameters)
+
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -502,8 +495,8 @@ def get_user_subcategory():
         output_list = []
         parameters = {
             "request_id": 2,
-            "friend_circle_id":"6eec4abc-59ec-4c0a-a236-3ac02d33a4f7",
-            "age" : 35
+            "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0",
+            "age" : 20
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -513,18 +506,18 @@ def get_user_subcategory():
 
 
 # to show the categories and subcategories chosen by the user and friends
-# def get_user_selection_category_and_subcategory():
-#     try:
-#         output_list = []
-#         parameters = {
-#             "request_id": 3,
-#             "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
-#         }
-#         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
-#         print("The response is ", response.json())
-#         return response.status_code
-#     except Exception as e:
-#         return False
+def get_user_selection_category_and_subcategory():
+     try:
+         output_list = []
+         parameters = {
+             "request_id": 3,
+             "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+         }
+         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+         print("The response is ", response.json())
+         return response.status_code
+     except Exception as e:
+         return False
 
 # to upload image
 def upload_image():
@@ -553,8 +546,8 @@ def notify_landing_page():
         output_list = []
         parameters = {
             "request_id": 1,
-            "user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
-            "phone_number": "9500153858"
+            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca",
+            "phone_number": "919500153858"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -570,12 +563,12 @@ def creat_custom_occasion():
         output_list = []
         parameters = {
             "request_id": 4,
-            "occasion_name" : "Test2 Raju day",
-            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
-            "creator_user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
+            "occasion_name" : "Birthday",
+                "friend_circle_id":"92fef2d0-14fa-4f4f-b42d-7e91469eccc9",
+            "creator_user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59",
             "occasion_date" : "05/04/2022",
             "value_timezone" : "US/Pacific",
-            "frequency" : "Every Year"
+            "frequency" : "Every Week"
         }
 
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
@@ -604,9 +597,11 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
         output_list = []
         parameters = {
             "request_id": 3,
-            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+            "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
+        response = requests.get("https://gemift.uw.r.appspot.com/api/user/occasion", params=parameters)
+
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -617,8 +612,8 @@ def contributor_approval():  # Note: friend circle id is optional. You send frie
         output_list = []
         parameters = {
             "request_id": 7,
-            "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
-            "phone_number" : "14252815459",
+            "friend_circle_id": "42ab88ce-ab48-4e93-a308-8a550abb491e",
+            "phone_number" : "919551027363",
             "signal" : 1
         }
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
@@ -662,6 +657,8 @@ def get_secret_friend_age_gender():
             "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25"
         }
         response = requests.get("http://0.0.0.0:8081/api/attr", params=parameters)
+
+
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -683,12 +680,12 @@ def update_secret_friend_age_gender():
     except Exception as e:
         return False
 
-def occasion_approval():
+def get_unapproved_occasions():
     try:
         output_list = []
         parameters = {
             "request_id": 6,
-            "user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3"
+            "user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -702,7 +699,7 @@ def app_notification():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+            "user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59",
             "phone_number": "9500153858"
         }
 
@@ -711,6 +708,72 @@ def app_notification():
         return response.status_code
     except Exception as e:
         return False
+
+
+def gmm_initiate_team_buy():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "initiate_team_buy"
+        }
+
+        response = requests.post("http://localhost:5000/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
+def st_friend_circle_request_4():
+    try:
+        for x in range(4,50):
+            email_address = "XXmkIyengar" + str(x) + "@gmail.com"
+            phone_number = 918768768500 + x
+            first_name = "Avatar" + str(x)
+            last_name = 'God' + str(x)
+            group_name = "stress test" + str(x)
+            parameters = {"request_id": 4,
+            "referrer_user_id": '80cdb839-46ff-4523-be09-422ba6476c7a',
+            "email_address": email_address,
+            "phone_number": phone_number,
+            "first_name": first_name,
+            "last_name": last_name,
+            "gender": "M",
+            "location": "India",
+            "group_name": group_name,
+            "image_url": "http://www.roo.com",
+            "age": 45}
+
+            response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
+            print("The response is ", response.json(), response.status_code)
+    except Exception as e:
+        print ("The error is ", e)
+        return False
+
+def st_friend_circle_request_2():
+    try:
+        for x in range(101,150):
+            email_address = "XXmkIyengar" + str(x) + "@gmail.com"
+            phone_number = 918768768300 + x
+            first_name = "Rama" + str(x)
+            last_name = 'Krishna' + str(x)
+            parameters = {"request_id": 2,
+             "friend_circle_id": '8abaf99c-8dc5-4cfc-9d8d-3dbe72492f9f',
+                 "referrer_user_id": '80cdb839-46ff-4523-be09-422ba6476c7a',
+             "email_address": email_address,
+             "phone_number": phone_number,
+             "first_name": first_name,
+            "last_name": last_name,
+            "gender": "M",
+            "age": 32,
+            "location": "India"
+            }
+            response = requests.post("http://0.0.0.0.:8081/api/friend/circle", json=parameters)
+            print ("The response is ", response.json(),response.status_code)
+    except Exception as e:
+        print ("The error is", e)
+        return False
+
 
 try:
     output_hash = []
@@ -739,9 +802,10 @@ try:
     #status_code = create_occasion()
     #status_code = vote_occasion()
     #status_code = approve_occasion()
-    #status_code = get_occasion()
+    #status_code = get_occasion_details()
+    #status_code = get_occasion_details()
     #status_code = get_friend_circle()
-    #status_code = get_friend_circles()
+    status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
     #status_code = search_product_detail()
@@ -755,13 +819,17 @@ try:
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
+    #status_code = contributor_approval()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
     #status_code = get_secret_friend_age_gender()
     #status_code = update_secret_friend_age_gender()
-    #status_code = occasion_approval()
-    status_code = app_notification()
+    #status_code = get_unapproved_occasions()
+    #status_code = app_notification()
+    #status_code = gmm_initiate_team_buy()
+    #status_code = st_friend_circle_request_4()
+    #status_code = st_friend_circle_request_2()
     print ("The status code is", status_code)
 
 except Exception as e:

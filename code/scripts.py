@@ -9,16 +9,18 @@ from dateutil.relativedelta import relativedelta
 utc_now_dt = datetime.now(tz=pytz.UTC)
 formatted_datetime = utc_now_dt.strftime("%d-%m-%Y %H-%M-%S")
 current_date_time = datetime.strptime(formatted_datetime, "%d-%m-%Y %H-%M-%S")
-birth_date = '1975-02-01'
-y = datetime.strptime(birth_date, '%Y-%m-%d')
+birth_date = '02-02-2023'
+first_reminder_date = datetime.strptime(birth_date, "%d-%m-%Y")
 print (current_date_time.date())
 print (formatted_datetime)
 print(utc_now_dt)
-print (y)
 
-x = relativedelta(current_date_time.date(), y.date())
 
-print(x.years)
+x = relativedelta(current_date_time.date(), first_reminder_date.date()).months
+
+yy = current_date_time.date() - first_reminder_date.date()
+
+print("The difference is " , x, yy.days)
 
 
 def get_user_birthday():
@@ -31,18 +33,60 @@ def get_user_birthday():
 
 
 def calculate_dates(original_date, now):
-    delta1 = datetime(now.year, original_date.month, original_date.day)
+    delta1 = datetime(now.year, original_date.month, 1)
     delta2 = datetime(now.year + 1, original_date.month, original_date.day)
-
+    print("delta1 is", delta1)
+    print ("delta2 is", delta2)
     return ((delta1 if delta1 > now else delta2) - now).days
 
 
 #bd = get_user_birthday()
 now = datetime.now()
-bd = datetime.strptime('1975-07-30', '%Y-%m-%d')
+xx = "1982-02-28 12:34:23"
+try:
+    bd = datetime.strptime(xx, '%Y-%m-%d %H:%M:%S')
+except ValueError as e:
+    print ("Error in the date")
+    exit()
 c = calculate_dates(bd, now)
-
 print(c)
+
+l = []
+l.append({"a":3, "b":5})
+l.append({"x":3, "s":5})
+
+for i in l:
+    i.update({"aa":4})
+
+for i in l:
+    print (i)
+
+
+# class ctest:
+#     x = []
+#     def __init__(self):
+#         self.__x = "abc"
+#         self.__y ="kris"
+#
+#     @property
+#     def x(self):
+#         return self.__x
+#
+#     @x.setter
+#     def status(self, value):
+#         self.__x = value
+#
+#     def test_members(self):
+#         return self.__x + self.__y
+#     def hello(self):
+#         return "Hello class"
+#
+#
+# va = ctest()
+# print (va.__dict__)
+# ss = MyEncoder.default(va)
+# print (ss)
+
 # class Item(object):
 #     def __init__(self, name, price):
 #         self.name = name
@@ -182,3 +226,54 @@ for row in rs["hits"]["hits"]:
 print ("I connected")
 
 """
+
+
+# class Friend:
+#     all = []
+#     def __init__(self):
+#         self.__fname = None
+#         self.__lname = None
+#         self.__fid = None
+#
+#     @property
+#     def fname(self):
+#         return self.__fname
+#
+#     @fname.setter
+#     def fname(self, value):
+#         self.__fname = value
+#
+#     @property
+#     def lname(self):
+#         return self.__lname
+#
+#     @lname.setter
+#     def lname(self, value):
+#         self.__lname = value
+#
+#     @property
+#     def fid(self):
+#         return self.__fid
+#
+#     @fid.setter
+#     def fid(self, value):
+#         self.__fid = value
+#
+# #DB Class
+# class db_friend()
+#     def db_load_friend(self, obj, fname,lname):
+#         obj.fname = fname
+#         obj.lname  = lname
+#         obj.fid = "XYZ"
+#
+#         obj.all.append(obj)
+#
+# # function that acts on the friend class
+#
+# def manage_friend():
+#     fname = "Joe"
+#     lname = "Root"
+#     objfriend = Friend()
+#     db_friend.db_load_friend(objfriend, fname,lname)
+#     print (objfriend.fname)
+#     print (objfriend.fid)
