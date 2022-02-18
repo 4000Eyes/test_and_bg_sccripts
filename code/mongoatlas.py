@@ -31,8 +31,6 @@ def search_product():
     try:
         parameters = {
             "request_id": 1,
-            "age_floor" : 10,
-            "age_ceiling": 20,
             "sort_order": "ASC",
             "occasion_list": ("Birthday","Marriage")
         }
@@ -161,7 +159,7 @@ def test_login_phone():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "phone_number": "9500153858",
+            "phone_number": "14252815459",
             "password" : "Krishna123@"
         }
         response = requests.post("http://0.0.0.0:8081/api/phone/login", json=parameters)
@@ -380,7 +378,17 @@ def vote_occasion():
             "value": "10/12/1979",
             "value_timezone":"America/New_York"
         }
-        response = requests.post("http://localhost:5000/api/user/occasion", json=parameters)
+
+        parameters = {
+        "request_id":2,
+      "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0",
+        "creator_user_id":"f7d403d9-ceb4-4e47-b074-db8c70427f7c",
+        "occasion_id":1,
+        "flag":1,
+        "value":"10/12/1979",
+        "value_timezone": "America/New_York"
+        }
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -407,7 +415,21 @@ def get_occasion_details():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": "ae48a387-fdc2-456c-b4cd-d7f204406fa0"
+            "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f",
+            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
+        }
+        response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_occasions_by_user():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 2,
+            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         print("The response is ", response.json())
@@ -443,7 +465,7 @@ def get_category():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id" : "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+            "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0"
         }
         response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
         print("The response is ", response.json())
@@ -476,10 +498,11 @@ def add_subcategory_to_user():
         output_list = []
         parameters = {
             "request_id": 1,
-            "referred_user_id" : '7d09a56f-99fd-40a2-b694-4a8a8982c47a',
-            "friend_circle_id": "90af806b-1396-4b85-87c9-f7c3dae5b482",
+            "referred_user_id" : '7d09a56f-99fd-40a2-b694-4a8a8982c47',
+            "friend_circle_id": "7936eda4-3c75-4091-b55c-fca6f03addb6",
             "list_subcategory_id": [{"web_subcategory_id":"A123", "vote":1}, {"web_subcategory_id":"A124", "vote":1}]
         }
+
         #response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
         response = requests.post("http://gemift.uw.r.appspot.com/api/interest", json=parameters)
 
@@ -717,6 +740,45 @@ def gmm_initiate_team_buy():
             "request_type": "initiate_team_buy"
         }
 
+        response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def gmm_adjusted_user_share():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "adjusted_user_share"
+        }
+
+        response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def opt_out():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "opt_out"
+        }
+
+        response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def pay_amount():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "pay_amount"
+        }
+
         response = requests.post("http://localhost:5000/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -803,11 +865,12 @@ try:
     #status_code = vote_occasion()
     #status_code = approve_occasion()
     #status_code = get_occasion_details()
-    #status_code = get_occasion_details()
+    #status_code = get_occasions_by_user()
     #status_code = get_friend_circle()
-    status_code = get_friend_circle_summary()
+    #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
+    status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_product_votes()
@@ -827,9 +890,13 @@ try:
     #status_code = update_secret_friend_age_gender()
     #status_code = get_unapproved_occasions()
     #status_code = app_notification()
-    #status_code = gmm_initiate_team_buy()
     #status_code = st_friend_circle_request_4()
     #status_code = st_friend_circle_request_2()
+    #status_code = gmm_initiate_team_buy()
+    #status_code = pay_amount()
+    #status_code = gmm_adjusted_user_share()
+    #status_code = opt_out()
+
     print ("The status code is", status_code)
 
 except Exception as e:
