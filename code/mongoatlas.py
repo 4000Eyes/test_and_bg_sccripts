@@ -28,6 +28,23 @@ def user_search():
 
 
 def search_product():
+    """
+       #following parameters are optional, but send to improve the selection.
+       friend_circle_id : You may have to send it most of the time as the search will be done for specific secret friend.
+       category: send it in the format used for occasion_list (as shown below). In other words, an array. You send this when the user wants to filter.
+       subcategory: send it in the format as shown for occasion_list. You send this array when the user wants to filter.
+
+       In the future I will add the following
+       brand: same format as occasion_list
+       colot: same forat as occasion_list.
+
+       When the friend circle id is sent. The API will look for all the category and subcategory for the secret friend.
+       I am actively implementing this funcitonality.
+
+    :return:
+    """
+
+
     try:
         parameters = {
             "request_id": 1,
