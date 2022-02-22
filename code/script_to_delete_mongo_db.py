@@ -40,15 +40,22 @@ def delete_user(db_handle, collection_name):
         print("The error is ", e)
         return False
 
+print ("The script has started")
+db = connect_to_mongo()
 val = input("Are you sure you want to run this script?")
 if val == "yes":
     x = input("Running this script will delete data. Are you sure?")
     if x == "yes":
         print ("I am inside the script")
-        db = connect_to_mongo()
-        delete_user(db,"user")
-        delete_user(db,"approval_queue")
-        delete_user(db, "notification_and_recommendation")
+        y = input("Type the table id: product(1), user(2), approval queue(3), notification(4)")
+        if int(y) == 1:
+            delete_user(db, "gemift_product_db")
+        if int(y) == 2:
+            delete_user(db,"user")
+        if int(y) == 3:
+            delete_user(db,"approval_queue")
+        if int(y) == 4:
+            delete_user(db, "notification_and_recommendation")
     else:
         exit(1)
 exit(1)

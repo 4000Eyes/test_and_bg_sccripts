@@ -1,4 +1,5 @@
 import json
+import re
 
 import elasticsearch
 from elasticsearch import Elasticsearch
@@ -61,6 +62,16 @@ for i in l:
 for i in l:
     print (i)
 
+data = {}
+data["product_id"] = 1
+json_data = json.dumps(data)
+print ("The json is", json_data)
+
+raw_list = '("A","B")'
+if raw_list.find("\(\)"):
+    raw_list =  raw_list.replace('('," ")
+    raw_list = raw_list.replace(')', " ")
+    print ("Raw list is", raw_list)
 
 # class ctest:
 #     x = []

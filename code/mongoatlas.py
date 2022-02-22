@@ -49,10 +49,10 @@ def search_product():
         parameters = {
             "request_id": 1,
             "sort_order": "ASC",
-            "occasion_list": ("Birthday","Marriage"),
+            "occasion_list": ("1","2"),
             "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f"
         }
-        #response = requests.get("https://gemift.uw.r.appspot.com/api/prod/search", params=parameters)
+        #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
         response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
         print("The status code for relationshup is", response.status_code, parameters)
         print ("The toutput is ", response.json())
@@ -79,17 +79,7 @@ def search_product_detail():
 
 def vote_product():
     try:
-        parameters = {
-            "request_id": 8,
-            "product_id" : 2,
-            "friend_circle_id":'95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "user_id" : '55e77082-d4c2-4bfa-8032-57f461765591',
-            "vote" : 1,
-            "comment": "He will love this product",
-            "occasion_name" : "birthday",
-            "occasion_year": 2021
-        }
-
+        #Dont need friend id
         parameters = {
             "request_id": 8,
             "product_id" : 2,
@@ -117,7 +107,7 @@ def get_product_votes():
             "occasion_name" : "birthday",
             "occasion_year": 2021
         }
-        response = requests.get("http://localhost:5000/api/prod/search", json=parameters)
+        response = requests.get("http://0.0.0.0:8081/api/prod/search", params=parameters)
         print("The status code for relationshup is", response.status_code, parameters)
         print ("The toutput is ", response.json())
         return response.status_code
@@ -898,9 +888,9 @@ try:
     #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
-    #status_code = search_product()
+    status_code = search_product()
     #status_code = search_product_detail()
-    status_code = vote_product()
+    #status_code = vote_product()
     #status_code = get_product_votes()
     #status_code = get_category()
     #status_code = add_category_to_user()
