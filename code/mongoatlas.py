@@ -78,6 +78,7 @@ def search_product_detail():
         return 400
 
 def vote_product():
+    # changes from get to post
     try:
         #Dont need friend id
         parameters = {
