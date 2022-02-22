@@ -90,7 +90,7 @@ def vote_product():
             "occasion_name" : "birthday",
             "occasion_year": 2021
         }
-        response = requests.get("http://0.0.0.0:8081/api/prod/search", params=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/prod/search", json=parameters)
         print("The status code for relationshup is", response.status_code, parameters)
         print ("The toutput is ", response.json())
         return response.status_code
@@ -417,9 +417,9 @@ def approve_occasion():
         output_list = []
         parameters = {
             "request_id": 3,
-            "friend_circle_id": 'ae48a387-fdc2-456c-b4cd-d7f204406fa0',
-            "creator_user_id": 	"8eefa6e5-0b37-48cd-8757-be6041a421ca",
-            "occasion_id":"014819e4-7931-4b27-9456-8a31ea351efc",
+            "friend_circle_id":"39b307b2-1be0-4f98-b1fd-e86bb59c0440",
+            "creator_user_id": "9c1e6fee-aee1-4193-a57a-a67337b5a9b6",
+            "occasion_id":"ABC123",
             "flag": 1
         }
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
@@ -881,14 +881,14 @@ try:
     #status_code = friend_circle_request_6()
     #status_code = create_occasion()
     #status_code = vote_occasion()
-    #status_code = approve_occasion()
+    status_code = approve_occasion()
     #status_code = get_occasion_details()
     #status_code = get_occasions_by_user()
     #status_code = get_friend_circle()
     #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
-    status_code = search_product()
+    #status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_product_votes()
