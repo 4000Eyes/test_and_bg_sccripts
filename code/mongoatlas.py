@@ -83,11 +83,13 @@ def vote_product():
         #Dont need friend id
         parameters = {
             "request_id": 8,
-            "product_id" : 2,
-            "friend_circle_id":'95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "user_id" : '8eefa6e5-0b37-48cd-8757-be6041a421ca',
+            "product_id" : 14809,
+            "product_title" : "This is a test product",
+            "price" : 25.89,
+            "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0",
+            "user_id" : "8eefa6e5-0b37-48cd-8757-be6041a421ca",
             "vote" : 1,
-            "comment": "He will love this product",
+            "comment": "He will love this pr",
             "occasion_name" : "birthday",
             "occasion_year": 2021
         }
@@ -99,12 +101,11 @@ def vote_product():
         print("There is an exception with the request", e)
         return 400
 
-def get_product_votes():
+def get_voted_products():
     try:
         parameters = {
             "request_id": 5,
-            "product_id" : 2,
-            "friend_circle_id":'95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
+            "friend_circle_id":"95b38dd9-bdcf-40d6-8a69-4ed50cce4e86",
             "occasion_name" : "birthday",
             "occasion_year": 2021
         }
@@ -882,7 +883,7 @@ try:
     #status_code = friend_circle_request_6()
     #status_code = create_occasion()
     #status_code = vote_occasion()
-    status_code = approve_occasion()
+    #status_code = approve_occasion()
     #status_code = get_occasion_details()
     #status_code = get_occasions_by_user()
     #status_code = get_friend_circle()
@@ -892,7 +893,7 @@ try:
     #status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
-    #status_code = get_product_votes()
+    status_code = get_voted_products()
     #status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = add_subcategory_to_user()
