@@ -49,7 +49,7 @@ def search_product():
         parameters = {
             "request_id": 1,
             "sort_order": "ASC",
-            "occasion_list": ("1","2"),
+            "occasion_list": ("ABC123","2"),
             "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f"
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
@@ -194,7 +194,7 @@ def friend_circle_request_1():
     try:
         output_list = []
 
-        parameters =         {"request_id": 1,
+        parameters =    {"request_id": 1,
          "friend_circle_id": "054c1679-daa4-4793-88b4-3790995b6b6d",
          "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
          "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6"
@@ -757,7 +757,16 @@ def gmm_initiate_team_buy():
     try:
         output_list = []
         parameters = {
-            "request_type": "initiate_team_buy"
+            "request_type": "initiate_team_buy",
+        "contributor":{"user_id":"A1","product_id":"123",
+                        "expiration_date":"09-20-2022","occasion_id":"12","friend_circle_id":"AS12","occasion_date":"12-01-2022",
+                        "first_name":"Kris", "last_nname":"Raman","time_zone":"US/Pacific","product_price":20.2, "misc_cost":10.2, "notes": This is test},
+        "friends":[            {"user_id": "a1", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
+                 "email_address": "k1@gmail.com", "opt_in_flag": "Y", "opt_in_date": "2022-01-26 12:00:34"},
+                                   {"user_id": "a1", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
+                                    "email_address": "k1@gmail.com", "opt_in_flag": "Y",
+                                    "opt_in_date": "2022-01-26 12:00:34"}
+                                   ]
         }
 
         response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
@@ -770,7 +779,11 @@ def gmm_adjusted_user_share():
     try:
         output_list = []
         parameters = {
-            "request_type": "adjusted_user_share"
+            "request_type": "adjusted_user_share",
+            "transaction_id": "ASE#",
+            "user_id":"ABS",
+            "adjusted_cost": 20.23
+
         }
 
         response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
@@ -783,7 +796,10 @@ def opt_out():
     try:
         output_list = []
         parameters = {
-            "request_type": "opt_out"
+            "request_type": "opt_out",
+            "transaction_id":"AS232",
+            "user_id": "ASW",
+            "opt_in_flag": "N"
         }
 
         response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
@@ -796,10 +812,62 @@ def pay_amount():
     try:
         output_list = []
         parameters = {
-            "request_type": "pay_amount"
+            "request_type": "pay_amount",
+            "transaction_id": "ASW232",
+            "paid_amount": 12.34,
+            "user_id":"A1"
+
         }
 
         response = requests.post("http://localhost:5000/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
+def transaction_management():
+    #READ:
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "cancel_transaction|activate_transaction|complete_transaction",
+            "transaction_id": "ASW232"
+        }
+
+        response = requests.post("http://localhost:5000/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
+def get_transaction():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "get_team_buy_status",
+            "transaction_id": "ASW232"
+        }
+
+        response = requests.get("http://localhost:5000/api/gmm/txn", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
+def get_transaction_by_user():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "get_team_buy_status_by_user",
+            "transaction_id": "ASW232",
+            "user_id": "A1"
+
+        }
+
+        response = requests.get("http://localhost:5000/api/gmm/txn", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -890,10 +958,10 @@ try:
     #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
-    #status_code = search_product()
+    status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
-    status_code = get_voted_products()
+    #status_code = get_voted_products()
     #status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = add_subcategory_to_user()

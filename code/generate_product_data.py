@@ -13,7 +13,7 @@ price = [10.02,20.02,30.03,40.03,50.09,60.09,80.90, 120.20, 140.08, 200.00]
 age_range_list = [[0,5],[6,10,],[11,15], [15,19], [20,30], [31,39], [40,49], [50,60], [60,100],[101,150]]
 gender_list = ["male","female","both"]
 website_url = ["http://www.amazon.com","http://www.flipkart.com","http:///www.ebay.com","http:///www.dealshare.in"]
-occasion = [["Birthday","1"], ["Valentines Day","2"],["Wedding Anniversary","3"],["Friends Day","4"],["Mothers day","5"],["Fathers Day","6"]]
+occasion = [["Birthday","ABC123"], ["Valentines Day","2"],["Wedding Anniversary","3"],["Friends Day","4"],["Mothers day","5"],["Fathers Day","6"]]
 season_product = ["Y","N"]
 country = ["India","Europe","USA","Singapore","Hong Kong","Malaysia","Thailand", "All"]
 
