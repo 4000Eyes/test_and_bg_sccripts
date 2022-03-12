@@ -82,9 +82,8 @@ def search_product():
         parameters = {
             "request_id": 1,
             "sort_order": "ASC",
-            "subcategory_list" : ("A1","A2"),
-            "price_from": 100.01,
-            "price_to": 140.09,
+            "price_from":20.23,
+            "price_to":70.50,
             "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f"
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
@@ -200,6 +199,35 @@ def test_login():
            # "email" : "Vidya1232@gmail.com",
             "email": "kokki@gmail.com",
             "password" : "Krishna123@"
+        }
+        response = requests.post("http://0.0.0.0:8081/api/forgotpassword", json=parameters)
+        #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
+        print ("The response is ", response.json())
+        return response.json()
+    except Exception as e:
+        print("There is an exception with the request", e)
+        return 400
+
+def test_reset():
+    try:
+        output_list = []
+        parameters = {
+            "reset_token": "kokki#$GHRYmsteury%^.com",
+            "password" : "Krishna123@"
+        }
+        response = requests.post("http://0.0.0.0:8081/api/reset", json=parameters)
+        #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
+        print ("The response is ", response.json())
+        return response.json()
+    except Exception as e:
+        print("There is an exception with the request", e)
+        return 400
+
+def test_forgot_password():
+    try:
+        output_list = []
+        parameters = {
+            "email": "kokki@gmail.com"
         }
         response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
@@ -406,13 +434,14 @@ def create_occasion():
     try:
         output_list = []
 
-
-        parameters = {"request_id": 1,
-                      "friend_circle_id": "e28c1f45-164d-4ebd-b677-87a7a48b27c3",
-                      "creator_user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
-                      "occasion_id": 1,
-                      "occasion_date": "01/02/2000",
-                      "occasion_timezone": "America/New_York"}
+        parameters = {
+            "creator_user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "friend_circle_id": "e951bb22-97da-4715-a74f-abc8d87a6be4",
+            "occasion_date": "05/03/2022",
+            "occasion_id": "ABC123",
+            "request_id": 1,
+            "value_timezone": ""
+        }
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
 
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
@@ -425,19 +454,9 @@ def vote_occasion():
     try:
         output_list = []
         parameters = {
-            "request_id": 2,
-            "friend_circle_id": '95b38dd9-bdcf-40d6-8a69-4ed50cce4e86',
-            "creator_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
-            "occasion_id" : 1,
-            "flag": 1,
-            "value": "10/12/1979",
-            "value_timezone":"America/New_York"
-        }
-
-        parameters = {
         "request_id":2,
-      "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0",
-        "creator_user_id":"f7d403d9-ceb4-4e47-b074-db8c70427f7c",
+      "friend_circle_id":"39b307b2-1be0-4f98-b1fd-e86bb59c0440",
+        "creator_user_id":"9c1e6fee-aee1-4193-a57a-a67337b5a9b6",
         "occasion_id":1,
         "flag":1,
         "value":"10/12/1979",
@@ -470,8 +489,8 @@ def get_occasion_details():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": "e951bb22-97da-4715-a74f-abc8d87a6be4",
-            "user_id": "60ece24-24ce-4496-8a1a-10d1b8fad80b"
+            "friend_circle_id": "39b307b2-1be0-4f98-b1fd-e86bb59c0440",
+            "user_id": "9c1e6fee-aee1-4193-a57a-a67337b5a9b6"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         print("The response is ", response.json())
@@ -613,6 +632,13 @@ def upload_image():
         #     "image_url" : "http://ww.oo.com",
         #     "image_type": "user"
         # }
+
+        parameters = {
+            "entity_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "image_type": "user",
+            "image_url": "https://s3.ap-south-1.amazonaws.com/eazypurchaseproducts.com/images/160ece24-24ce-4496-8a1a-10d1b8fad80b.jpg",
+            "request_id": 3
+        }
         response = requests.post("http://0.0.0.0:8081/api/attr", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -649,6 +675,9 @@ def creat_custom_occasion():
             "frequency" : "Every Week"
         }
 
+        parameters = {"creator_user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b", "frequency": "Every Year",
+         "friend_circle_id": "e951bb22-97da-4715-a74f-abc8d87a6be4", "occasion_date": "05/03/2022",
+         "occasion_name": "Birthday new", "request_id": 4, "value_timezone": ""}
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -995,7 +1024,7 @@ try:
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
     #status_code = test_login_phone()
-    #status_code = test_login()
+    status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
 
@@ -1021,7 +1050,7 @@ try:
     #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
-    status_code = search_product()
+    #status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_voted_products()
@@ -1030,7 +1059,7 @@ try:
     #status_code = add_subcategory_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
-    #status_code = upload_image()
+    status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
     #status_code = contributor_approval()
