@@ -200,7 +200,7 @@ def test_login():
             "email": "kokki@gmail.com",
             "password" : "Krishna123@"
         }
-        response = requests.post("http://0.0.0.0:8081/api/forgotpassword", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())
         return response.json()
@@ -229,7 +229,7 @@ def test_forgot_password():
         parameters = {
             "email": "kokki@gmail.com"
         }
-        response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/forgotpassword", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())
         return response.json()
