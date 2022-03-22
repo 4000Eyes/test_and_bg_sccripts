@@ -840,7 +840,7 @@ def publish_message():
             "request_type": "publish_message",
             "user_id":"a2B"
         }
-
+        #Made some changes
         response = requests.get("http://0.0.0.0:8080/api/gmm/txn", params=parameters)
         print("The response is ", response.json())
         return response.status_code
