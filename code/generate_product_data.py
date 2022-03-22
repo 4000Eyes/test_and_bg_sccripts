@@ -9,11 +9,14 @@ product_title = "This is product title"
 
 category = ["A121","A122","A123","A124","A125","A126","A127","A128","A129","A130","A131"]
 subcategory = ["A1","A2","A3","A4","A5", "A51","A52","A53","A54","A55","A41","A42","A43","A44","A401","A411","A421","A31","A41"]
+cat_name = {"A121": "Electronics","A122":"Home","A123":"Software","A124":"Test2","A125":"Travel","A126":"Hobby","A127":"Running","A128":"Utensils","A129":"Sports","A130":"Outdoors","A131":"Entertainment"}
+subcat_name = {"A1":"Subcat1","A2":"Subcat2","A3":"Subcat3","A4":"Subcat4","A5":"Subcat5", "A51":"Subcat6","A52":"Subcat7","A53":"Subcat8","A54":"Subcat9","A55":"Subcat10",
+               "A41":"Subcat11","A42":"Subcat12","A43":"Subcat13","A44":"Subcat14","A401":"Subcat15","A411":"Subcat16","A421":"Subcat17","A31":"Subcat18","A41":"Subcat19"}
 price = [10.02,20.02,30.03,40.03,50.09,60.09,80.90, 120.20, 140.08, 200.00]
 age_range_list = [[0,5],[6,10,],[11,15], [15,19], [20,30], [31,39], [40,49], [50,60], [60,100],[101,150]]
 gender_list = ["male","female","both"]
 website_url = ["http://www.amazon.com","http://www.flipkart.com","http:///www.ebay.com","http:///www.dealshare.in"]
-occasion = [["Birthday","ABC123"], ["Valentines Day","2"],["Wedding Anniversary","3"],["Friends Day","4"],["Mothers day","5"],["Fathers Day","6"]]
+occasion = [["Birthday","GEM-OCC-999999"], ["Valentines Day","2"],["Wedding Anniversary","GEM-OCC-000124"],["Met my girlfriend","GEM-OCC-000125"],["Mothers day","5"],["Fathers Day","6"]]
 season_product = ["Y","N"]
 country = ["India","Europe","USA","Singapore","Hong Kong","Malaysia","Thailand", "All"]
 
@@ -29,6 +32,8 @@ for cat in category:
             data["product_description"] = product_description + str(product_id)
             data["category"] = cat
             data["subcategory"] = subcat
+            data["category_name"] = cat_name[cat]
+            data["subcategory_name"] = subcat_name[subcat]
             data["price"] = random.choice(price)
             data["gender"] = random.choice(gender_list)
             age_range = random.choice(age_range_list)

@@ -435,10 +435,10 @@ def create_occasion():
         output_list = []
 
         parameters = {
-            "creator_user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
-            "friend_circle_id": "e951bb22-97da-4715-a74f-abc8d87a6be4",
+            "creator_user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
             "occasion_date": "05/03/2022",
-            "occasion_id": "ABC123",
+            "occasion_id": "GEM-OCC-999999",
             "request_id": 1,
             "value_timezone": ""
         }
@@ -455,9 +455,9 @@ def vote_occasion():
         output_list = []
         parameters = {
         "request_id":2,
-      "friend_circle_id":"39b307b2-1be0-4f98-b1fd-e86bb59c0440",
-        "creator_user_id":"9c1e6fee-aee1-4193-a57a-a67337b5a9b6",
-        "occasion_id":1,
+            "creator_user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
+        "occasion_id": "GEM-OCC-999999",
         "flag":1,
         "value":"10/12/1979",
         "value_timezone": "America/New_York"
@@ -472,12 +472,11 @@ def approve_occasion():
     try:
         output_list = []
         parameters = {
-            "request_id": 3,
-            "friend_circle_id":"39b307b2-1be0-4f98-b1fd-e86bb59c0440",
-            "creator_user_id": "9c1e6fee-aee1-4193-a57a-a67337b5a9b6",
-            "occasion_id":"ABC123",
-            "flag": 1
-        }
+                    "creator_user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+                    "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
+                      "flag":"1",
+                      "occasion_id": "GEM-OCC-999999",
+                      "request_id":3}
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -489,8 +488,8 @@ def get_occasion_details():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": "39b307b2-1be0-4f98-b1fd-e86bb59c0440",
-            "user_id": "9c1e6fee-aee1-4193-a57a-a67337b5a9b6"
+            "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         print("The response is ", response.json())
@@ -667,17 +666,15 @@ def creat_custom_occasion():
         output_list = []
         parameters = {
             "request_id": 4,
-            "occasion_name" : "Birthday",
-                "friend_circle_id":"92fef2d0-14fa-4f4f-b42d-7e91469eccc9",
-            "creator_user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59",
+            "occasion_name" : "Birthday For My Doggie",
+            "creator_user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
             "occasion_date" : "05/04/2022",
             "value_timezone" : "US/Pacific",
             "frequency" : "Every Week"
         }
 
-        parameters = {"creator_user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b", "frequency": "Every Year",
-         "friend_circle_id": "e951bb22-97da-4715-a74f-abc8d87a6be4", "occasion_date": "05/03/2022",
-         "occasion_name": "Birthday new", "request_id": 4, "value_timezone": ""}
+
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -687,11 +684,7 @@ def creat_custom_occasion():
 def deactivate_occasion():
     try:
         output_list = []
-        parameters = {
-            "request_id": 5,
-            "occasion_id" : '33408a1e-249e-4053-b9bd-64e4a2f73492',
-            "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
-        }
+        parameters = {"friend_circle_id":"93f1c518-c1db-439c-82e3-6187833d082b","occasion_id":'4b527ffd-968b-418e-9d84-eed9be1ef705',"request_id":5}
 
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
@@ -704,7 +697,7 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
         output_list = []
         parameters = {
             "request_id": 3,
-            "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0"
+            "friend_circle_id":"93f1c518-c1db-439c-82e3-6187833d082b"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         response = requests.get("https://gemift.uw.r.appspot.com/api/user/occasion", params=parameters)
@@ -822,22 +815,38 @@ def gmm_initiate_team_buy():
         output_list = []
         parameters = {
             "request_type": "initiate_team_buy",
-        "contributor":{"user_id":"A1","product_id":"123",
+        "creator": {"user_id":"A1B","product_id":"123",
                         "expiration_date":"09-20-2022","occasion_id":"12","friend_circle_id":"AS12","occasion_date":"12-01-2022",
-                        "first_name":"Kris", "last_nname":"Raman","time_zone":"US/Pacific","product_price":20.2, "misc_cost":10.2, "notes": This is test},
-        "friends":[            {"user_id": "a1", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
+                        "first_name":"Kris", "last_name":"Raman","time_zone":"US/Pacific","product_price":20.2, "phone_number": "4252815459",
+                        "email_address":"kris@gmail.com", "misc_cost":10.2, "notes": "This is test"},
+        "friends":[            {"user_id": "a2B", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
                  "email_address": "k1@gmail.com", "opt_in_flag": "Y", "opt_in_date": "2022-01-26 12:00:34"},
-                                   {"user_id": "a1", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
+                                   {"user_id": "a3B", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
                                     "email_address": "k1@gmail.com", "opt_in_flag": "Y",
                                     "opt_in_date": "2022-01-26 12:00:34"}
                                    ]
         }
 
-        response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
+        response = requests.post("http://0.0.0.0:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
         return False
+
+def publish_message():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "publish_message",
+            "user_id":"a2B"
+        }
+
+        response = requests.get("http://0.0.0.0:8080/api/gmm/txn", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
 
 def gmm_adjusted_user_share():
     try:
@@ -928,7 +937,6 @@ def get_transaction_by_user():
             "request_type": "get_team_buy_status_by_user",
             "transaction_id": "ASW232",
             "user_id": "A1"
-
         }
 
         response = requests.get("http://localhost:5000/api/gmm/txn", params=parameters)
@@ -1024,7 +1032,7 @@ try:
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
     #status_code = test_login_phone()
-    status_code = test_login()
+    #status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
 
@@ -1059,7 +1067,7 @@ try:
     #status_code = add_subcategory_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
-    status_code = upload_image()
+    #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
     #status_code = contributor_approval()
@@ -1074,6 +1082,7 @@ try:
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
     #status_code = gmm_initiate_team_buy()
+    status_code = publish_message()
     #status_code = pay_amount()
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
