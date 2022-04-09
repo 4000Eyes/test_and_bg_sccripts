@@ -1,3 +1,4 @@
+import collections
 import json
 import re
 
@@ -6,6 +7,25 @@ from elasticsearch import Elasticsearch
 import pytz
 from datetime import datetime, tzinfo, timedelta
 from dateutil.relativedelta import relativedelta
+import operator, functools
+
+xdict = {}
+for i in range(1,5):
+    xdict[i] = collections.defaultdict(dict)
+    xdict[i][i] = []
+    xdict[i][i].append({"a":22, "b":2})
+    xdict[i][i].append({"a": 21, "b": 2})
+
+print ("My xdict is", xdict[1][1])
+
+x = list(map(operator.itemgetter('a'), xdict[1][1]))
+
+ll = [1,2,3,4,4,5,5,6]
+ll = set(ll)
+
+print ("The X is", x)
+print ("LL is", ll)
+exit()
 
 utc_now_dt = datetime.now(tz=pytz.UTC)
 formatted_datetime = utc_now_dt.strftime("%d-%m-%Y %H-%M-%S")

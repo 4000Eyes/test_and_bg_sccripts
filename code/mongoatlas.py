@@ -815,13 +815,13 @@ def gmm_initiate_team_buy():
         output_list = []
         parameters = {
             "request_type": "initiate_team_buy",
-        "creator": {"user_id":"A1B","product_id":"123",
-                        "expiration_date":"09-20-2022","occasion_id":"12","friend_circle_id":"AS12","occasion_date":"12-01-2022",
+        "creator": {"user_id":"A1BDDC","product_id":"123",
+                        "expiration_date":"09-20-2022","occasion_id":"13","friend_circle_id":"AS12D","occasion_date":"12-01-2022",
                         "first_name":"Kris", "last_name":"Raman","time_zone":"US/Pacific","product_price":20.2, "phone_number": "4252815459",
                         "email_address":"kris@gmail.com", "misc_cost":10.2, "notes": "This is test"},
-        "friends":[            {"user_id": "a2B", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
+        "friends":[            {"user_id": "a2B2", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
                  "email_address": "k1@gmail.com", "opt_in_flag": "Y", "opt_in_date": "2022-01-26 12:00:34"},
-                                   {"user_id": "a3B", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
+                                   {"user_id": "a3B2", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
                                     "email_address": "k1@gmail.com", "opt_in_flag": "Y",
                                     "opt_in_date": "2022-01-26 12:00:34"}
                                    ]
@@ -838,7 +838,7 @@ def publish_message():
         output_list = []
         parameters = {
             "request_type": "publish_message",
-            "user_id":"a2B"
+            "user_id":"A1BDDC"
         }
         #Made some changes
         response = requests.get("http://0.0.0.0:8080/api/gmm/txn", params=parameters)
@@ -847,6 +847,19 @@ def publish_message():
     except Exception as e:
         return False
 
+def complete_transaction():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "complete_transaction",
+            "transaction_id":"f57f97ba-8680-4d7f-b8a2-4b00bad8bfe0"
+        }
+        #Made some changes
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
 def gmm_adjusted_user_share():
     try:
@@ -945,6 +958,80 @@ def get_transaction_by_user():
     except Exception as e:
         return False
 
+
+def map_category_to_personal_user():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "add_category",
+            "list_category_id": [{"web_category_id": "c3e3805c-8d4a-4bb1-9cb4-7d1d4f05b682", "vote": 1},
+                                 {"web_category_id": "067da0e1-dc08-4ecf-a6c9-a403611c1886", "vote": 1}],,
+            "user_id": "A1"
+        }
+
+        response = requests.post("http://localhost:5000/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def map_subcategory_to_personal_user():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "add_subcategory",
+            "list_subcategory_id": [{"web_subcategory_id": "c3e3805c-8d4a-4bb1-9cb4-7d1d4f05b682", "vote": 1},
+                                 {"web_subcategory_id": "067da0e1-dc08-4ecf-a6c9-a403611c1886", "vote": 1}],,
+            "user_id": "A1"
+        }
+
+        response = requests.post("http://localhost:5000/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_personal_user_category():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "get_category",
+            "user_id": "A1"
+        }
+
+        response = requests.get("http://localhost:5000/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_personal_user_subcategory():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "get_subcategory",
+            "user_id": "A1"
+        }
+
+        response = requests.get("http://localhost:5000/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_match_index():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "get_match_score",
+            "user_id": "A1"
+        }
+
+        response = requests.get("http://localhost:5000/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
 def st_friend_circle_request_4():
     try:
@@ -1082,7 +1169,8 @@ try:
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
     #status_code = gmm_initiate_team_buy()
-    status_code = publish_message()
+    #status_code = publish_message()
+    status_code = complete_transaction()
     #status_code = pay_amount()
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
