@@ -1033,6 +1033,19 @@ def get_match_index():
     except Exception as e:
         return False
 
+def get_home_page_stats():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 8
+        }
+
+        response = requests.get("http://localhost:5000/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
 def st_friend_circle_request_4():
     try:
         for x in range(4,50):
