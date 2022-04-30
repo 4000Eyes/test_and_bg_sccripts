@@ -517,11 +517,11 @@ def test_whatsapp():
             "admin_friend_id" : 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
             "request_id" : 5,
             "user_list" : [
-                    {"email_address":"k1@gmail.com", "phone_number": "425-111-1111", "first_name":"x", "last_name":"y", "gender": "M", "secret_friend" : "Y", "contributor": [id1, id2]},
+                    {"email_address":"k1@gmail.com", "phone_number": "425-111-1111", "first_name":"x", "last_name":"y", "gender": "M", "secret_friend" : "Y", "contributor": "as"},
                 {"email_address": "k2@gmail.com", "phone_number": "425-111-1112", "first_name": "a", "last_name": "b",
-                 "gender": "M", "secret_friend" : "N", "contributor": [id1, id2]},
+                 "gender": "M", "secret_friend" : "N", "contributor": "x2"},
                 {"email_address": "k3@gmail.com", "phone_number": "425-111-1113", "first_name": "a", "last_name": "d",
-                 "gender": "M", "secret_friend":"Y", "contributor": [id1, id2]},
+                 "gender": "M", "secret_friend":"Y", "contributor": "x3"},
                            ]
         }
         response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
@@ -814,20 +814,73 @@ def gmm_initiate_team_buy():
     try:
         output_list = []
         parameters = {
-            "request_type": "initiate_team_buy",
-        "creator": {"user_id":"A1BDDC","product_id":"123",
-                        "expiration_date":"09-20-2022","occasion_id":"13","friend_circle_id":"AS12D","occasion_date":"12-01-2022",
-                        "first_name":"Kris", "last_name":"Raman","time_zone":"US/Pacific","product_price":20.2, "phone_number": "4252815459",
-                        "email_address":"kris@gmail.com", "misc_cost":10.2, "notes": "This is test"},
-        "friends":[            {"user_id": "a2B2", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
-                 "email_address": "k1@gmail.com", "opt_in_flag": "Y", "opt_in_date": "2022-01-26 12:00:34"},
-                                   {"user_id": "a3B2", "first_name": "k", "last_name": "r", "phone_number": "14252892000",
-                                    "email_address": "k1@gmail.com", "opt_in_flag": "Y",
-                                    "opt_in_date": "2022-01-26 12:00:34"}
-                                   ]
+                "creator": {
+                    "email_address": "gesatest1@gmail.com",
+                    "first_name": "sai",
+                    "friend_circle_id": "ddbc9f24-ff6e-4cc5-a5ad-218d5e791b89",
+                    "last_name": "ram",
+                    "misc_cost": 10.2,
+                    "notes": " ",
+                    "expiration_date": "04-28-2022",
+                    "occasion_date": "16/03/2024",
+                    "occasion_id": "a096496e-159f-4888-a51e-0a54772b13c7",
+                    "phone_number": "918883269845",
+                    "product_id": "10210",
+                    "product_price": 10.02,
+                    "time_zone": "Asia/Kolkata",
+                    "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
+                },
+                "friends": [
+                    {
+                        "email_address": " ",
+                        "first_name": "Mani",
+                        "last_name": "Gesa",
+                        "opt_in_date": "",
+                        "opt_in_flag": "y",
+                        "phone_number": "+919500153858",
+                        "user_id": "182c9ef6-cff9-4a31-8251-b5e91b5b97c2"
+                    },
+                    {
+                        "email_address": "maniraman505@gmail.com",
+                        "first_name": "manikandan",
+                        "last_name": "raman",
+                        "opt_in_date": "",
+                        "opt_in_flag": "y",
+                        "phone_number": "919500153858",
+                        "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca"
+                    },
+                    {
+                        "email_address": " ",
+                        "first_name": "Mani",
+                        "last_name": "Gesa",
+                        "opt_in_date": "",
+                        "opt_in_flag": "y",
+                        "phone_number": "+919500153858",
+                        "user_id": "756b94de-4516-4171-a187-5500a782837f"
+                    },
+                    {
+                        "email_address": "abcc@gmail.com",
+                        "first_name": "Gayathri",
+                        "last_name": "Jaisri",
+                        "opt_in_date": "",
+                        "opt_in_flag": "y",
+                        "phone_number": "+918838559899",
+                        "user_id": "6dc95baf-1218-4cc5-ac7a-f8d0bd7ab45c"
+                    },
+                    {
+                        "email_address": "jagan@gmail.com",
+                        "first_name": "Jagan",
+                        "last_name": "S",
+                        "opt_in_date": "",
+                        "opt_in_flag": "y",
+                        "phone_number": "919551027363",
+                        "user_id": "fad3203d-eeb0-4cd6-a3f5-dd803be16527"
+                    }
+                ],
+                "request_type": "initiate_team_buy"
         }
 
-        response = requests.post("http://0.0.0.0:8080/api/gmm/txn", json=parameters)
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -964,12 +1017,12 @@ def map_category_to_personal_user():
         output_list = []
         parameters = {
             "request_type": "add_category",
-            "list_category_id": [{"web_category_id": "c3e3805c-8d4a-4bb1-9cb4-7d1d4f05b682", "vote": 1},
-                                 {"web_category_id": "067da0e1-dc08-4ecf-a6c9-a403611c1886", "vote": 1}],,
-            "user_id": "A1"
+            "list_category_id": [{"web_category_id": "A121", "vote": 1},
+                                 {"web_category_id": "A122", "vote": 1}],
+            "user_id": 'aacd9307-fd55-49b7-b24c-0ddf015974b0'
         }
 
-        response = requests.post("http://localhost:5000/api/personal", params=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/personal", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -980,12 +1033,12 @@ def map_subcategory_to_personal_user():
         output_list = []
         parameters = {
             "request_type": "add_subcategory",
-            "list_subcategory_id": [{"web_subcategory_id": "c3e3805c-8d4a-4bb1-9cb4-7d1d4f05b682", "vote": 1},
-                                 {"web_subcategory_id": "067da0e1-dc08-4ecf-a6c9-a403611c1886", "vote": 1}],,
-            "user_id": "A1"
+            "list_subcategory_id": [{"web_subcategory_id": "A1", "vote": 1},
+                                 {"web_subcategory_id": "A2", "vote": 1}],
+            "user_id": 'aacd9307-fd55-49b7-b24c-0ddf015974b0'
         }
 
-        response = requests.post("http://localhost:5000/api/personal", params=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/personal", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -996,7 +1049,7 @@ def get_personal_user_category():
         output_list = []
         parameters = {
             "request_type": "get_category",
-            "user_id": "A1"
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
         }
 
         response = requests.get("http://localhost:5000/api/personal", params=parameters)
@@ -1010,7 +1063,7 @@ def get_personal_user_subcategory():
         output_list = []
         parameters = {
             "request_type": "get_subcategory",
-            "user_id": "A1"
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
         }
 
         response = requests.get("http://localhost:5000/api/personal", params=parameters)
@@ -1024,10 +1077,23 @@ def get_match_index():
         output_list = []
         parameters = {
             "request_type": "get_match_score",
-            "user_id": "A1"
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
         }
 
-        response = requests.get("http://localhost:5000/api/personal", params=parameters)
+        response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_stats():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "get_stats"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1181,12 +1247,18 @@ try:
     #status_code = st_friend_circle_request_4()
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
-    #status_code = gmm_initiate_team_buy()
+    status_code = gmm_initiate_team_buy()
     #status_code = publish_message()
-    status_code = complete_transaction()
+    #status_code = complete_transaction()
+
     #status_code = pay_amount()
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
+
+    #status_code = map_category_to_personal_user()
+    #status_code = map_subcategory_to_personal_user()
+    #status_code = get_match_index()
+    #status_code = get_stats()
 
     print ("The status code is", status_code)
 
