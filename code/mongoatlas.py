@@ -546,6 +546,20 @@ def get_category():
     except Exception as e:
         return False
 
+def get_child_nodes(): # This function is used to get all the subcategories for a given parent
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 8,
+            "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
+            "subcategory_list": ["A3", "A4"]
+        }
+        response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
 # to store the categories chosen by the user
 def add_category_to_user():
     try:
@@ -1015,12 +1029,10 @@ def get_transaction_by_user():
 def map_category_to_personal_user():
     try:
         output_list = []
-        parameters = {
-            "request_type": "add_category",
+        parameters = {"request_type": "add_category",
             "list_category_id": [{"web_category_id": "A121", "vote": 1},
                                  {"web_category_id": "A122", "vote": 1}],
-            "user_id": 'aacd9307-fd55-49b7-b24c-0ddf015974b0'
-        }
+            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca"}
 
         response = requests.post("http://0.0.0.0:8081/api/personal", json=parameters)
         print("The response is ", response.json())
@@ -1077,7 +1089,7 @@ def get_match_index():
         output_list = []
         parameters = {
             "request_type": "get_match_score",
-            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
+            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
@@ -1233,6 +1245,7 @@ try:
     #status_code = add_subcategory_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
+    status_code = get_child_nodes()
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
@@ -1247,7 +1260,7 @@ try:
     #status_code = st_friend_circle_request_4()
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
-    status_code = gmm_initiate_team_buy()
+    #status_code = gmm_initiate_team_buy()
     #status_code = publish_message()
     #status_code = complete_transaction()
 
