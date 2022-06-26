@@ -537,8 +537,7 @@ def get_category():
     try:
         output_list = []
         parameters = {
-            "request_id": 1,
-            "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0"
+            "request_id": 1
         }
         response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
         print("The response is ", response.json())
@@ -552,6 +551,22 @@ def get_child_nodes(): # This function is used to get all the subcategories for 
         parameters = {
             "request_id": 8,
             "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
+            "subcategory_list": ["A3", "A4"]
+        }
+        response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_child_nodes_registered_user(): # This function is used to get all the subcategories for a given parent
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 9,
+            "user_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
+            "age": 40,
+            "gender": "Male",
             "subcategory_list": ["A3", "A4"]
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
@@ -1240,12 +1255,12 @@ try:
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_voted_products()
-    #status_code = get_category()
+    status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = add_subcategory_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
-    status_code = get_child_nodes()
+    #status_code = get_child_nodes()
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
