@@ -565,9 +565,9 @@ def get_child_nodes_registered_user(): # This function is used to get all the su
         parameters = {
             "request_id": 9,
             "user_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
-            "age": 40,
-            "gender": "Male",
-            "subcategory_list": ["A3", "A4"]
+            "age": 0,
+            "gender": "M",
+            "subcategory_list": ["A2"]
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -1255,12 +1255,13 @@ try:
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_voted_products()
-    status_code = get_category()
+    #status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = add_subcategory_to_user()
     #status_code = get_category()
     #status_code = get_user_subcategory()
     #status_code = get_child_nodes()
+    status_code = get_child_nodes_registered_user()
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
