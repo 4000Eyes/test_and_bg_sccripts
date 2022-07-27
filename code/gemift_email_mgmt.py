@@ -7,7 +7,6 @@ code_environment = os.environ.get("BG_ENVIRON")
 def send_email(parameters):
     try:
         output_list = []
-
         response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())

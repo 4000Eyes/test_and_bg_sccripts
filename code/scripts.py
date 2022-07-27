@@ -25,7 +25,7 @@ ll = set(ll)
 
 print ("The X is", x)
 print ("LL is", ll)
-exit()
+
 
 utc_now_dt = datetime.now(tz=pytz.UTC)
 formatted_datetime = utc_now_dt.strftime("%d-%m-%Y %H-%M-%S")
@@ -80,7 +80,8 @@ for i in l:
     i.update({"aa":4})
 
 for i in l:
-    print (i)
+    l[0].update({"Kris":"Raman"})
+    print ("The l array is" ,i)
 
 data = {}
 data["product_id"] = 1
@@ -93,6 +94,11 @@ if raw_list.find("\(\)"):
     raw_list = raw_list.replace(')', " ")
     print ("Raw list is", raw_list)
 
+
+num_array = [1,2,3,4,5]
+
+for i in range(0, len(num_array)):
+    print ("The values are ", num_array[i])
 # class ctest:
 #     x = []
 #     def __init__(self):

@@ -84,7 +84,8 @@ def search_product():
             "sort_order": "ASC",
             "price_from":20.23,
             "price_to":70.50,
-            "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f"
+            "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f",
+            "gender_list": ("male","both")
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
         response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
@@ -175,15 +176,19 @@ def test_signup():
             "email": "Kraken@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "335-111-2322",
+            "phone_number" : "Q73998-878-2322",
             "gender": "F",
-            "first_name" : "Kraken",
+            "first_name" : "Kraken Krishna",
             "last_name" : "Raj",
             "location" : "India",
             "external_referrer_id": "Google",
             "external_referrer_param": "abc123-123jsh",
             "image_url": "http://ww.roo.com"
         }
+
+        parameters = {"email": "hhd@hd.kd", "external_referrer_id": "", "external_referrer_param": "", "first_name": "Gajd",
+         "gender": "M", "last_name": "gsh", "location": "91", "password": "cshhddhhd", "phone_number": "918124332448",
+         "user_type": 0}
         response = requests.post("http://0.0.0.0:8081/api/auth/signup", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())
@@ -488,7 +493,7 @@ def get_occasion_details():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
+            "friend_circle_id": "7936eda4-3c75-4091-b55c-fca6f03addb6",
             "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
@@ -545,6 +550,19 @@ def get_category():
     except Exception as e:
         return False
 
+def get_category_subcategory_combination():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 5
+        }
+        response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
 def get_child_nodes(): # This function is used to get all the subcategories for a given parent
     try:
         output_list = []
@@ -564,12 +582,14 @@ def get_child_nodes_registered_user(): # This function is used to get all the su
         output_list = []
         parameters = {
             "request_id": 9,
-            "user_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
+            "user_id" : "9f403303-de52-4ceb-b9fd-83afbac6357e",
             "age": 0,
             "gender": "M",
-            "subcategory_list": ["A2"]
+            "subcategory_list": ["A1"]
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+        #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/interest", params=parameters)
+
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -688,6 +708,20 @@ def notify_landing_page():
     except Exception as e:
         return False
 
+def notify_landing_page_lite():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 2,
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "phone_number": "142528185459"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
 
 def creat_custom_occasion():
@@ -843,73 +877,24 @@ def gmm_initiate_team_buy():
     try:
         output_list = []
         parameters = {
-                "creator": {
-                    "email_address": "gesatest1@gmail.com",
+                    "email_address": "krisraman@gmail.com",
                     "first_name": "sai",
-                    "friend_circle_id": "ddbc9f24-ff6e-4cc5-a5ad-218d5e791b89",
+                    "friend_circle_id": "39396951-d112-40cd-a85f-d1e8ae883887",
                     "last_name": "ram",
                     "misc_cost": 10.2,
                     "notes": " ",
                     "expiration_date": "04-28-2022",
                     "occasion_date": "16/03/2024",
-                    "occasion_id": "a096496e-159f-4888-a51e-0a54772b13c7",
-                    "phone_number": "918883269845",
+                    "occasion_id": "GEM-OCC-999999",
+                    "phone_number": "14252815459",
                     "product_id": "10210",
                     "product_price": 10.02,
                     "time_zone": "Asia/Kolkata",
-                    "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
-                },
-                "friends": [
-                    {
-                        "email_address": " ",
-                        "first_name": "Mani",
-                        "last_name": "Gesa",
-                        "opt_in_date": "",
-                        "opt_in_flag": "y",
-                        "phone_number": "+919500153858",
-                        "user_id": "182c9ef6-cff9-4a31-8251-b5e91b5b97c2"
-                    },
-                    {
-                        "email_address": "maniraman505@gmail.com",
-                        "first_name": "manikandan",
-                        "last_name": "raman",
-                        "opt_in_date": "",
-                        "opt_in_flag": "y",
-                        "phone_number": "919500153858",
-                        "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca"
-                    },
-                    {
-                        "email_address": " ",
-                        "first_name": "Mani",
-                        "last_name": "Gesa",
-                        "opt_in_date": "",
-                        "opt_in_flag": "y",
-                        "phone_number": "+919500153858",
-                        "user_id": "756b94de-4516-4171-a187-5500a782837f"
-                    },
-                    {
-                        "email_address": "abcc@gmail.com",
-                        "first_name": "Gayathri",
-                        "last_name": "Jaisri",
-                        "opt_in_date": "",
-                        "opt_in_flag": "y",
-                        "phone_number": "+918838559899",
-                        "user_id": "6dc95baf-1218-4cc5-ac7a-f8d0bd7ab45c"
-                    },
-                    {
-                        "email_address": "jagan@gmail.com",
-                        "first_name": "Jagan",
-                        "last_name": "S",
-                        "opt_in_date": "",
-                        "opt_in_flag": "y",
-                        "phone_number": "919551027363",
-                        "user_id": "fad3203d-eeb0-4cd6-a3f5-dd803be16527"
-                    }
-                ],
+                    "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
                 "request_type": "initiate_team_buy"
         }
 
-        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
+        response = requests.post("http://10.1.10.81:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1062,7 +1047,7 @@ def map_subcategory_to_personal_user():
             "request_type": "add_subcategory",
             "list_subcategory_id": [{"web_subcategory_id": "A1", "vote": 1},
                                  {"web_subcategory_id": "A2", "vote": 1}],
-            "user_id": 'aacd9307-fd55-49b7-b24c-0ddf015974b0'
+            "user_id": "9f403303-de52-4ceb-b9fd-83afbac6357e"
         }
 
         response = requests.post("http://0.0.0.0:8081/api/personal", json=parameters)
@@ -1090,10 +1075,10 @@ def get_personal_user_subcategory():
         output_list = []
         parameters = {
             "request_type": "get_subcategory",
-            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
+            "user_id": "9f403303-de52-4ceb-b9fd-83afbac6357e"
         }
 
-        response = requests.get("http://localhost:5000/api/personal", params=parameters)
+        response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1104,7 +1089,7 @@ def get_match_index():
         output_list = []
         parameters = {
             "request_type": "get_match_score",
-            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca"
+            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
@@ -1261,10 +1246,11 @@ try:
     #status_code = get_category()
     #status_code = get_user_subcategory()
     #status_code = get_child_nodes()
-    status_code = get_child_nodes_registered_user()
+    #status_code = get_child_nodes_registered_user()
     #status_code = upload_image()
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
+    #status_page = notify_landing_page_lite()
     #status_code = contributor_approval()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
@@ -1276,7 +1262,7 @@ try:
     #status_code = st_friend_circle_request_4()
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
-    #status_code = gmm_initiate_team_buy()
+    status_code = gmm_initiate_team_buy()
     #status_code = publish_message()
     #status_code = complete_transaction()
 
@@ -1284,8 +1270,11 @@ try:
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
 
+
     #status_code = map_category_to_personal_user()
     #status_code = map_subcategory_to_personal_user()
+    #status_code = get_personal_user_subcategory()
+    #status_code = get_category_subcategory_combination()
     #status_code = get_match_index()
     #status_code = get_stats()
 
