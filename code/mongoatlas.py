@@ -85,7 +85,9 @@ def search_product():
             "price_from":20.23,
             "price_to":70.50,
             "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f",
-            "gender_list": ("male","both")
+            "gender_list": ("male","both"),
+            "page_size": 10,
+            "page_number": 1
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
         response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
@@ -587,6 +589,12 @@ def get_v2_interest(): # This function is used to get all the subcategories for 
             "gender": "M",
             "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
             "user_id" : "XYZ",
+            "page_size": 3,
+            "page_number": 2
+        }
+
+        parameters = {
+            "request_id": 10,
             "page_size": 3,
             "page_number": 2
         }
@@ -1122,7 +1130,6 @@ def get_stats():
         parameters = {
             "request_type": "get_stats"
         }
-
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -1254,7 +1261,7 @@ try:
     #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
-    #status_code = search_product()
+    status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_voted_products()
@@ -1288,13 +1295,12 @@ try:
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
 
-
     #status_code = map_category_to_personal_user()
     #status_code = map_subcategory_to_personal_user()
     #status_code = get_personal_user_subcategory()
     #status_code = get_category_subcategory_combination()
     #status_code = get_match_index()
-    status_code = get_stats()
+    #status_code = get_stats()
     status_code = get_v2_interest()
 
     print ("The status code is", status_code)
