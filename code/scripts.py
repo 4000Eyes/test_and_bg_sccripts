@@ -94,9 +94,16 @@ if raw_list.find("\(\)"):
     raw_list = raw_list.replace(')', " ")
     print ("Raw list is", raw_list)
 
+lofh = [{"a":1, "b":2}, {"a":4,"b":9}]
 
+print("Testing operator function", list(map(operator.itemgetter("a"), lofh)))
 num_array = [1,2,3,4,5]
 
+a = [1,2,3,4,5,6]
+b=[4,5,6,10,9]
+a_set = set(a)
+b_set = set(b)
+print ("A intersection be is ", a_set&b_set, len(a_set&b_set))
 for i in range(0, len(num_array)):
     print ("The values are ", num_array[i])
 # class ctest:

@@ -577,6 +577,24 @@ def get_child_nodes(): # This function is used to get all the subcategories for 
     except Exception as e:
         return False
 
+def get_v2_interest(): # This function is used to get all the subcategories for a given parent
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 10,
+            "age_hi" : 5,
+            "age_lo": 10,
+            "gender": "M",
+            "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
+            "user_id" : "XYZ",
+            "page_size": 3,
+            "page_number": 2
+        }
+        response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 def get_child_nodes_registered_user(): # This function is used to get all the subcategories for a given parent
     try:
         output_list = []
@@ -1262,7 +1280,7 @@ try:
     #status_code = st_friend_circle_request_4()
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
-    status_code = gmm_initiate_team_buy()
+    #status_code = gmm_initiate_team_buy()
     #status_code = publish_message()
     #status_code = complete_transaction()
 
@@ -1276,7 +1294,8 @@ try:
     #status_code = get_personal_user_subcategory()
     #status_code = get_category_subcategory_combination()
     #status_code = get_match_index()
-    #status_code = get_stats()
+    status_code = get_stats()
+    status_code = get_v2_interest()
 
     print ("The status code is", status_code)
 
