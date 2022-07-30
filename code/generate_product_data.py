@@ -7,11 +7,40 @@ product_id = 10000
 product_description = "This is test data generated for gemift.com. The product id is "
 product_title = "This is product title"
 
-category = ["A121","A122","A123","A124","A125","A126","A127","A128","A129","A130","A131"]
-subcategory = ["A1","A2","A3","A4","A5", "A51","A52","A53","A54","A55","A41","A42","A43","A44","A401","A411","A421","A31","A41"]
+
+interest = ["138345a7-419a-44dd-ac2f-a6017991902c","4b85d7ec-8dac-4b0f-b131-4ee79858e4bc","13fdf6ac-3dcd-4aaa-aee4-0e6f5d2455f3",
+"d4400278-40e3-4b0d-81ff-d4f0c3a05757",
+    "42f4d0d3-117e-49ff-85ec-8e5e0738a006",
+"c45cb0cd-496a-46aa-9a77-21f95d623780",
+"db50e7b7-0865-43e8-b54f-82c5aea0da5a",
+"7c06a01a-a10e-4e46-b2a4-0a471a11da07",
+"74954898-edb4-4e61-b866-77ab927a7414",
+"98c08b50-56cc-4594-ba12-7b97f1be4d22",
+"7331c93b-e4ec-4307-9dac-cba4dbedd023",
+"960055ed-073c-412a-9360-ac5054f28984",
+"5abefaf0-8db2-47ba-b8d2-6ea391a6708a",
+"0e3f1bc1-f58c-42c7-af18-c7bfc846e1d9",
+"b3af3682-8db4-443b-99dd-706403a243c3"
+
+]
 cat_name = {"A121": "Electronics","A122":"Home","A123":"Software","A124":"Test2","A125":"Travel","A126":"Hobby","A127":"Running","A128":"Utensils","A129":"Sports","A130":"Outdoors","A131":"Entertainment"}
-subcat_name = {"A1":"Subcat1","A2":"Subcat2","A3":"Subcat3","A4":"Subcat4","A5":"Subcat5", "A51":"Subcat6","A52":"Subcat7","A53":"Subcat8","A54":"Subcat9","A55":"Subcat10",
-               "A41":"Subcat11","A42":"Subcat12","A43":"Subcat13","A44":"Subcat14","A401":"Subcat15","A411":"Subcat16","A421":"Subcat17","A31":"Subcat18","A41":"Subcat19"}
+interest_name = {"138345a7-419a-44dd-ac2f-a6017991902c":"All Kinds of Phones",
+               "4b85d7ec-8dac-4b0f-b131-4ee79858e4bc":"Head phone or ear phones",
+                "69cf47dd-3eeb-4449-a7c9-1407a21a1b9c":"Music Instruments",
+"13fdf6ac-3dcd-4aaa-aee4-0e6f5d2455f3":"Techno Instruments",
+"d4400278-40e3-4b0d-81ff-d4f0c3a05757":"Video games Obsession",
+"42f4d0d3-117e-49ff-85ec-8e5e0738a006":"Fall for Apple gears",
+ "c45cb0cd-496a-46aa-9a77-21f95d623780":"Fall for Samsung gears",
+"db50e7b7-0865-43e8-b54f-82c5aea0da5a":"Give me smart Wearables",
+"7c06a01a-a10e-4e46-b2a4-0a471a11da07":"Samsung appliances lover",
+               "74954898-edb4-4e61-b866-77ab927a7414":"Apple Fan boy",
+"98c08b50-56cc-4594-ba12-7b97f1be4d22":"Loves keyboards",
+"7331c93b-e4ec-4307-9dac-cba4dbedd023":"Loves beaches",
+"960055ed-073c-412a-9360-ac5054f28984":"Thai food lover",
+"5abefaf0-8db2-47ba-b8d2-6ea391a6708a":"ANything meat",
+"0e3f1bc1-f58c-42c7-af18-c7bfc846e1d9":"Loves Kerala - God's country",
+"b3af3682-8db4-443b-99dd-706403a243c3":"Loves walking"
+}
 price = [10.02,20.02,30.03,40.03,50.09,60.09,80.90, 120.20, 140.08, 200.00]
 age_range_list = [[0,5],[6,10,],[11,15], [15,19], [20,30], [31,39], [40,49], [50,60], [60,100],[101,150]]
 gender_list = ["male","female","both"]
@@ -22,33 +51,30 @@ country = ["India","Europe","USA","Singapore","Hong Kong","Malaysia","Thailand",
 
 file_handle = open("/home/krissrinivasan/Downloads/product_gemift.json","w")
 
-for cat in category:
-    for subcat in subcategory:
-        for i in range(1,50):
-            data = {}
-            product_id = product_id + 1
-            data["product_id"] = product_id
-            data["product_title"] = product_title + " " + str(product_id)
-            data["product_description"] = product_description + str(product_id)
-            data["category"] = cat
-            data["subcategory"] = subcat
-            data["category_name"] = cat_name[cat]
-            data["subcategory_name"] = subcat_name[subcat]
-            data["price"] = random.choice(price)
-            data["gender"] = random.choice(gender_list)
-            age_range = random.choice(age_range_list)
-            data["age_lo"] = age_range[0]
-            data["age_hi"] = age_range[1]
-            data["website_url"] = random.choice(website_url)
-            data["seasonal_product"] = random.choice(season_product)
-            l_occasion = random.choice(occasion)
-            data["occasion_name"] = l_occasion[0]
-            data["occasion_id"] = l_occasion[1]
-            data["country"] = random.choice(country)
+for interest_id in interest:
+    for i in range(1,50):
+        data = {}
+        product_id = product_id + 1
+        data["product_id"] = product_id
+        data["product_title"] = product_title + " " + str(product_id)
+        data["product_description"] = product_description + str(product_id)
+        data["interest"] = interest_id
+        data["interest_name"] = interest_name[interest_id]
+        data["price"] = random.choice(price)
+        data["gender"] = random.choice(gender_list)
+        age_range = random.choice(age_range_list)
+        data["age_lo"] = age_range[0]
+        data["age_hi"] = age_range[1]
+        data["website_url"] = random.choice(website_url)
+        data["seasonal_product"] = random.choice(season_product)
+        l_occasion = random.choice(occasion)
+        data["occasion_name"] = l_occasion[0]
+        data["occasion_id"] = l_occasion[1]
+        data["country"] = random.choice(country)
 
-            json_data = json.dumps(data)
+        json_data = json.dumps(data)
 
-            file_handle.write(json_data + "\n")
+        file_handle.write(json_data + "\n")
 
-            print ("Json data ", json_data)
+        print ("Json data ", json_data)
 

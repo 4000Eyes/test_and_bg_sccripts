@@ -84,7 +84,7 @@ def search_product():
             "sort_order": "ASC",
             "price_from":20.23,
             "price_to":70.50,
-            "friend_circle_id": "04e04f28-272b-4ef7-b424-73116ce4c93f",
+            "friend_circle_id": "39396951-d112-40cd-a85f-d1e8ae883887",
             "gender_list": ("male","both"),
             "page_size": 10,
             "page_number": 1
@@ -1301,7 +1301,7 @@ try:
     #status_code = get_category_subcategory_combination()
     #status_code = get_match_index()
     #status_code = get_stats()
-    status_code = get_v2_interest()
+    #status_code = get_v2_interest()
 
     print ("The status code is", status_code)
 
