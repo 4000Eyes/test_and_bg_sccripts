@@ -584,8 +584,7 @@ def get_v2_interest(): # This function is used to get all the subcategories for 
         output_list = []
         parameters = {
             "request_id": 10,
-            "age_hi" : 5,
-            "age_lo": 10,
+            "age" : 45,
             "gender": "M",
             "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
             "user_id" : "XYZ",
@@ -1301,7 +1300,7 @@ try:
     #status_code = get_category_subcategory_combination()
     #status_code = get_match_index()
     #status_code = get_stats()
-    #status_code = get_v2_interest()
+    status_code = get_v2_interest()
 
     print ("The status code is", status_code)
 
