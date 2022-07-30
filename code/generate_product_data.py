@@ -43,7 +43,7 @@ interest_name = {"138345a7-419a-44dd-ac2f-a6017991902c":"All Kinds of Phones",
 }
 price = [10.02,20.02,30.03,40.03,50.09,60.09,80.90, 120.20, 140.08, 200.00]
 age_range_list = [[0,5],[6,10,],[11,15], [15,19], [20,30], [31,39], [40,49], [50,60], [60,100],[101,150]]
-gender_list = ["male","female","both"]
+gender_list = ["M","F","A"]
 website_url = ["http://www.amazon.com","http://www.flipkart.com","http:///www.ebay.com","http:///www.dealshare.in"]
 occasion = [["Birthday","GEM-OCC-999999"], ["Valentines Day","2"],["Wedding Anniversary","GEM-OCC-000124"],["Met my girlfriend","GEM-OCC-000125"],["Mothers day","5"],["Fathers Day","6"]]
 season_product = ["Y","N"]

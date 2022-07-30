@@ -82,12 +82,11 @@ def search_product():
         parameters = {
             "request_id": 1,
             "sort_order": "ASC",
-            "price_from":20.23,
-            "price_to":70.50,
+            "age": 27,
             "friend_circle_id": "39396951-d112-40cd-a85f-d1e8ae883887",
-            "gender_list": ("male","both"),
-            "page_size": 10,
-            "page_number": 1
+            "gender_list": ("M"),
+            "page_size": 2,
+            "page_number": 3
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
         response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
@@ -1300,7 +1299,7 @@ try:
     #status_code = get_category_subcategory_combination()
     #status_code = get_match_index()
     #status_code = get_stats()
-    status_code = get_v2_interest()
+    #status_code = get_v2_interest()
 
     print ("The status code is", status_code)
 
