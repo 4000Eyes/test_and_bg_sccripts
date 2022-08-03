@@ -281,29 +281,17 @@ def friend_circle_request_2():
         output_list = []
         parameters = {
             "request_id" : 2,
-            "friend_circle_id":"054c1679-daa4-4793-88b4-3790995b6b6d",
-            "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
+            "friend_circle_id":"25b34323-e3d2-43cd-b744-922e49e74117",
+            "referrer_user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
             "email_address":"kuku1254@gmail.com",
-            "phone_number": "425-111-2312",
-            "first_name":"x",
-            "last_name":"y",
+            "phone_number": "919500153858",
+            "first_name":"Mani-Kris",
+            "last_name":"Raman",
             "gender": "M",
             "location": "India"
         }
 
-        parameters = {"request_id": 2,
-         "friend_circle_id": "054c1679-daa4-4793-88b4-3790995b6b6d",
-             "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
-         "email_address": "krishnanIyengar@gmail.com",
-         "phone_number": "14252343342",
-         "first_name": "Krishnan",
-        "last_name": "Iyengar",
-        "gender": "M",
-        "location": "India"
-        }
-
-
-        response = requests.post("http://0.0.0.0.:8081/api/friend/circle", json=parameters)
+        response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -399,7 +387,7 @@ def get_friend_circle_summary():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id":  "8eefa6e5-0b37-48cd-8757-be6041a421ca",
+            "user_id":  "198a2230-aac2-456d-a8c2-d14cbbf8667c",
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -722,8 +710,8 @@ def notify_landing_page():
         output_list = []
         parameters = {
             "request_id": 1,
-            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca",
-            "phone_number": "919500153858"
+            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "phone_number": "14252815459"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -737,8 +725,8 @@ def notify_landing_page_lite():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
-            "phone_number": "142528185459"
+            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "phone_number": "14252815459"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -800,6 +788,8 @@ def contributor_approval():  # Note: friend circle id is optional. You send frie
         parameters = {
             "request_id": 7,
             "friend_circle_id": "42ab88ce-ab48-4e93-a308-8a550abb491e",
+            "referred_user_id": "XYZ",
+            "referrer_user_id": "XYZ",
             "phone_number" : "919551027363",
             "signal" : 1
         }
@@ -1246,7 +1236,7 @@ try:
     
     """
     #status_code = friend_circle_request_1()
-    #status_code = friend_circle_request_2()
+    status_code = friend_circle_request_2()
     #status_code = friend_circle_request_3()
     #status_code = friend_circle_request_4()
     #status_code = friend_circle_request_6()
@@ -1259,7 +1249,7 @@ try:
     #status_code = get_friend_circle_summary()
     #status_code = add_interest()
     #status_code = get_interest()
-    status_code = search_product()
+    #status_code = search_product()
     #status_code = search_product_detail()
     #status_code = vote_product()
     #status_code = get_voted_products()
@@ -1274,7 +1264,7 @@ try:
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
     #status_page = notify_landing_page_lite()
-    #status_code = contributor_approval()
+    status_code = contributor_approval()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
