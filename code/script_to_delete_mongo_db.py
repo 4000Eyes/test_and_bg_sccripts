@@ -47,7 +47,7 @@ if val == "yes":
     x = input("Running this script will delete data. Are you sure?")
     if x == "yes":
         print ("I am inside the script")
-        y = input("Type the table id: product(1), user(2), approval queue(3), notification(4)")
+        y = input("Type the table id: product(1), user(2), approval queue(3), notification(4), gemift_messages(5) interests(6")
         if int(y) == 1:
             delete_user(db, "gemift_product_db")
         if int(y) == 2:
@@ -56,6 +56,10 @@ if val == "yes":
             delete_user(db,"approval_queue")
         if int(y) == 4:
             delete_user(db, "notification_and_recommendation")
+        if int(y) == 5:
+            delete_user(db,"gemift_messages")
+        if int(y) == 6:
+            delete_user(db,"interests")
     else:
         exit(1)
 exit(1)

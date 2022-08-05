@@ -174,10 +174,10 @@ def test_signup():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "Kraken@gmail.com",
+            "email": "krisraman@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "Q73998-878-2322",
+            "phone_number" : "14252815459",
             "gender": "F",
             "first_name" : "Kraken Krishna",
             "last_name" : "Raj",
@@ -187,9 +187,7 @@ def test_signup():
             "image_url": "http://ww.roo.com"
         }
 
-        parameters = {"email": "hhd@hd.kd", "external_referrer_id": "", "external_referrer_param": "", "first_name": "Gajd",
-         "gender": "M", "last_name": "gsh", "location": "91", "password": "cshhddhhd", "phone_number": "918124332448",
-         "user_type": 0}
+
         response = requests.post("http://0.0.0.0:8081/api/auth/signup", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())
@@ -206,6 +204,7 @@ def test_login():
             "email": "kokki@gmail.com",
             "password" : "Krishna123@"
         }
+        parameters = {"email":"hansomerasheed@yahoo.com","password":"cscscscs"}
         response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())
@@ -269,6 +268,7 @@ def friend_circle_request_1():
          "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6"
          }
 
+        parameters = {"friend_circle_id":"a71fd157-2f55-4392-aa74-614713d57814","referred_user_id":"64338b93-b74a-4e53-9131-d0354f11e202","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":1}
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
@@ -290,7 +290,7 @@ def friend_circle_request_2():
             "gender": "M",
             "location": "India"
         }
-
+        parameters = {"email_address":"xd@df.hm","first_name":"ras","friend_circle_id":"9ce96eb4-50d8-4824-afae-e74f21793e70","gender":"M","last_name":"ras","location":"India","phone_number":"918939641619","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":2}
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
@@ -344,6 +344,9 @@ def friend_circle_request_4():
         "image_url": "http://www.roo.com",
         "age": 45}
 
+        parameters = {"age": "25", "email_address": "abcc@gmail.com", "first_name": "Mukesh", "gender": "M", "group_name": "New",
+         "image_url": "", "last_name": "", "location": "India", "phone_number": "86105 02105",
+         "referrer_user_id": "f4d423cb-85a6-4a98-9766-13993f79973e", "request_id": 4}
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -637,8 +640,10 @@ def add_subcategory_to_user():
             "list_subcategory_id": [{"web_subcategory_id":"A123", "vote":1}, {"web_subcategory_id":"A124", "vote":1}]
         }
 
-        #response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
-        response = requests.post("http://gemift.uw.r.appspot.com/api/interest", json=parameters)
+        parameters = {"friend_circle_id":"363d41b6-2d32-43fb-b0bb-48cf698e438b","list_subcategory_id":[{"vote":1,"web_subcategory_id":"72618aee-656c-4e41-8b6b-3e3c48a7719f"},{"vote":1,"web_subcategory_id":"8d1fe6c0-e8f0-470b-94ca-c42c780f22cf"},{"vote":1,"web_subcategory_id":"92bb41d2-fbf3-43de-866c-159724d4cf98"},{"vote":1,"web_subcategory_id":"982d6b47-994d-4bf4-a251-8b6e2683f154"}],"referred_user_id":"3420da9e-c77e-4b96-ae77-47ca3525eb38","request_id":1}
+
+        response = requests.post("http://0.0.0.0:8081/api/interest", json=parameters)
+        #response = requests.post("http://gemift.uw.r.appspot.com/api/interest", json=parameters)
 
         print("The response is ", response.json())
         return response.status_code
@@ -710,7 +715,7 @@ def notify_landing_page():
         output_list = []
         parameters = {
             "request_id": 1,
-            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+                "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
             "phone_number": "14252815459"
         }
 
@@ -735,7 +740,33 @@ def notify_landing_page_lite():
     except Exception as e:
         return False
 
+def get_messages():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 10,
+                "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a"
+        }
 
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+def update_message():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 9,
+                "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "message_id" : "f2aab9b9-b427-417e-9a45-3626b79a901a"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 def creat_custom_occasion():
     try:
         output_list = []
@@ -792,6 +823,14 @@ def contributor_approval():  # Note: friend circle id is optional. You send frie
             "referrer_user_id": "XYZ",
             "phone_number" : "919551027363",
             "signal" : 1
+        }
+        parameters ={
+            "request_id": 7,
+            "friend_circle_id": "25b34323-e3d2-43cd-b744-922e49e74117",
+            "referred_user_id": "198a2230-aac2-456d-a8c2-d14cbbf8667c",
+            "referrer_user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "phone_number": "919500153858",
+            "signal": 1
         }
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -1223,7 +1262,7 @@ try:
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
     #status_code = test_login_phone()
-    #status_code = test_login()
+    status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
 
@@ -1236,7 +1275,8 @@ try:
     
     """
     #status_code = friend_circle_request_1()
-    status_code = friend_circle_request_2()
+
+    #status_code = friend_circle_request_2()
     #status_code = friend_circle_request_3()
     #status_code = friend_circle_request_4()
     #status_code = friend_circle_request_6()
@@ -1264,7 +1304,9 @@ try:
     #status_code = get_user_selection_category_and_subcategory()
     #status_code = notify_landing_page()
     #status_page = notify_landing_page_lite()
-    status_code = contributor_approval()
+    #status_code = get_messages()
+    #status_code = update_message()
+    #status_code = contributor_approval()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()

@@ -70,7 +70,6 @@ def load_subcategories(file_path, file_name ):
             if not insert_interests_mongo(interest_id, i["web_subcategory_name"], i["description"], parent_id, i["age_lo"],i["age_hi"], i["gender"],i["image_url"]):
                 ex_file_name.write("We have an issue writing to Mongo db")
                 return -1
-
             #construct the output and store.
             subcategory_response = {}
             subcategory_response = json.loads(res.text)
