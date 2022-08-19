@@ -9,6 +9,19 @@ from datetime import datetime, tzinfo, timedelta
 from dateutil.relativedelta import relativedelta
 import operator, functools
 
+szdate = "2010-01-01 12:00:00"
+szdate_obj = datetime.strptime(szdate, '%Y-%m-%d %H:%M:%S')
+utc_due_date = szdate_obj.astimezone(pytz.utc)
+utc_due_date_string = utc_due_date.strftime("%Y-%m-%d %H:%M:%S %Z%z")
+print ("The utc date is", utc_due_date_string)
+
+hsh = {"a":1, "b":2}
+
+for key, val in hsh.items():
+    print("The key and value are", key, val )
+
+exit(1)
+
 xdict = {}
 for i in range(1,5):
     xdict[i] = collections.defaultdict(dict)

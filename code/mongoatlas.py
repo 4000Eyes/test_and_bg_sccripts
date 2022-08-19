@@ -85,7 +85,7 @@ def search_product():
             "age": 27,
             "friend_circle_id": "39396951-d112-40cd-a85f-d1e8ae883887",
             "gender_list": ("M"),
-            "page_size": 2,
+            "page_size": 10,
             "page_number": 3
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
@@ -141,7 +141,7 @@ def get_voted_products():
     try:
         parameters = {
             "request_id": 5,
-            "friend_circle_id":"95b38dd9-bdcf-40d6-8a69-4ed50cce4e86",
+            "friend_circle_id":"1d983564-b4e3-4c7a-9916-af065ff69802",
             "occasion_name" : "birthday",
             "occasion_year": 2021
         }
@@ -174,12 +174,12 @@ def test_signup():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "krisraman@gmail.com",
+            "email": "aravindkrishna@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "14252815459",
+            "phone_number" : "14252815229",
             "gender": "F",
-            "first_name" : "Kraken Krishna",
+            "first_name" : "Aravind Baravind",
             "last_name" : "Raj",
             "location" : "India",
             "external_referrer_id": "Google",
@@ -347,7 +347,10 @@ def friend_circle_request_4():
         parameters = {"age": "25", "email_address": "abcc@gmail.com", "first_name": "Mukesh", "gender": "M", "group_name": "New",
          "image_url": "", "last_name": "", "location": "India", "phone_number": "86105 02105",
          "referrer_user_id": "f4d423cb-85a6-4a98-9766-13993f79973e", "request_id": 4}
-
+        parameters = {"age":"46","email_address":"saravanan_vidya@yahoo.com","first_name":"Vidya",
+                      "gender":"F","group_name":"World Group","image_url":"",
+                      "last_name":"s","location":"India","phone_number":"14257829876",
+                      "referrer_user_id":"17a293cd-dc43-457d-8b85-31d4225e7974","request_id":4}
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -745,6 +748,20 @@ def get_messages():
         output_list = []
         parameters = {
             "request_id": 10,
+                "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1"
+        }
+
+        response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def get_message_count():
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 11,
                 "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a"
         }
 
@@ -938,16 +955,24 @@ def gmm_initiate_team_buy():
                     "notes": " ",
                     "expiration_date": "04-28-2022",
                     "occasion_date": "16/03/2024",
-                    "occasion_id": "GEM-OCC-999999",
+                    "occasion_id": "GEM-OCC-999999GY",
                     "phone_number": "14252815459",
-                    "product_id": "10210",
+                    "product_id": "102234",
                     "product_price": 10.02,
                     "time_zone": "Asia/Kolkata",
                     "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
-                "request_type": "initiate_team_buy"
+                    "request_type": "initiate_team_buy"
         }
 
-        response = requests.post("http://10.1.10.81:8080/api/gmm/txn", json=parameters)
+
+        parameters = {"email_address":"hansomerasheed@yahoo.com","expiration_date":"2022-08-21","first_name":"Mohamed ","friend_circle_id":"51031191-a187-4126-ad82-46516cae3a7a","last_name":"Rasheed","misc_cost":10.2,"notes":"","occasion_date":"07/09/2022","occasion_id":"GEM-OCC-000124","occasion_name":"Wedding Anniversary","phone_number":"918124332448","product_id":"17513","product_price":10.02,"request_type":"initiate_team_buy","time_zone":"Asia/Kolkata","user_id":"a8b26930-17e4-4475-ad40-3ee7fcd38ee1"}
+        parameters = {"email_address": "rasheed.de@gmail.com", "expiration_date": "2022-08-16", "first_name": "Rasheed",
+                      "friend_circle_id": "51031191-a187-4126-ad82-46516cae3a7a", "last_name": "new", "misc_cost": 10.2,
+                      "notes": "", "occasion_date": "07/09/22", "occasion_name": "West Indies",
+                      "occasion_id": "GEM-OCC-0003424", "phone_number": "918939641619", "product_id": "11221823343",
+                      "product_price": 10.02, "request_type": "initiate_team_buy", "time_zone": "Asia/Kolkata",
+                      "user_id": "17a293cd-dc43-457d-8b85-31d4225e7974"}
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -958,7 +983,7 @@ def publish_message():
         output_list = []
         parameters = {
             "request_type": "publish_message",
-            "user_id":"A1BDDC"
+                "user_id":"160ece24-24ce-4496-8a1a-10d1b8fad80b"
         }
         #Made some changes
         response = requests.get("http://0.0.0.0:8080/api/gmm/txn", params=parameters)
@@ -1003,12 +1028,28 @@ def opt_out():
         output_list = []
         parameters = {
             "request_type": "opt_out",
-            "transaction_id":"AS232",
-            "user_id": "ASW",
+            "transaction_id":"be98591a-c5e4-4149-b769-a6f536bac8d6",
+            "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
             "opt_in_flag": "N"
         }
 
-        response = requests.post("http://localhost:8081/api/gmm/txn", json=parameters)
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def opt_in():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "opt_in",
+            "transaction_id":"be98591a-c5e4-4149-b769-a6f536bac8d6",
+            "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
+            "opt_in_flag": "Y"
+        }
+
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1019,13 +1060,13 @@ def pay_amount():
         output_list = []
         parameters = {
             "request_type": "pay_amount",
-            "transaction_id": "ASW232",
-            "paid_amount": 12.34,
-            "user_id":"A1"
+            "transaction_id":"be98591a-c5e4-4149-b769-a6f536bac8d6",
+            "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
+            "paid_amount": 6.34
 
         }
 
-        response = requests.post("http://localhost:5000/api/gmm/txn", json=parameters)
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1053,10 +1094,10 @@ def get_transaction():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status",
-            "transaction_id": "ASW232"
+            "transaction_id": "be98591a-c5e4-4149-b769-a6f536bac8d6"
         }
 
-        response = requests.get("http://localhost:5000/api/gmm/txn", params=parameters)
+        response = requests.get("http://192.168.1.31:8080/api/gmm/txn", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1068,11 +1109,10 @@ def get_transaction_by_user():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status_by_user",
-            "transaction_id": "ASW232",
-            "user_id": "A1"
+            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
         }
 
-        response = requests.get("http://localhost:5000/api/gmm/txn", params=parameters)
+        response = requests.get("http://192.168.1.31:8080/api/gmm/txn", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1146,6 +1186,19 @@ def get_match_index():
         }
 
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+
+def test_autocomplete():
+    try:
+        output_list = []
+        parameters = {
+            "text": "ra"
+        }
+        response = requests.get("http://0.0.0.0:8081/api/user/search", params=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1262,7 +1315,7 @@ try:
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
     #status_code = test_login_phone()
-    status_code = test_login()
+    #status_code = test_login()
     #status_code = user_search()
     #status_code = test_whatsapp()
 
@@ -1305,9 +1358,10 @@ try:
     #status_code = notify_landing_page()
     #status_page = notify_landing_page_lite()
     #status_code = get_messages()
+    #status_code = get_message_count()
     #status_code = update_message()
     #status_code = contributor_approval()
-    #status_code = creat_custom_occasion()
+    status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
     #status_code = get_secret_friend_age_gender()
@@ -1321,10 +1375,12 @@ try:
     #status_code = publish_message()
     #status_code = complete_transaction()
 
-    #status_code = pay_amount()
+    status_code = pay_amount()
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
-
+    #status_code = opt_in()
+    #status_code = get_transaction()
+    #status_code = get_transaction_by_user()
     #status_code = map_category_to_personal_user()
     #status_code = map_subcategory_to_personal_user()
     #status_code = get_personal_user_subcategory()
@@ -1332,6 +1388,7 @@ try:
     #status_code = get_match_index()
     #status_code = get_stats()
     #status_code = get_v2_interest()
+    #status_code = test_autocomplete()
 
     print ("The status code is", status_code)
 
