@@ -86,7 +86,9 @@ def search_product():
             "friend_circle_id": "39396951-d112-40cd-a85f-d1e8ae883887",
             "gender_list": ("M"),
             "page_size": 10,
-            "page_number": 3
+            "page_number": 3,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
         response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
@@ -102,7 +104,9 @@ def search_product_detail():
     try:
         parameters = {
             "request_id": 7,
-            "product_id" : (2,3)
+            "product_id" : (2,3),
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         #response = requests.get("https://gemift.uw.r.appspot.com/api/prod/search",params=parameters)
         response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
@@ -127,7 +131,9 @@ def vote_product():
             "vote" : 1,
             "comment": "He will love this pr",
             "occasion_name" : "birthday",
-            "occasion_year": 2021
+            "occasion_year": 2021,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/prod/search", json=parameters)
         print("The status code for relationshup is", response.status_code, parameters)
@@ -143,7 +149,9 @@ def get_voted_products():
             "request_id": 5,
             "friend_circle_id":"1d983564-b4e3-4c7a-9916-af065ff69802",
             "occasion_name" : "birthday",
-            "occasion_year": 2021
+            "occasion_year": 2021,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/prod/search", params=parameters)
         print("The status code for relationshup is", response.status_code, parameters)
@@ -160,7 +168,9 @@ def test_get_web_category(request_id, age_lo, age_hi, gender):
             "request_id" : request_id,
             "age_lo" : age_lo,
             "age_hi" : age_hi,
-            "gender" : gender
+            "gender" : gender,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://localhost:5000/api/category", json=parameters)
         print ("The response is ", response.json())
@@ -184,7 +194,9 @@ def test_signup():
             "location" : "India",
             "external_referrer_id": "Google",
             "external_referrer_param": "abc123-123jsh",
-            "image_url": "http://ww.roo.com"
+            "image_url": "http://ww.roo.com",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
 
@@ -202,7 +214,9 @@ def test_login():
         parameters = {
            # "email" : "Vidya1232@gmail.com",
             "email": "kokki@gmail.com",
-            "password" : "Krishna123@"
+            "password" : "Krishna123@",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         parameters = {"email":"hansomerasheed@yahoo.com","password":"cscscscs"}
         response = requests.post("http://0.0.0.0:8081/api/login", json=parameters)
@@ -218,7 +232,9 @@ def test_reset():
         output_list = []
         parameters = {
             "reset_token": "kokki#$GHRYmsteury%^.com",
-            "password" : "Krishna123@"
+            "password" : "Krishna123@",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/reset", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
@@ -232,7 +248,9 @@ def test_forgot_password():
     try:
         output_list = []
         parameters = {
-            "email": "kokki@gmail.com"
+            "email": "kokki@gmail.com",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/forgotpassword", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
@@ -248,7 +266,9 @@ def test_login_phone():
         parameters = {
            # "email" : "Vidya1232@gmail.com",
             "phone_number": "14252815459",
-            "password" : "Krishna123@"
+            "password" : "Krishna123@",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/phone/login", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
@@ -265,7 +285,9 @@ def friend_circle_request_1():
         parameters =    {"request_id": 1,
          "friend_circle_id": "054c1679-daa4-4793-88b4-3790995b6b6d",
          "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
-         "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6"
+         "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
          }
 
         parameters = {"friend_circle_id":"a71fd157-2f55-4392-aa74-614713d57814","referred_user_id":"64338b93-b74a-4e53-9131-d0354f11e202","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":1}
@@ -288,7 +310,9 @@ def friend_circle_request_2():
             "first_name":"Mani-Kris",
             "last_name":"Raman",
             "gender": "M",
-            "location": "India"
+            "location": "India",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         parameters = {"email_address":"xd@df.hm","first_name":"ras","friend_circle_id":"9ce96eb4-50d8-4824-afae-e74f21793e70","gender":"M","last_name":"ras","location":"India","phone_number":"918939641619","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":2}
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
@@ -306,7 +330,9 @@ def friend_circle_request_3(): #Image url is optional. If there is no image, don
             "group_name" : "Lovely 2022",
             "image_url" : "http://www.roo.com",
             "age" : 7,
-            "gender": "M"}
+            "gender": "M",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
 
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
@@ -329,7 +355,9 @@ def friend_circle_request_4():
             "location" : "India",
             "group_name" : "Test2",
             "image_url" : "http://www.roo.com",
-            "age" : 45
+            "age" : 45,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
             }
 
         parameters = {"request_id": 4,
@@ -342,15 +370,21 @@ def friend_circle_request_4():
         "location": "India",
         "group_name": "Only Iyengars",
         "image_url": "http://www.roo.com",
-        "age": 45}
+        "age": 45,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
 
         parameters = {"age": "25", "email_address": "abcc@gmail.com", "first_name": "Mukesh", "gender": "M", "group_name": "New",
          "image_url": "", "last_name": "", "location": "India", "phone_number": "86105 02105",
-         "referrer_user_id": "f4d423cb-85a6-4a98-9766-13993f79973e", "request_id": 4}
+         "referrer_user_id": "f4d423cb-85a6-4a98-9766-13993f79973e", "request_id": 4,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
         parameters = {"age":"46","email_address":"saravanan_vidya@yahoo.com","first_name":"Vidya",
                       "gender":"F","group_name":"World Group","image_url":"",
                       "last_name":"s","location":"India","phone_number":"14257829876",
-                      "referrer_user_id":"17a293cd-dc43-457d-8b85-31d4225e7974","request_id":4}
+                      "referrer_user_id":"17a293cd-dc43-457d-8b85-31d4225e7974","request_id":4,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -364,7 +398,9 @@ def friend_circle_request_6():
             "request_id": 6,
             "list_friend_circle_id": ["b5b9d6f4-6ce4-435c-80f4-ebb28e6e3872"],
             "referrer_user_id": "e2174acb-dc1e-4ee2-85b9-9be84d3e250a",
-            "referred_user_id": "2dfe5543-877e-42d9-95a6-650befd9946d"
+            "referred_user_id": "2dfe5543-877e-42d9-95a6-650befd9946d",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
@@ -379,7 +415,9 @@ def get_friend_circle():
         output_list = []
         parameters = {
             "request_id": 1,
-            "friend_circle_id": 'b4870446-6647-436c-af07-8037fa06146a'
+            "friend_circle_id": 'b4870446-6647-436c-af07-8037fa06146a',
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -394,6 +432,8 @@ def get_friend_circle_summary():
         parameters = {
             "request_id": 2,
             "user_id":  "198a2230-aac2-456d-a8c2-d14cbbf8667c",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -410,7 +450,9 @@ def add_interest():
             "creator_user_id": 'f7d403d9-ceb4-4e47-b074-db8c70427f7c',
             "user_id": 'fd28bcef-ff38-453a-9258-41e00d6fe6b1',
             "list_category_id": [{"web_category_id":"c3e3805c-8d4a-4bb1-9cb4-7d1d4f05b682", "vote":1}, {"web_category_id":"067da0e1-dc08-4ecf-a6c9-a403611c1886", "vote":1}],
-            "list_subcategory_id" :[{"web_subcategory_id":"6a0f5478-b1b0-48b0-9e86-3f5bf44682c0", "vote":1}]
+            "list_subcategory_id" :[{"web_subcategory_id":"6a0f5478-b1b0-48b0-9e86-3f5bf44682c0", "vote":1}],
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://localhost:5000/api/interest", json=parameters)
         print("The response is ", response.json())
@@ -440,7 +482,10 @@ def create_occasion():
             "occasion_date": "05/03/2022",
             "occasion_id": "GEM-OCC-999999",
             "request_id": 1,
-            "value_timezone": ""
+            "value_timezone": "Us/Pacific",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+
         }
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
 
@@ -460,7 +505,9 @@ def vote_occasion():
         "occasion_id": "GEM-OCC-999999",
         "flag":1,
         "value":"10/12/1979",
-        "value_timezone": "America/New_York"
+        "value_timezone": "America/New_York",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
@@ -476,7 +523,9 @@ def approve_occasion():
                     "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
                       "flag":"1",
                       "occasion_id": "GEM-OCC-999999",
-                      "request_id":3}
+                      "request_id":3,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -489,7 +538,9 @@ def get_occasion_details():
         parameters = {
             "request_id": 1,
             "friend_circle_id": "7936eda4-3c75-4091-b55c-fca6f03addb6",
-            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         print("The response is ", response.json())
@@ -502,7 +553,9 @@ def get_occasions_by_user():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
+            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         print("The response is ", response.json())
@@ -522,7 +575,9 @@ def test_whatsapp():
                  "gender": "M", "secret_friend" : "N", "contributor": "x2"},
                 {"email_address": "k3@gmail.com", "phone_number": "425-111-1113", "first_name": "a", "last_name": "d",
                  "gender": "M", "secret_friend":"Y", "contributor": "x3"},
-                           ]
+                           ],
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://localhost:5000/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
@@ -537,7 +592,9 @@ def get_category():
     try:
         output_list = []
         parameters = {
-            "request_id": 1
+            "request_id": 1,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
         print("The response is ", response.json())
@@ -549,7 +606,9 @@ def get_category_subcategory_combination():
     try:
         output_list = []
         parameters = {
-            "request_id": 5
+            "request_id": 5,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/category", params=parameters)
         print("The response is ", response.json())
@@ -564,7 +623,9 @@ def get_child_nodes(): # This function is used to get all the subcategories for 
         parameters = {
             "request_id": 8,
             "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
-            "subcategory_list": ["A3", "A4"]
+            "subcategory_list": ["A3", "A4"],
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -582,13 +643,17 @@ def get_v2_interest(): # This function is used to get all the subcategories for 
             "friend_circle_id" : "97ba580f-9055-4199-95a2-22487c20eeb0",
             "user_id" : "XYZ",
             "page_size": 3,
-            "page_number": 2
+            "page_number": 2,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         parameters = {
             "request_id": 10,
             "page_size": 3,
-            "page_number": 2
+            "page_number": 2,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -603,7 +668,9 @@ def get_child_nodes_registered_user(): # This function is used to get all the su
             "user_id" : "9f403303-de52-4ceb-b9fd-83afbac6357e",
             "age": 0,
             "gender": "M",
-            "subcategory_list": ["A1"]
+            "subcategory_list": ["A1"],
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/interest", params=parameters)
@@ -621,7 +688,9 @@ def add_category_to_user():
             "request_id": 1,
             "referred_user_id" : "3d6c38b3-1873-428f-9196-688f6970b8c2",
             "friend_circle_id": "659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
-            "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}]
+            "list_category_id": [{"web_category_id":"A123", "vote":1}, {"web_category_id":"A124", "vote":1}],
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
 
         }
 
@@ -640,7 +709,9 @@ def add_subcategory_to_user():
             "request_id": 1,
             "referred_user_id" : '7d09a56f-99fd-40a2-b694-4a8a8982c47',
             "friend_circle_id": "7936eda4-3c75-4091-b55c-fca6f03addb6",
-            "list_subcategory_id": [{"web_subcategory_id":"A123", "vote":1}, {"web_subcategory_id":"A124", "vote":1}]
+            "list_subcategory_id": [{"web_subcategory_id":"A123", "vote":1}, {"web_subcategory_id":"A124", "vote":1}],
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         parameters = {"friend_circle_id":"363d41b6-2d32-43fb-b0bb-48cf698e438b","list_subcategory_id":[{"vote":1,"web_subcategory_id":"72618aee-656c-4e41-8b6b-3e3c48a7719f"},{"vote":1,"web_subcategory_id":"8d1fe6c0-e8f0-470b-94ca-c42c780f22cf"},{"vote":1,"web_subcategory_id":"92bb41d2-fbf3-43de-866c-159724d4cf98"},{"vote":1,"web_subcategory_id":"982d6b47-994d-4bf4-a251-8b6e2683f154"}],"referred_user_id":"3420da9e-c77e-4b96-ae77-47ca3525eb38","request_id":1}
@@ -661,7 +732,9 @@ def get_user_subcategory():
         parameters = {
             "request_id": 2,
             "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0",
-            "age" : 20
+            "age" : 20,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -676,7 +749,9 @@ def get_user_selection_category_and_subcategory():
          output_list = []
          parameters = {
              "request_id": 3,
-             "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb"
+             "friend_circle_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
          }
          response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
          print("The response is ", response.json())
@@ -692,7 +767,9 @@ def upload_image():
             "request_id": 3,
             "entity_id":"659e4af3-e48c-4fc7-9c82-dc1c7c5624eb",
             "image_url" : "http://ww.oo.com",
-            "image_type": "friend_circle"
+            "image_type": "friend_circle",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         # parameters = {
         #     "request_id": 3,
@@ -705,7 +782,9 @@ def upload_image():
             "entity_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
             "image_type": "user",
             "image_url": "https://s3.ap-south-1.amazonaws.com/eazypurchaseproducts.com/images/160ece24-24ce-4496-8a1a-10d1b8fad80b.jpg",
-            "request_id": 3
+            "request_id": 3,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/attr", json=parameters)
         print("The response is ", response.json())
@@ -719,7 +798,9 @@ def notify_landing_page():
         parameters = {
             "request_id": 1,
                 "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
-            "phone_number": "14252815459"
+            "phone_number": "14252815459",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -734,7 +815,9 @@ def notify_landing_page_lite():
         parameters = {
             "request_id": 2,
             "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
-            "phone_number": "14252815459"
+            "phone_number": "14252815459",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -748,7 +831,9 @@ def get_messages():
         output_list = []
         parameters = {
             "request_id": 10,
-                "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1"
+                "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -762,7 +847,9 @@ def get_message_count():
         output_list = []
         parameters = {
             "request_id": 11,
-                "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a"
+                "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -776,7 +863,9 @@ def update_message():
         parameters = {
             "request_id": 9,
                 "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
-            "message_id" : "f2aab9b9-b427-417e-9a45-3626b79a901a"
+            "message_id" : "f2aab9b9-b427-417e-9a45-3626b79a901a",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -794,7 +883,9 @@ def creat_custom_occasion():
             "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
             "occasion_date" : "05/04/2022",
             "value_timezone" : "US/Pacific",
-            "frequency" : "Every Week"
+            "frequency" : "Every Week",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
 
@@ -807,7 +898,9 @@ def creat_custom_occasion():
 def deactivate_occasion():
     try:
         output_list = []
-        parameters = {"friend_circle_id":"93f1c518-c1db-439c-82e3-6187833d082b","occasion_id":'4b527ffd-968b-418e-9d84-eed9be1ef705',"request_id":5}
+        parameters = {"friend_circle_id":"93f1c518-c1db-439c-82e3-6187833d082b","occasion_id":'4b527ffd-968b-418e-9d84-eed9be1ef705',"request_id":5,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
 
         response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
@@ -820,7 +913,9 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
         output_list = []
         parameters = {
             "request_id": 3,
-            "friend_circle_id":"93f1c518-c1db-439c-82e3-6187833d082b"
+            "friend_circle_id":"93f1c518-c1db-439c-82e3-6187833d082b",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/occasion", params=parameters)
         response = requests.get("https://gemift.uw.r.appspot.com/api/user/occasion", params=parameters)
@@ -839,7 +934,9 @@ def contributor_approval():  # Note: friend circle id is optional. You send frie
             "referred_user_id": "XYZ",
             "referrer_user_id": "XYZ",
             "phone_number" : "919551027363",
-            "signal" : 1
+            "signal" : 1,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         parameters ={
             "request_id": 7,
@@ -847,7 +944,9 @@ def contributor_approval():  # Note: friend circle id is optional. You send frie
             "referred_user_id": "198a2230-aac2-456d-a8c2-d14cbbf8667c",
             "referrer_user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
             "phone_number": "919500153858",
-            "signal": 1
+            "signal": 1,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
@@ -861,7 +960,9 @@ def contributor_open_invites():  # Note: friend circle id is optional. You send 
         output_list = []
         parameters = {
             "request_id": 4,
-            "phone_number": "14252815459"
+            "phone_number": "14252815459",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/friend/circle", params=parameters)
         print("The response is ", response.json())
@@ -874,7 +975,9 @@ def get_recently_added_interest():
         output_list = []
         parameters = {
             "request_id": 4,
-            "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25"
+            "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/interest", params=parameters)
         print("The response is ", response.json())
@@ -887,7 +990,9 @@ def get_secret_friend_age_gender():
         output_list = []
         parameters = {
             "request_id" :1,
-            "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25"
+            "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/attr", params=parameters)
 
@@ -905,7 +1010,9 @@ def update_secret_friend_age_gender():
             "user_id": "3d6c38b3-1873-428f-9196-688f6970b8c2",
             "friend_circle_id": "4397b80a-0ec6-42a0-b827-47033dd10b25",
             "age" : 45,
-            "gender" : "M"
+            "gender" : "M",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.post("http://0.0.0.0:8081/api/attr", json=parameters)
         print("The response is ", response.json())
@@ -918,7 +1025,9 @@ def get_unapproved_occasions():
         output_list = []
         parameters = {
             "request_id": 6,
-            "user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59"
+            "user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -933,7 +1042,9 @@ def app_notification():
         parameters = {
             "request_id": 2,
             "user_id": "9da4bad8-51e9-45a1-833c-3f5bfba5eb59",
-            "phone_number": "9500153858"
+            "phone_number": "9500153858",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/notify", params=parameters)
@@ -961,7 +1072,9 @@ def gmm_initiate_team_buy():
                     "product_price": 10.02,
                     "time_zone": "Asia/Kolkata",
                     "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
-                    "request_type": "initiate_team_buy"
+                    "request_type": "initiate_team_buy",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
 
@@ -971,7 +1084,9 @@ def gmm_initiate_team_buy():
                       "notes": "", "occasion_date": "07/09/22", "occasion_name": "West Indies",
                       "occasion_id": "GEM-OCC-0003424", "phone_number": "918939641619", "product_id": "11221823343",
                       "product_price": 10.02, "request_type": "initiate_team_buy", "time_zone": "Asia/Kolkata",
-                      "user_id": "17a293cd-dc43-457d-8b85-31d4225e7974"}
+                      "user_id": "17a293cd-dc43-457d-8b85-31d4225e7974",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
         response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -983,7 +1098,9 @@ def publish_message():
         output_list = []
         parameters = {
             "request_type": "publish_message",
-                "user_id":"160ece24-24ce-4496-8a1a-10d1b8fad80b"
+                "user_id":"160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         #Made some changes
         response = requests.get("http://0.0.0.0:8080/api/gmm/txn", params=parameters)
@@ -997,7 +1114,9 @@ def complete_transaction():
         output_list = []
         parameters = {
             "request_type": "complete_transaction",
-            "transaction_id":"f57f97ba-8680-4d7f-b8a2-4b00bad8bfe0"
+            "transaction_id":"f57f97ba-8680-4d7f-b8a2-4b00bad8bfe0",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         #Made some changes
         response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
@@ -1013,7 +1132,9 @@ def gmm_adjusted_user_share():
             "request_type": "adjusted_user_share",
             "transaction_id": "ASE#",
             "user_id":"ABS",
-            "adjusted_cost": 20.23
+            "adjusted_cost": 20.23,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
 
         }
 
@@ -1030,7 +1151,9 @@ def opt_out():
             "request_type": "opt_out",
             "transaction_id":"be98591a-c5e4-4149-b769-a6f536bac8d6",
             "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
-            "opt_in_flag": "N"
+            "opt_in_flag": "N",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
@@ -1046,7 +1169,9 @@ def opt_in():
             "request_type": "opt_in",
             "transaction_id":"be98591a-c5e4-4149-b769-a6f536bac8d6",
             "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
-            "opt_in_flag": "Y"
+            "opt_in_flag": "Y",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
@@ -1062,7 +1187,9 @@ def pay_amount():
             "request_type": "pay_amount",
             "transaction_id":"be98591a-c5e4-4149-b769-a6f536bac8d6",
             "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
-            "paid_amount": 6.34
+            "paid_amount": 6.34,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
 
         }
 
@@ -1079,7 +1206,9 @@ def transaction_management():
         output_list = []
         parameters = {
             "request_type": "cancel_transaction|activate_transaction|complete_transaction",
-            "transaction_id": "ASW232"
+            "transaction_id": "ASW232",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.post("http://localhost:5000/api/gmm/txn", json=parameters)
@@ -1094,7 +1223,9 @@ def get_transaction():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status",
-            "transaction_id": "be98591a-c5e4-4149-b769-a6f536bac8d6"
+            "transaction_id": "be98591a-c5e4-4149-b769-a6f536bac8d6",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://192.168.1.31:8080/api/gmm/txn", params=parameters)
@@ -1109,7 +1240,9 @@ def get_transaction_by_user():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status_by_user",
-            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b"
+            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://192.168.1.31:8080/api/gmm/txn", params=parameters)
@@ -1125,7 +1258,9 @@ def map_category_to_personal_user():
         parameters = {"request_type": "add_category",
             "list_category_id": [{"web_category_id": "A121", "vote": 1},
                                  {"web_category_id": "A122", "vote": 1}],
-            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca"}
+            "user_id": "8eefa6e5-0b37-48cd-8757-be6041a421ca",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"}
 
         response = requests.post("http://0.0.0.0:8081/api/personal", json=parameters)
         print("The response is ", response.json())
@@ -1140,7 +1275,9 @@ def map_subcategory_to_personal_user():
             "request_type": "add_subcategory",
             "list_subcategory_id": [{"web_subcategory_id": "A1", "vote": 1},
                                  {"web_subcategory_id": "A2", "vote": 1}],
-            "user_id": "9f403303-de52-4ceb-b9fd-83afbac6357e"
+            "user_id": "9f403303-de52-4ceb-b9fd-83afbac6357e",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.post("http://0.0.0.0:8081/api/personal", json=parameters)
@@ -1154,7 +1291,9 @@ def get_personal_user_category():
         output_list = []
         parameters = {
             "request_type": "get_category",
-            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a"
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://localhost:5000/api/personal", params=parameters)
@@ -1168,7 +1307,9 @@ def get_personal_user_subcategory():
         output_list = []
         parameters = {
             "request_type": "get_subcategory",
-            "user_id": "9f403303-de52-4ceb-b9fd-83afbac6357e"
+            "user_id": "9f403303-de52-4ceb-b9fd-83afbac6357e",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
@@ -1182,7 +1323,9 @@ def get_match_index():
         output_list = []
         parameters = {
             "request_type": "get_match_score",
-            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a"
+            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
@@ -1196,7 +1339,9 @@ def test_autocomplete():
     try:
         output_list = []
         parameters = {
-            "text": "ra"
+            "text": "ra",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/user/search", params=parameters)
         print("The response is ", response.json())
@@ -1208,7 +1353,9 @@ def get_stats():
     try:
         output_list = []
         parameters = {
-            "request_type": "get_stats"
+            "request_type": "get_stats",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
         response = requests.get("http://0.0.0.0:8081/api/personal", params=parameters)
         print("The response is ", response.json())
@@ -1220,7 +1367,9 @@ def get_home_page_stats():
     try:
         output_list = []
         parameters = {
-            "request_id": 8
+            "request_id": 8,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
         }
 
         response = requests.get("http://localhost:5000/api/notify", params=parameters)
