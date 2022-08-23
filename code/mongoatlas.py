@@ -121,17 +121,20 @@ def vote_product():
     # changes from get to post
     try:
         #Dont need friend id
+        user_id = "d1f06334-cabd-410b-bc47-88da4e53458a"
+        user_id = "a8b26930-17e4-4475-ad40-3ee7fcd38ee1"
         parameters = {
             "request_id": 8,
-            "product_id" : 14809,
+            "product_id" : 20006,
             "product_title" : "This is a test product",
             "price" : 25.89,
-            "friend_circle_id":"ae48a387-fdc2-456c-b4cd-d7f204406fa0",
-            "user_id" : "8eefa6e5-0b37-48cd-8757-be6041a421ca",
+            "friend_circle_id":"ab0e644a-75aa-4f23-83e6-becf3978e7d8",
+            "user_id" : "d1f06334-cabd-410b-bc47-88da4e53458a" ,
             "vote" : 1,
             "comment": "He will love this pr",
-            "occasion_name" : "birthday",
+            "occasion_name" : "fart day",
             "occasion_year": 2021,
+            "occasion_id": "c52d309d-c2ad-4cd0-bafb-9d218be2adc5",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -147,8 +150,8 @@ def get_voted_products():
     try:
         parameters = {
             "request_id": 5,
-            "friend_circle_id":"1d983564-b4e3-4c7a-9916-af065ff69802",
-            "occasion_name" : "birthday",
+            "friend_circle_id":"ab0e644a-75aa-4f23-83e6-becf3978e7d8",
+            "occasion_name" : "fart day",
             "occasion_year": 2021,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
@@ -553,7 +556,7 @@ def get_occasions_by_user():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "user_id": "d1f06334-cabd-410b-bc47-88da4e53458a",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -1075,6 +1078,7 @@ def gmm_initiate_team_buy():
                     "request_type": "initiate_team_buy",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
+
         }
 
 
@@ -1082,11 +1086,12 @@ def gmm_initiate_team_buy():
         parameters = {"email_address": "rasheed.de@gmail.com", "expiration_date": "2022-08-16", "first_name": "Rasheed",
                       "friend_circle_id": "51031191-a187-4126-ad82-46516cae3a7a", "last_name": "new", "misc_cost": 10.2,
                       "notes": "", "occasion_date": "07/09/22", "occasion_name": "West Indies",
-                      "occasion_id": "GEM-OCC-0003424", "phone_number": "918939641619", "product_id": "11221823343",
-                      "product_price": 10.02, "request_type": "initiate_team_buy", "time_zone": "Asia/Kolkata",
+                      "occasion_id": "GEM-OCC-0003424", "phone_number": "918939641619", "product_id": "1Test61823343",
+                      "product_price": 10.02, "expiration_date":"01/07/2012 21:12:12","initiated_date":"01/02/2012 21:12:12","request_type": "initiate_team_buy", "time_zone": "Asia/Kolkata",
                       "user_id": "17a293cd-dc43-457d-8b85-31d4225e7974",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"}
+        #"transaction_id":4dc65b9e-fcef-40cd-98b8-fa9aa3439336
         response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -1192,7 +1197,7 @@ def pay_amount():
             "api_call_time": "30/09/2021 12:34:23"
 
         }
-
+        parameters = {"paid_amount":"1","request_type":"pay_amount","transaction_id":"c476758e-da40-4b8e-9c0e-01001ecf883b","user_id":"a8b26930-17e4-4475-ad40-3ee7fcd38ee1"}
         response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -1223,7 +1228,25 @@ def get_transaction():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status",
-            "transaction_id": "be98591a-c5e4-4149-b769-a6f536bac8d6",
+            "transaction_id": "4dc65b9e-fcef-40cd-98b8-fa9aa3439336",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+        }
+
+        response = requests.get("http://192.168.1.31:8080/api/gmm/txn", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def update_wallet_message():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "update_wallet_message",
+            "transaction_id": "4dc65b9e-fcef-40cd-98b8-fa9aa3439336",
+            "user_id": "WEW@#@",
+            "type_id": 999400,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -1493,7 +1516,7 @@ try:
     #status_code = get_interest()
     #status_code = search_product()
     #status_code = search_product_detail()
-    #status_code = vote_product()
+    status_code = vote_product()
     #status_code = get_voted_products()
     #status_code = get_category()
     #status_code = add_category_to_user()
@@ -1510,7 +1533,7 @@ try:
     #status_code = get_message_count()
     #status_code = update_message()
     #status_code = contributor_approval()
-    status_code = creat_custom_occasion()
+    #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
     #status_code = get_occasion_names()
     #status_code = get_secret_friend_age_gender()
@@ -1523,8 +1546,9 @@ try:
     #status_code = gmm_initiate_team_buy()
     #status_code = publish_message()
     #status_code = complete_transaction()
+    status_code = update_wallet_message()
 
-    status_code = pay_amount()
+    #status_code = pay_amount()
     #status_code = gmm_adjusted_user_share()
     #status_code = opt_out()
     #status_code = opt_in()
