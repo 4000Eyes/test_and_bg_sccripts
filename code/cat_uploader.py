@@ -85,11 +85,8 @@ today = date.today()
 current_date =  today.strftime("%d/%m/%Y")
 db_handle = None
 def connect_to_mongo():
-    code_environment = os.environ.get("BG_ENVIRON")
-    if code_environment == "test":
-        db_string = os.environ.get("MONGO_TEST")
     try:
-        client = MongoClient(db_string)
+        client = MongoClient(os.environ.get("MONGO_TEST"))
         result = []
         db_handle = client.get_database("sample_airbnb")
         return db_handle

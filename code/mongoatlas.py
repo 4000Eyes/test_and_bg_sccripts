@@ -77,7 +77,6 @@ def search_product():
     :return:
     """
 
-
     try:
         parameters = {
             "request_id": 1,
@@ -91,8 +90,26 @@ def search_product():
             "api_call_time": "30/09/2021 12:34:23"
         }
         #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
-        response = requests.get("http://0.0.0.0:8081/api/prod/search",params=parameters)
-        print("The status code for relationshup is", response.status_code, parameters)
+        response = requests.get("http://127.0.0.1:8081/api/prod/search",params=parameters)
+        print("The status code for relationship is", response.status_code, parameters)
+        print ("The toutput is ", response.json())
+        return response.status_code
+    except Exception as e:
+        print("There is an exception with the request", e)
+        return 400
+
+def get_search_category():
+    try:
+        parameters = {
+            "request_id": 3,
+            "occasion_list": ("GEM-OCC-000124"),
+            "gender_list": ("M"),
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+        }
+        #response = requests.get("https://gemift-social-dot-gemift.uw.r.appspot.com/api/prod/search", params=parameters)
+        response = requests.get("http://127.0.0.1:8081/api/prod/search",params=parameters)
+        print("The status code for relationship is", response.status_code, parameters)
         print ("The toutput is ", response.json())
         return response.status_code
     except Exception as e:
@@ -117,24 +134,22 @@ def search_product_detail():
         print("There is an exception with the request", e)
         return 400
 
-def vote_product():
+def vote_recommended_product():
     # changes from get to post
     try:
         #Dont need friend id
         user_id = "d1f06334-cabd-410b-bc47-88da4e53458a"
         user_id = "a8b26930-17e4-4475-ad40-3ee7fcd38ee1"
         parameters = {
-            "request_id": 8,
+            "request_id": 9,
             "product_id" : 20006,
-            "product_title" : "This is a test product",
-            "price" : 25.89,
-            "friend_circle_id":"ab0e644a-75aa-4f23-83e6-becf3978e7d8",
-            "user_id" : "d1f06334-cabd-410b-bc47-88da4e53458a" ,
+            "friend_circle_id":"2ebb5263-b7a8-4c05-9429-bb0bce9d56d0",
+            "user_id" : "32f46e36-ca1b-4efe-a30d-573467cfd273" ,
             "vote" : 1,
             "comment": "He will love this pr",
-            "occasion_name" : "fart day",
-            "occasion_year": 2021,
-            "occasion_id": "c52d309d-c2ad-4cd0-bafb-9d218be2adc5",
+            "occasion_id" : "GEM-OCC-000124",
+            "occasion_name": "Kris Birthday",
+            "occasion_year": 2022,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -150,9 +165,10 @@ def get_voted_products():
     try:
         parameters = {
             "request_id": 5,
-            "friend_circle_id":"ab0e644a-75aa-4f23-83e6-becf3978e7d8",
-            "occasion_name" : "fart day",
-            "occasion_year": 2021,
+            "friend_circle_id":"2ebb5263-b7a8-4c05-9429-bb0bce9d56d0",
+            "occasion_name" : "Kris Birthday",
+            "occasion_id": "GEM-OCC-000124",
+            "occasion_year": 2022,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -164,6 +180,24 @@ def get_voted_products():
         print("There is an exception with the request", e)
         return 400
 
+def get_recommended_product_vote_count():
+    try:
+        parameters = {
+            "request_id": 8,
+            "friend_circle_id":	"2ebb5263-b7a8-4c05-9429-bb0bce9d56d0",
+            "occasion_name" : "Kris Birthday",
+            "occasion_id": "GEM-OCC-000124",
+            "occasion_year": 2022,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+        }
+        response = requests.get("http://127.0.0.1:8081/api/prod/search", params=parameters)
+        print("The status code for relationshup is", response.status_code, parameters)
+        print ("The toutput is ", response.json())
+        return response.status_code
+    except Exception as e:
+        print("There is an exception with the request", e)
+        return 400
 def test_get_web_category(request_id, age_lo, age_hi, gender):
     try:
         output_list = []
@@ -187,12 +221,13 @@ def test_signup():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "email": "aravindkrishna@gmail.com",
+            "email": "KrisVRajidyahnan121@gmail.com",
             "user_type" : 0,
             "password" : "Krishna123@",
-            "phone_number" : "14252815229",
+            "phone_number" : "9993252435220",
+            "country_code": "1",
             "gender": "F",
-            "first_name" : "Aravind Baravind",
+            "first_name" : "Rocky Badhu",
             "last_name" : "Raj",
             "location" : "India",
             "external_referrer_id": "Google",
@@ -202,7 +237,7 @@ def test_signup():
             "api_call_time": "30/09/2021 12:34:23"
         }
 
-
+        parameters = {"country_code":"91","email":"hagh@gs.s","external_referrer_id":"","external_referrer_param":"","first_name":"test","gender":"M","image_url":"image","last_name":"tesr","location":"","password":"cscscscs","phone_number":"8939641619","user_type":0}
         response = requests.post("http://0.0.0.0:8081/api/auth/signup", json=parameters)
         #response = requests.post("https://gemift.uw.r.appspot.com/api/auth/signup", json=parameters)
         print ("The response is ", response.json())
@@ -268,7 +303,8 @@ def test_login_phone():
         output_list = []
         parameters = {
            # "email" : "Vidya1232@gmail.com",
-            "phone_number": "14252815459",
+            "phone_number": "4252815459",
+            "country_code": "1",
             "password" : "Krishna123@",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
@@ -286,15 +322,15 @@ def friend_circle_request_1():
         output_list = []
 
         parameters =    {"request_id": 1,
-         "friend_circle_id": "054c1679-daa4-4793-88b4-3790995b6b6d",
-         "referrer_user_id": "14503f22-731c-4876-88bf-9ef5d8e8d7b3",
-         "referred_user_id": "53cb6fd2-c1b8-4c48-b963-fc3a150c33a6",
+        "friend_circle_id": "76479f55-8010-436d-881d-6648c0e29846",
+        "referrer_user_id": "ef84d730-535f-43dc-a572-395964f115d9",
+         "referred_user_id": "70de1dc6-89de-438e-a83d-22ea0ba5603b",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
          }
 
-        parameters = {"friend_circle_id":"a71fd157-2f55-4392-aa74-614713d57814","referred_user_id":"64338b93-b74a-4e53-9131-d0354f11e202","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":1}
-
+        #parameters = {"friend_circle_id":"a71fd157-2f55-4392-aa74-614713d57814","referred_user_id":"64338b93-b74a-4e53-9131-d0354f11e202","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":1}
+        parameters = {"country_code":"91","email_address":" ","first_name":"Ams","friend_circle_id":"2ebb5263-b7a8-4c05-9429-bb0bce9d56d0","gender":"M","last_name":"Pirai","location":"India","phone_number":"8248687202","referrer_user_id":"484e8820-bdd6-4bfc-ae5b-c61e3d9bec2c","request_id":2}
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
@@ -306,10 +342,11 @@ def friend_circle_request_2():
         output_list = []
         parameters = {
             "request_id" : 2,
-            "friend_circle_id":"25b34323-e3d2-43cd-b744-922e49e74117",
-            "referrer_user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
+            "friend_circle_id":"76479f55-8010-436d-881d-6648c0e29846",
+            "referrer_user_id": "ef84d730-535f-43dc-a572-395964f115d9",
             "email_address":"kuku1254@gmail.com",
-            "phone_number": "919500153858",
+            "phone_number": "9500153858",
+            "country_code": "91",
             "first_name":"Mani-Kris",
             "last_name":"Raman",
             "gender": "M",
@@ -317,7 +354,7 @@ def friend_circle_request_2():
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
-        parameters = {"email_address":"xd@df.hm","first_name":"ras","friend_circle_id":"9ce96eb4-50d8-4824-afae-e74f21793e70","gender":"M","last_name":"ras","location":"India","phone_number":"918939641619","referrer_user_id":"f4d423cb-85a6-4a98-9766-13993f79973e","request_id":2}
+
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print ("The response is ", response.json())
         return response.status_code
@@ -328,9 +365,9 @@ def friend_circle_request_3(): #Image url is optional. If there is no image, don
     try:
         output_list = []
         parameters = { "request_id": 3,
-            "referrer_user_id": "62e0fcbc-8200-4ee3-b4a9-3e31920b8f43",
-            "referred_user_id": '53c11edc-217e-4ca1-a481-03686ba5412c',
-            "group_name" : "Lovely 2022",
+            "referrer_user_id": "b6517c6f-cc80-4541-a58d-72ac1c2be23f",
+            "referred_user_id": "ef84d730-535f-43dc-a572-395964f115d9",
+            "group_name" : "Country code group",
             "image_url" : "http://www.roo.com",
             "age" : 7,
             "gender": "M",
@@ -388,6 +425,11 @@ def friend_circle_request_4():
                       "referrer_user_id":"17a293cd-dc43-457d-8b85-31d4225e7974","request_id":4,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"}
+
+        parameters = {"age": "33", "country_code": "+91", "email_address": "hasna@gmail.cja", "first_name": "guru", "gender": "M",
+         "group_name": "MyFriend", "image_url": "", "last_name": "bara", "location": "India",
+         "phone_number": "8939047737", "referrer_user_id": "ef84d730-535f-43dc-a572-395964f115d9", "request_id": 4}
+
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -497,7 +539,28 @@ def create_occasion():
         return response.status_code
     except Exception as e:
         return False
+def edit_occasion():
+    try:
+        output_list = []
 
+        parameters = {
+            "user_id": "7d09a56f-99fd-40a2-b694-4a8a8982c47a",
+            "friend_circle_id": "93f1c518-c1db-439c-82e3-6187833d082b",
+            "occasion_date": "05/03/2022",
+            "occasion_id": "GEM-OCC-999999",
+            "request_id": 7,
+            "value_timezone": "Us/Pacific",
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+
+        }
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
+
+        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 def vote_occasion():
     try:
         output_list = []
@@ -529,7 +592,7 @@ def approve_occasion():
                       "request_id":3,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"}
-        response = requests.post("http://0.0.0.0:8081/api/user/occasion", json=parameters)
+        response = requests.post("http://127.0.0.1:8081/api/user/occasion", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -817,8 +880,9 @@ def notify_landing_page_lite():
         output_list = []
         parameters = {
             "request_id": 2,
-            "user_id": "99a2f1e8-1910-428a-aeb4-9ece9310923a",
-            "phone_number": "14252815459",
+            "user_id": "32f46e36-ca1b-4efe-a30d-573467cfd273",
+            "country_code": "1",
+            "phone_number": "4252815459",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -927,6 +991,25 @@ def get_occasion_names(): # Note: friend circle id is optional. You send friend 
         return response.status_code
     except Exception as e:
         return False
+def admin_contributor_approval():  # Note: friend circle id is optional. You send friend circle id if the context requires it.
+    try:
+        output_list = []
+        parameters = {
+            "request_id": 6,
+            "list_friend_circle_id": "4a758d04-1512-44f8-9c7d-843d6dbaacb6",
+            "referred_user_id": "947c3aa0-5285-42f7-99fd-9d00d2e1622e",
+            "referrer_user_id": "32f46e36-ca1b-4efe-a30d-573467cfd273",
+            "approval_flag": 1,
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+        }
+
+
+        response = requests.post("http://127.0.0.1:8081/api/friend/circle", json=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
 
 def contributor_approval():  # Note: friend circle id is optional. You send friend circle id if the context requires it.
     try:
@@ -951,6 +1034,7 @@ def contributor_approval():  # Note: friend circle id is optional. You send frie
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
+        parameters = {"country_code":"91","friend_circle_id":"2ebb5263-b7a8-4c05-9429-bb0bce9d56d0","phone_number":"8124332448","referred_user_id":"484e8820-bdd6-4bfc-ae5b-c61e3d9bec2c","referrer_user_id":"32f46e36-ca1b-4efe-a30d-573467cfd273","request_id":7,"signal":"1"}
         response = requests.post("http://0.0.0.0:8081/api/friend/circle", json=parameters)
         print("The response is ", response.json())
         return response.status_code
@@ -1081,18 +1165,13 @@ def gmm_initiate_team_buy():
 
         }
 
-
-        parameters = {"email_address":"hansomerasheed@yahoo.com","expiration_date":"2022-08-21","first_name":"Mohamed ","friend_circle_id":"51031191-a187-4126-ad82-46516cae3a7a","last_name":"Rasheed","misc_cost":10.2,"notes":"","occasion_date":"07/09/2022","occasion_id":"GEM-OCC-000124","occasion_name":"Wedding Anniversary","phone_number":"918124332448","product_id":"17513","product_price":10.02,"request_type":"initiate_team_buy","time_zone":"Asia/Kolkata","user_id":"a8b26930-17e4-4475-ad40-3ee7fcd38ee1"}
-        parameters = {"email_address": "rasheed.de@gmail.com", "expiration_date": "2022-08-16", "first_name": "Rasheed",
-                      "friend_circle_id": "51031191-a187-4126-ad82-46516cae3a7a", "last_name": "new", "misc_cost": 10.2,
-                      "notes": "", "occasion_date": "07/09/22", "occasion_name": "West Indies",
-                      "occasion_id": "GEM-OCC-0003424", "phone_number": "918939641619", "product_id": "1Test61823343",
-                      "product_price": 10.02, "expiration_date":"01/07/2012 21:12:12","initiated_date":"01/02/2012 21:12:12","request_type": "initiate_team_buy", "time_zone": "Asia/Kolkata",
-                      "user_id": "17a293cd-dc43-457d-8b85-31d4225e7974",
-            "time_zone": "India/Kolkatta",
-            "api_call_time": "30/09/2021 12:34:23"}
-        #"transaction_id":4dc65b9e-fcef-40cd-98b8-fa9aa3439336
-        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
+        parameters = {"email_address": "hansomerasheed@yahoo.com", "expiration_date": "09-01-2022 09:48:12", "first_name": "Mohamed",
+         "friend_circle_id": "8a96418f-77cb-4cae-9f4a-1ce70b73703d", "initiated_date": "08-27-2022 09:48:12",
+         "last_name": "Rasheed", "misc_cost": 10.2, "notes": "", "occasion_date": "27/08/2023",
+         "occasion_id": "33ec7933-3a95-47f1-a487-08533946747b", "occasion_name": "Gemi", "phone_number": "8124332448",
+         "product_id": "20378", "product_price": 10.02, "request_type": "initiate_team_buy",
+         "time_zone": "Asia/Kolkata", "user_id": "484e8820-bdd6-4bfc-ae5b-c61e3d9bec2c"}
+        response = requests.post("http://10.1.10.81:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1109,6 +1188,23 @@ def publish_message():
         }
         #Made some changes
         response = requests.get("http://0.0.0.0:8080/api/gmm/txn", params=parameters)
+        print("The response is ", response.json())
+        return response.status_code
+    except Exception as e:
+        return False
+
+def activate_transaction():
+    try:
+        output_list = []
+        parameters = {
+            "request_type": "in_discussion",
+            "transaction_id": '2060639e-7e38-4647-ae5c-c63a39f64783',
+            "time_zone": "India/Kolkatta",
+            "api_call_time": "30/09/2021 12:34:23"
+        }
+        parameters = {"api_call_time":"08-24-2022 11:02:38","request_type":"in_discussion","time_zone":"Asia/Kolkata","transaction_id":"7a6d3557-ad3b-4268-ae54-1ee802c07354"}
+        #Made some changes
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1228,7 +1324,7 @@ def get_transaction():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status",
-            "transaction_id": "4dc65b9e-fcef-40cd-98b8-fa9aa3439336",
+            "transaction_id": "7894a7fc-1dfe-4389-92f9-2aceb1403c1e",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -1244,14 +1340,14 @@ def update_wallet_message():
         output_list = []
         parameters = {
             "request_type": "update_wallet_message",
-            "transaction_id": "4dc65b9e-fcef-40cd-98b8-fa9aa3439336",
-            "user_id": "WEW@#@",
-            "type_id": 999400,
+            "transaction_id": "7a6d3557-ad3b-4268-ae54-1ee802c07354",
+            "user_id": "a8b26930-17e4-4475-ad40-3ee7fcd38ee1",
+            "type_id": 999800,
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
 
-        response = requests.get("http://192.168.1.31:8080/api/gmm/txn", params=parameters)
+        response = requests.post("http://192.168.1.31:8080/api/gmm/txn", json=parameters)
         print("The response is ", response.json())
         return response.status_code
     except Exception as e:
@@ -1263,7 +1359,7 @@ def get_transaction_by_user():
         output_list = []
         parameters = {
             "request_type": "get_team_buy_status_by_user",
-            "user_id": "160ece24-24ce-4496-8a1a-10d1b8fad80b",
+            "user_id": "32f46e36-ca1b-4efe-a30d-573467cfd273",
             "time_zone": "India/Kolkatta",
             "api_call_time": "30/09/2021 12:34:23"
         }
@@ -1484,6 +1580,7 @@ try:
     output_hash = []
     status_code = 0
     #status_code = search_product()
+    status_code = get_search_category()
     #status_code = test_get_web_category(3, 10, 20, "F")
     #status_code = test_signup()
     #status_code = test_login_phone()
@@ -1508,6 +1605,7 @@ try:
     #status_code = create_occasion()
     #status_code = vote_occasion()
     #status_code = approve_occasion()
+    #status_code = edit_occasion()
     #status_code = get_occasion_details()
     #status_code = get_occasions_by_user()
     #status_code = get_friend_circle()
@@ -1516,8 +1614,9 @@ try:
     #status_code = get_interest()
     #status_code = search_product()
     #status_code = search_product_detail()
-    status_code = vote_product()
+    #status_code = vote_recommended_product()
     #status_code = get_voted_products()
+    #status_code = get_recommended_product_vote_count()
     #status_code = get_category()
     #status_code = add_category_to_user()
     #status_code = add_subcategory_to_user()
@@ -1532,6 +1631,7 @@ try:
     #status_code = get_messages()
     #status_code = get_message_count()
     #status_code = update_message()
+    #status_code = admin_contributor_approval()
     #status_code = contributor_approval()
     #status_code = creat_custom_occasion()
     #status_code = deactivate_occasion()
@@ -1544,9 +1644,10 @@ try:
     #status_code = st_friend_circle_request_2()
     #status_code = st_friend_circle_request_1()
     #status_code = gmm_initiate_team_buy()
+    #status_code = activate_transaction()
     #status_code = publish_message()
     #status_code = complete_transaction()
-    status_code = update_wallet_message()
+    #status_code = update_wallet_message()
 
     #status_code = pay_amount()
     #status_code = gmm_adjusted_user_share()

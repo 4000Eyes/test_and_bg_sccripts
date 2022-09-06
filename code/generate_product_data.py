@@ -73,32 +73,37 @@ website_url = ["http://www.amazon.com","http://www.flipkart.com","http:///www.eb
 occasion = [["Birthday","GEM-OCC-999999"], ["Valentines Day","2"],["Wedding Anniversary","GEM-OCC-000124"],["Met my girlfriend","GEM-OCC-000125"],["Mothers day","5"],["Fathers Day","6"]]
 season_product = ["Y","N"]
 country = ["India","Europe","USA","Singapore","Hong Kong","Malaysia","Thailand", "All"]
-
+category = ["Electronics","Home Improvement", "Travel","Clothing","Shoes","Bags","Books","Wearables"]
 file_handle = open("/home/krissrinivasan/Downloads/product_gemift.json","w")
-for occasion_row in occasion:
-    for interest_id in linterests:
-        for i in range(1,200):
-            data = {}
-            product_id = product_id + 1
-            data["product_id"] = product_id
-            data["product_title"] = product_title + " " + str(product_id)
-            data["product_description"] = product_description + str(product_id)
-            data["interest"] = interest_id
-            data["interest_name"] = hshinterests[interest_id]
-            data["price"] = random.choice(price)
-            data["gender"] = random.choice(gender_list)
-            age_range = random.choice(age_range_list)
-            data["age_lo"] = age_range[0]
-            data["age_hi"] = age_range[1]
-            data["website_url"] = random.choice(website_url)
-            data["seasonal_product"] = random.choice(season_product)
-            data["occasion_name"] = occasion_row[0]
-            data["occasion_id"] = occasion_row[1]
-            data["country"] = random.choice(country)
 
-            json_data = json.dumps(data)
+for interest_id in linterests:
+    for i in range(1,200):
+        data = {}
+        product_id = product_id + 1
+        data["product_id"] = product_id
+        data["product_title"] = product_title + " " + str(product_id)
+        data["product_description"] = product_description + str(product_id)
+        data["interest"] = interest_id
+        data["interest_name"] = hshinterests[interest_id]
+        data["price"] = random.choice(price)
+        data["category"] = random.choice(category)
+        data["gender"] = random.choice(gender_list)
+        age_range = random.choice(age_range_list)
+        data["age_lo"] = age_range[0]
+        data["age_hi"] = age_range[1]
+        data["website_url"] = random.choice(website_url)
+        data["seasonal_product"] = random.choice(season_product)
+        data["occasion_name"] = []
+        data["occasion_id"] = []
+        for i in range(0,3,1):
+            temp = random.choice(occasion)
+            data["occasion_name"].append(temp[0])
+            data["occasion_id"].append(temp[1])
+        data["country"] = random.choice(country)
 
-            file_handle.write(json_data + "\n")
+        json_data = json.dumps(data)
 
-            print ("Json data ", json_data)
+        file_handle.write(json_data + "\n")
+
+        print ("Json data ",i, json_data)
 
